@@ -321,6 +321,13 @@ details.faq p{margin-top:8px;color:var(--muted)}
 .q-row.sub span:first-child{padding-left:12px;color:var(--muted)}
 .q-row.disc{color:var(--ok)}
 .offer-bar{margin-top:10px;background:color-mix(in srgb,var(--lemon) 30%,transparent);border-radius:8px;padding:8px 12px;font-size:.92rem}
+
+.hero-offers{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:18px}
+.ho-l{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--lemon);font-weight:700}
+.ho{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.14);border:1.5px dashed rgba(255,255,255,.6);color:#fff;border-radius:999px;padding:6px 14px;cursor:pointer;font-size:.88rem}
+.ho b{font-family:ui-monospace,Menlo,monospace;letter-spacing:.05em;color:var(--lemon)}
+.ho i{font-style:normal;opacity:.8;font-size:.8rem}
+.ho:hover{background:rgba(255,255,255,.24)}
 </style>
 
 <header class="top">
@@ -363,6 +370,7 @@ details.faq p{margin-top:8px;color:var(--muted)}
         <a class="btn glassbtn" href="#" data-go="house" data-i18n="see3d">See the house in 3D</a>
         <a class="btn wa" id="heroWa" href="https://wa.me/919442344770" target="_blank" rel="noopener" data-i18n="wa">WhatsApp Ginsen</a>
       </div>
+      <div class="hero-offers" id="heroOffers" hidden></div>
     </div>
   </section>
 
@@ -868,9 +876,11 @@ function buildMsg(){
 function renderOffers(){
   const live=PR.promos.filter(p=>p.active&&(!p.to||p.to>=new Date().toISOString().slice(0,10)));
   $("#offerList").innerHTML=live.length?live.map(p=>`<button type="button" class="offer" data-code="${esc(p.code)}" aria-pressed="${p.code===promoApplied}"><b>${esc(p.code)}</b><span>${esc(p.text||p.pct+"% off")}</span></button>`).join(""):`<p class="muted note">No offers running right now.</p>`;
+  $("#heroOffers").hidden=!live.length;$("#heroOffers").innerHTML=live.length?`<span class="ho-l">Offers</span>`+live.map(p=>`<button type="button" class="ho" data-code="${esc(p.code)}"><b>${esc(p.code)}</b> ${esc(p.text||p.pct+"% off")}<i>Use code →</i></button>`).join(""):"";
   $("#offerBar").hidden=!live.length;$("#offerBar").innerHTML=live.length?`Current offer${live.length>1?"s":""}: ${live.map(p=>`<b>${esc(p.code)}</b> · ${esc(p.text||p.pct+"% off")}`).join(" &nbsp;|&nbsp; ")}`:"";
 }
 $("#offerList").addEventListener("click",e=>{const b=e.target.closest("[data-code]");if(!b)return;promoApplied=b.dataset.code===promoApplied?"":b.dataset.code;$("#promo").value=promoApplied;renderOffers();buildMsg()});
+$("#heroOffers").addEventListener("click",e=>{const b=e.target.closest("[data-code]");if(!b)return;promoApplied=b.dataset.code;$("#promo").value=promoApplied;renderOffers();buildMsg();$("#book").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})});
 $("#promoApply").addEventListener("click",()=>{promoApplied=$("#promo").value.trim().toUpperCase();$("#promo").value=promoApplied;renderOffers();buildMsg()});
 $("#promo").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("#promoApply").click()}});
 $("#roomCount").addEventListener("change",()=>{roomsTouched=true;buildMsg()});
