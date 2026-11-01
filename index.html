@@ -328,6 +328,13 @@ details.faq p{margin-top:8px;color:var(--muted)}
 .ho b{font-family:ui-monospace,Menlo,monospace;letter-spacing:.05em;color:var(--lemon)}
 .ho i{font-style:normal;opacity:.8;font-size:.8rem}
 .ho:hover{background:rgba(255,255,255,.24)}
+
+.around{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:8px}
+.around article{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:color-mix(in srgb,var(--card) 92%,transparent);display:flex;flex-direction:column;gap:6px;min-width:0}
+.around .ah{display:flex;flex-direction:column;gap:2px}
+.around b{font-family:var(--display);font-size:1.3rem;font-weight:700;line-height:1.15}
+.around .km{font-size:.8rem;color:var(--laterite);font-weight:600;letter-spacing:.02em}
+.around p{margin:0!important;color:var(--muted);font-size:.93rem}
 </style>
 
 <header class="top">
@@ -356,7 +363,7 @@ details.faq p{margin-top:8px;color:var(--muted)}
 
 <main id="site">
   <section class="cover" id="top">
-    <img class="cover-img" src="img/garden-river.jpg" alt="The garden of IslandStay running down to the river through coconut palms">
+    <img class="cover-img" src="img/cover-river.jpg" alt="The Kallada river at night behind IslandStay, with stars over the palms" style="object-position:center 68%">
     <div class="cover-shade"></div>
     <div class="wrap cover-inner">
       <p class="eyebrow light">Homestay · Munroe Island &amp; West Kallada, Kollam · <span class="ml-word">ഐലൻഡ് സ്റ്റേ</span></p>
@@ -487,12 +494,14 @@ details.faq p{margin-top:8px;color:var(--muted)}
       <div>
         <h2 style="font-size:clamp(2.2rem,4.2vw,3.1rem)" data-i18n="locH">Getting here</h2>
         <p style="margin-top:12px;max-width:52ch">On the Kallada river, between Munroe Island and West Kallada in Kollam district. Ginsen sends a live location on WhatsApp and meets you at the gate.</p>
+        <p class="note">Distances are approximate road distances; travel times vary with traffic. Pickup from any of these can be arranged on request.</p>
+        <p style="margin-top:10px"><a href="#things">Places around IslandStay: Varkala, Kollam, Alappuzha and more →</a></p>
         <p style="margin-top:16px"><a href="https://www.google.com/maps/place/LemonTree+Homestay/@9.0039,76.623606,17z" target="_blank" rel="noopener">Open in Google Maps ↗</a></p>
       </div>
       <dl>
-        <dt>Nearest station</dt><dd>Munroturuttu (MQO), on the island</dd>
-        <dt>Main station</dt><dd>Kollam Junction</dd>
-        <dt>Airport</dt><dd>Trivandrum (TRV); Kochi (COK) is further north</dd>
+        <dt>Airports</dt><dd>Thiruvananthapuram (TRV) · about 90 km, 2–2½ hrs<br>Kochi (COK) · about 150 km, 3½–4 hrs</dd>
+        <dt>Big railway stations</dt><dd>Thiruvananthapuram Central · about 85 km<br>Ernakulam Junction (Kochi) · about 135 km<br>Kollam Junction · about 25 km, 45 min</dd>
+        <dt>Local stations</dt><dd>Munroturuttu (MQO) · about 4 km<br>Sasthamkotta · about 6 km</dd>
         <dt>Check-in</dt><dd id="ciTime" class="num"></dd>
         <dt>Check-out</dt><dd id="coTime" class="num"></dd>
       </dl>
@@ -640,14 +649,31 @@ details.faq p{margin-top:8px;color:var(--muted)}
     </div></div>
   </section>
 
-  <section class="tsec" data-t="22" data-bg="river-night">
+  <section class="tsec" data-t="22" data-bg="river-night" id="around">
     <div class="wrap"><div class="glass wide">
-      <p class="eyebrow">Worth a day trip</p>
-      <h2>Further afield</h2>
+      <p class="eyebrow">Around IslandStay</p>
+      <h2>Places worth the drive</h2>
+      <p class="sub">Approximate road distances from the house. Ginsen can help with a car or driver.</p>
+      <div class="around">
+        <article><div class="ah"><b>Sasthamcotta Lake</b><span class="km">~8 km · 15 min</span></div><p>Kerala's largest freshwater lake, with quiet evenings by the temple steps.</p></article>
+        <article><div class="ah"><b>Kollam town &amp; Ashtamudi Lake</b><span class="km">~25 km · 45 min</span></div><p>Kollam beach, Thangassery lighthouse, and boat cruises on Ashtamudi Lake. Sambranikodi island is a short boat hop from the lake shore.</p></article>
+        <article><div class="ah"><b>Varkala</b><span class="km">~45 km · 1¼ hrs</span></div><p>Red cliffs over the sea, cliff-top cafés and the best sunset on this coast. Beginner surf lessons run from October to April, usually early morning or late afternoon.</p></article>
+        <article><div class="ah"><b>Jatayu Earth's Center</b><span class="km">~45 km · 1¼ hrs</span></div><p>A giant bird sculpture on a rock hilltop, with a cable car and adventure park.</p></article>
+        <article><div class="ah"><b>Alappuzha (Alleppey)</b><span class="km">~80 km · 2 hrs</span></div><p>Houseboats on Vembanad Lake, Alappuzha beach and the canal town.</p></article>
+        <article><div class="ah"><b>Thiruvananthapuram</b><span class="km">~80 km · 2 hrs</span></div><p>The capital: Padmanabhaswamy Temple, Napier Museum, and Kovalam beach just beyond.</p></article>
+        <article><div class="ah"><b>Kochi</b><span class="km">~140 km · 3½–4 hrs</span></div><p>Fort Kochi, the Chinese fishing nets and Mattancherry's old streets.</p></article>
+        <article><div class="ah"><b>Glowing water (bioluminescence)</b><span class="km">Kumbalangi, Kochi · ~130 km</span></div><p>On dark nights in March and April, the backwaters near Kumbalangi can sparkle blue when stirred. It's seasonal and not guaranteed.</p></article>
+      </div>
+      <h3 class="minor">Getting here</h3>
       <ul class="trips">
-        <li><b>Sasthamcotta Lake</b><span>Kerala's largest freshwater lake, a short drive from West Kallada.</span></li>
-        <li><b>Sambranikodi</b><span>A small island in Ashtamudi lake, reached by boat from the mainland near Kollam.</span></li>
-        <li><b>Kollam town</b><span>The old port town on Ashtamudi lake, about 25 km away.</span></li>
+        <li><b>Thiruvananthapuram airport (TRV)</b><span>~90 km · 2–2½ hrs</span></li>
+        <li><b>Kochi airport (COK)</b><span>~150 km · 3½–4 hrs</span></li>
+        <li><b>Thiruvananthapuram Central</b><span>~85 km by road</span></li>
+        <li><b>Ernakulam Junction</b><span>~135 km by road</span></li>
+        <li><b>Kollam Junction</b><span>~25 km · 45 min</span></li>
+        <li><b>Munroturuttu station</b><span>~4 km, on the island</span></li>
+      </ul>
+      <ul class="trips" style="margin-top:22px">
         <li><b>Kallada boat race</b><span>Snake boats race on the Kallada river during the Onam season.</span></li>
       </ul>
       <div class="ctas" style="margin-top:26px">
