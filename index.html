@@ -449,7 +449,7 @@ details.faq p{margin-top:8px;color:var(--muted)}
             <label class="f"><span data-i18n="ci">Arriving</span><input type="date" id="ci"></label>
             <label class="f"><span data-i18n="co">Leaving</span><input type="date" id="co"></label>
             <label class="f"><span data-i18n="guests">Guests</span><input type="number" id="guests" min="1" max="16" value="4"></label>
-            <label class="f"><span data-i18n="roomsLbl">Rooms</span><select id="rooms"><option value="2">2 rooms</option></select></label>
+            <label class="f"><span data-i18n="roomsLbl">Rooms</span><select id="roomCount"><option value="2">2 rooms</option></select></label>
             <label class="f full"><span data-i18n="name">Your name</span><input type="text" id="gname" autocomplete="name"></label>
             <fieldset class="full"><legend data-i18n="offersLbl">Offers &amp; promo code</legend>
               <div class="offers" id="offerList"></div>
@@ -761,7 +761,7 @@ function renderSite(){
   $("#expOpts").innerHTML=PR.extras.map((x,i)=>`<label><input type="checkbox" value="${i}" class="expChk"> <span>${esc(x.name)} <span class="muted num">(${x.price==null?"on request":fmt(x.price)+" "+unitLabel(x.unit)})</span></span></label>`).join("");
   const R=PR.rules;$("#ciTime").textContent="From "+R.checkin;$("#coTime").textContent="By "+R.checkout;
   $("#faqCi").textContent=R.checkin;$("#faqCo").textContent=R.checkout;$("#faqMax").textContent=R.maxGuests;
-  $("#guests").max=R.maxGuests;const rv=$("#rooms").value;$("#rooms").innerHTML=PR.rooms.map((x,i)=>`<option value="${i+1}">${i+1} room${i?"s":""}</option>`).join("");if(roomsTouched&&rv)$("#rooms").value=rv;autoRooms();
+  $("#guests").max=R.maxGuests;const rv=$("#roomCount").value;$("#roomCount").innerHTML=PR.rooms.map((x,i)=>`<option value="${i+1}">${i+1} room${i?"s":""}</option>`).join("");if(roomsTouched&&rv)$("#roomCount").value=rv;autoRooms();
   document.querySelectorAll("[data-rate]").forEach(el=>{const x=PR.rooms[+el.dataset.rate];el.textContent=x?`From ${fmt(x.wd)} a night for 2 · 3rd guest ${fmt(x.x3wd)}`:""});
   renderOffers();
   document.querySelectorAll("[data-focus]").forEach(b=>b.addEventListener("click",()=>{$("#house").scrollIntoView({behavior:"smooth"});focusPart(b.dataset.focus)}));
@@ -836,9 +836,9 @@ function calc(ciS,coS,guests,rooms,expIdx,promo){
 const WA="919442344770";
 function fmtD(k){return iso(k).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"})}
 let roomsTouched=false,promoApplied="";
-function autoRooms(){if(roomsTouched)return;const g=+$("#guests").value||1;$("#rooms").value=String(Math.min(PR.rooms.length,Math.max(1,Math.ceil(Math.min(g,PR.rules.perRoom*PR.rooms.length)/PR.rules.perRoom))))}
+function autoRooms(){if(roomsTouched)return;const g=+$("#guests").value||1;$("#roomCount").value=String(Math.min(PR.rooms.length,Math.max(1,Math.ceil(Math.min(g,PR.rules.perRoom*PR.rooms.length)/PR.rules.perRoom))))}
 function buildMsg(){
-  const g=+$("#guests").value||1;const rooms=+$("#rooms").value||1;const idx=[...document.querySelectorAll(".expChk:checked")].map(c=>+c.value);
+  const g=+$("#guests").value||1;const rooms=+$("#roomCount").value||1;const idx=[...document.querySelectorAll(".expChk:checked")].map(c=>+c.value);
   const ci=$("#ci").value,co=$("#co").value;const q=calc(ci,co,g,rooms,idx,promoApplied);const name=$("#gname").value.trim();const note=$("#gmsg").value.trim();
   let m=`Hello IslandStay! ${name?`This is ${name}. `:""}I'd like to stay with you.\n\n`;
   m+=q.ok?`Dates: ${fmtD(ci)} to ${fmtD(co)} (${q.nights} night${q.nights>1?"s":""})\n`:`Dates: not fixed yet, could you suggest some?\n`;
@@ -873,7 +873,7 @@ function renderOffers(){
 $("#offerList").addEventListener("click",e=>{const b=e.target.closest("[data-code]");if(!b)return;promoApplied=b.dataset.code===promoApplied?"":b.dataset.code;$("#promo").value=promoApplied;renderOffers();buildMsg()});
 $("#promoApply").addEventListener("click",()=>{promoApplied=$("#promo").value.trim().toUpperCase();$("#promo").value=promoApplied;renderOffers();buildMsg()});
 $("#promo").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("#promoApply").click()}});
-$("#rooms").addEventListener("change",()=>{roomsTouched=true;buildMsg()});
+$("#roomCount").addEventListener("change",()=>{roomsTouched=true;buildMsg()});
 $("#guests").addEventListener("input",()=>{autoRooms();buildMsg()});
 ["#ci","#co","#gname","#gmsg"].forEach(s=>$(s).addEventListener("input",buildMsg));
 $("#copyWa").addEventListener("click",()=>{const btn=$("#copyWa"),old=btn.textContent;navigator.clipboard.writeText($("#waText").textContent).then(()=>{btn.textContent="Copied";setTimeout(()=>btn.textContent=old,1500)}).catch(()=>{const rg=document.createRange();rg.selectNodeContents($("#waText"));const sl=getSelection();sl.removeAllRanges();sl.addRange(rg);btn.textContent="Press Ctrl+C"})});
