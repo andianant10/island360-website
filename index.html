@@ -268,8 +268,8 @@ details.faq p{margin-top:8px;color:var(--muted)}
 .mosaic{grid-template-rows:240px 200px}
 
 /* explore page cover + things-to-do page */
-.cover{position:relative;min-height:min(86svh,820px);display:flex;align-items:flex-end;overflow:hidden;background:#0b1513}
-.cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}
+.cover{position:relative;min-height:min(86svh,820px);display:flex;align-items:flex-end;overflow:hidden;background:#0b1513;clip-path:inset(0)}
+.cover-img{position:fixed;top:0;left:0;width:100%;height:100vh;height:100lvh;object-fit:cover;max-width:none}
 .cover-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,20,18,.2) 0%,rgba(6,20,18,.25) 40%,rgba(6,20,18,.8) 100%)}
 .cover-inner{position:relative;padding-block:120px 48px;width:100%;color:#fff}
 .cover h1{font-size:clamp(3.2rem,8vw,6.2rem);color:#fff;line-height:.95;max-width:12ch;font-weight:700}
@@ -335,6 +335,48 @@ details.faq p{margin-top:8px;color:var(--muted)}
 .around b{font-family:var(--display);font-size:1.3rem;font-weight:700;line-height:1.15}
 .around .km{font-size:.8rem;color:var(--laterite);font-weight:600;letter-spacing:.02em}
 .around p{margin:0!important;color:var(--muted);font-size:.93rem}
+
+/* price calendar */
+.dp-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dp-btn{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:9px 12px;cursor:pointer;color:var(--ink);font:inherit}
+.dp-btn span{font-size:.85rem;color:var(--muted)}
+.dp-btn b{font-weight:600}
+.dp-btn[aria-expanded="true"]{border-color:var(--lagoon);box-shadow:0 0 0 2px color-mix(in srgb,var(--lagoon) 25%,transparent)}
+.cal{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--card)}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.cal-head b{font-size:1.02rem}
+.cal-nav{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-size:1.3rem;cursor:pointer;line-height:1}
+.cal-nav:disabled{opacity:.35;cursor:default}
+.cal-wd,.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-wd span{font-size:.72rem;text-align:center;color:var(--muted);padding-bottom:4px}
+.cal-d{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:50px;border:0;border-radius:7px;background:transparent;color:var(--ink);cursor:pointer;font:inherit;padding:4px 0}
+.cal-d .n{font-weight:600;font-size:.95rem}
+.cal-d .p{font-size:.68rem;color:var(--lagoon);font-variant-numeric:tabular-nums}
+.cal-d.we{background:color-mix(in srgb,var(--lemon) 14%,transparent)}
+.cal-d:hover:not(:disabled){outline:1.5px solid var(--lagoon)}
+.cal-d:disabled{color:var(--muted);opacity:.4;cursor:default}
+.cal-d.bk{background:repeating-linear-gradient(135deg,transparent 0 5px,color-mix(in srgb,var(--laterite) 14%,transparent) 5px 7px);color:var(--muted)}
+.cal-d.bk .n{text-decoration:line-through}
+.cal-d.bk .p{color:var(--laterite)}
+.cal-d.in{background:var(--lagoon-soft);border-radius:0}
+.cal-d.s,.cal-d.e{background:var(--lagoon);color:#fff}
+.cal-d.s .p,.cal-d.e .p{color:rgba(255,255,255,.85)}
+.cal-d.s{border-radius:7px 0 0 7px}.cal-d.e{border-radius:0 7px 7px 0}.cal-d.s.e{border-radius:7px}
+.cal-d.flash{animation:calShake .4s}
+@keyframes calShake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+.cal-msg{min-height:1.4em;margin-top:10px;font-size:.92rem}
+.cal-msg .hey{display:block;padding:10px 12px;border-radius:8px;background:color-mix(in srgb,var(--laterite) 10%,transparent);color:var(--ink)}
+.cal-msg .hey b{color:var(--laterite)}
+.cal-msg .tip{color:var(--muted)}
+.cal-msg a{font-weight:600}
+.cal-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:10px;font-size:.78rem}
+.cal-foot .btn{margin-left:auto}
+.cal-key i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin:0 4px 0 8px}
+.cal-key i:first-child{margin-left:0}
+.k-we{background:color-mix(in srgb,var(--lemon) 35%,transparent)}
+.k-bk{background:repeating-linear-gradient(135deg,transparent 0 3px,color-mix(in srgb,var(--laterite) 45%,transparent) 3px 5px);border:1px solid var(--line)}
+@media (max-width:420px){.cal{padding:8px}.cal-d{min-height:46px}.cal-d .p{font-size:.62rem}}
+@media (prefers-reduced-motion:reduce){.cal-d.flash{animation:none}}
 </style>
 
 <header class="top">
@@ -461,8 +503,20 @@ details.faq p{margin-top:8px;color:var(--muted)}
       <div class="book-grid">
         <form class="card" id="bookForm" novalidate>
           <div class="fields">
-            <label class="f"><span data-i18n="ci">Arriving</span><input type="date" id="ci"></label>
-            <label class="f"><span data-i18n="co">Leaving</span><input type="date" id="co"></label>
+            <div class="full dp">
+              <div class="dp-fields">
+                <button type="button" class="dp-btn" id="ciBtn" aria-expanded="false" aria-controls="cal"><span data-i18n="ci">Arriving</span><b id="ciTxt">Pick a date</b></button>
+                <button type="button" class="dp-btn" id="coBtn" aria-expanded="false" aria-controls="cal"><span data-i18n="co">Leaving</span><b id="coTxt">Pick a date</b></button>
+              </div>
+              <input type="hidden" id="ci"><input type="hidden" id="co">
+              <div class="cal" id="cal" hidden>
+                <div class="cal-head"><button type="button" class="cal-nav" id="calPrev" aria-label="Previous month">‹</button><b id="calTitle"></b><button type="button" class="cal-nav" id="calNext" aria-label="Next month">›</button></div>
+                <div class="cal-wd"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+                <div class="cal-grid" id="calGrid"></div>
+                <div class="cal-msg" id="calMsg" aria-live="polite"></div>
+                <div class="cal-foot"><span class="cal-key"><i class="k-we"></i>Weekend <i class="k-bk"></i>Booked</span><span class="muted">Price a night for your group, before GST</span><button type="button" class="btn sm" id="calDone">Done</button></div>
+              </div>
+            </div>
             <label class="f"><span data-i18n="guests">Guests</span><input type="number" id="guests" min="1" max="16" value="4"></label>
             <label class="f"><span data-i18n="roomsLbl">Rooms</span><select id="roomCount"><option value="2">2 rooms</option></select></label>
             <label class="f full"><span data-i18n="name">Your name</span><input type="text" id="gname" autocomplete="name"></label>
@@ -858,7 +912,7 @@ function calc(ciS,coS,guests,rooms,expIdx,promo){
     const roomAmt=chosen.reduce((a,r)=>a+(we?r.we:r.wd),0)*f;const thirdAmt=chosen.slice(0,thirdN).reduce((a,r)=>a+(we?r.x3we:r.x3wd),0)*f;const grpAmt=groupN*(we?R.groupWeekend:R.groupWeekday)*f;
     const lab=(we?"Weekend":"Weekday")+(s?` · ${s.name} ${s.pct>0?"+":""}${s.pct}%`:"");
     const L=lines[lab]||(lines[lab]={label:lab,n:0,rooms:0,third:0,group:0});L.n++;L.rooms+=roomAmt;L.third+=thirdAmt;L.group+=grpAmt;stay+=roomAmt+thirdAmt+grpAmt}
-  if(clash.length){out.msg="Already booked on "+clash.map(fmtD).join(", ")+". Try other dates.";out.kind="bad";return out}
+  if(clash.length){out.msg="Oh, we're already hosting guests on "+clash.map(fmtD).join(", ")+". We'd love to host you too, please pick other dates in the calendar.";out.kind="bad";return out}
   const exps=expIdx.filter(i=>PR.extras[i]&&PR.extras[i].price!=null).map(i=>{const x=PR.extras[i];const mult=x.unit==="person"?guests:x.unit==="person-day"?guests*nights:1;return {name:x.name,amt:x.price*mult}});
   const expTotal=exps.reduce((a,b)=>a+b.amt,0);
   let pc=null,pcMsg="";if(promo){pc=PR.promos.find(p=>p.code.toUpperCase()===promo.toUpperCase());
@@ -896,7 +950,7 @@ function buildMsg(){
     if(q.pcMsg)h+=`<div class="status warn">${esc(q.pcMsg)}</div>`}
   else if(q.kind==="bad")h=`<div class="status bad">${q.msg}</div>`;
   else{const lo=Math.min(...PR.rooms.map(r=>r.wd));h=`<p class="note">Rooms from <b class="num">${fmt(lo)}</b> a night for 2 guests.</p>`}
-  $("#quoteBody").innerHTML=h;
+  $("#quoteBody").innerHTML=h;if(typeof renderCal==="function"&&$("#cal")&&!$("#cal").hidden)renderCal();
   $("#promoStatus").innerHTML=promoApplied?(q.ok&&q.pc?`<span class="ok-t">${esc(q.pc.code)} applied: ${q.pc.pct}% off</span>`:(q.ok&&q.pcMsg?`<span class="bad-t">${esc(q.pcMsg)}</span>`:"")):"";
 }
 function renderOffers(){
@@ -911,9 +965,60 @@ $("#promoApply").addEventListener("click",()=>{promoApplied=$("#promo").value.tr
 $("#promo").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("#promoApply").click()}});
 $("#roomCount").addEventListener("change",()=>{roomsTouched=true;buildMsg()});
 $("#guests").addEventListener("input",()=>{autoRooms();buildMsg()});
-["#ci","#co","#gname","#gmsg"].forEach(s=>$(s).addEventListener("input",buildMsg));
+["#gname","#gmsg"].forEach(s=>$(s).addEventListener("input",buildMsg));
 $("#copyWa").addEventListener("click",()=>{const btn=$("#copyWa"),old=btn.textContent;navigator.clipboard.writeText($("#waText").textContent).then(()=>{btn.textContent="Copied";setTimeout(()=>btn.textContent=old,1500)}).catch(()=>{const rg=document.createRange();rg.selectNodeContents($("#waText"));const sl=getSelection();sl.removeAllRanges();sl.addRange(rg);btn.textContent="Press Ctrl+C"})});
 $("#heroWa").href=`https://wa.me/${WA}?text=${encodeURIComponent("Hello IslandStay! I have a question about staying with you.")}`;
+
+
+/* ---------- price calendar ---------- */
+let calMonth=null,calPick="ci";
+function blockedSet(){const b=new Set();PR.blocked.forEach(x=>{if(!x.from)return;let d=iso(x.from);const e=iso(x.to||x.from);let g=0;while(d<=e&&g++<400){b.add(key(d));d=addDays(d,1)}});return b}
+function nightPrice(k){const R=PR.rules;const g=+$("#guests").value||1;const all=PR.rooms.length;const rooms=Math.max(1,Math.min(all,+$("#roomCount").value||1));
+  const ch=PR.rooms.slice(0,rooms);const t3=Math.max(0,Math.min(g,R.maxPerRoom*rooms)-R.perRoom*rooms);const gn=rooms===all?Math.max(0,g-Math.max(R.groupAfter,R.maxPerRoom*rooms)):0;
+  const d=iso(k);const we=weekendSet().has(d.getUTCDay());const s=seasonFor(k);const f=s?1+s.pct/100:1;
+  return (ch.reduce((a,r)=>a+(we?r.we:r.wd),0)+ch.slice(0,t3).reduce((a,r)=>a+(we?r.x3we:r.x3wd),0)+gn*(we?R.groupWeekend:R.groupWeekday))*f}
+const kFmt=n=>"₹"+(n>=1000?(Math.round(n/100)/10).toString().replace(/\.0$/,"")+"k":Math.round(n));
+const todayK=()=>toISO(new Date());
+function nextFree(k,bk){let d=iso(k);for(let i=0;i<120;i++){d=addDays(d,1);if(!bk.has(key(d)))return key(d)}return ""}
+function setDates(ci,co){$("#ci").value=ci;$("#co").value=co;$("#ciTxt").textContent=ci?fmtD(ci):"Pick a date";$("#coTxt").textContent=co?fmtD(co):"Pick a date";buildMsg()}
+function calSay(h){$("#calMsg").innerHTML=h}
+function waAsk(k){return `https://wa.me/${WA}?text=${encodeURIComponent(`Hello IslandStay! I see ${fmtD(k)} is booked. Could you let me know if it frees up, or suggest nearby dates?`)}`}
+function renderCal(){
+  if($("#cal").hidden)return;const bk=blockedSet();const wk=weekendSet();const t=todayK();
+  const y=calMonth.getUTCFullYear(),m=calMonth.getUTCMonth();
+  $("#calTitle").textContent=calMonth.toLocaleDateString("en-IN",{month:"long",year:"numeric",timeZone:"UTC"});
+  $("#calPrev").disabled=key(calMonth)<=t.slice(0,8)+"01";
+  const first=new Date(Date.UTC(y,m,1)),days=new Date(Date.UTC(y,m+1,0)).getUTCDate();
+  const ci=$("#ci").value,co=$("#co").value;let h="";for(let i=0;i<first.getUTCDay();i++)h+="<span></span>";
+  for(let d=1;d<=days;d++){const k=`${y}-${pad(m+1)}-${pad(d)}`;const past=k<t;const b=bk.has(k);const we=wk.has(new Date(Date.UTC(y,m,d)).getUTCDay());
+    let c="cal-d"+(we?" we":"")+(b&&!past?" bk":"");if(ci&&k===ci)c+=" s";if(co&&k===co)c+=" e";if(ci&&co&&k>ci&&k<co)c+=" in";
+    const p=past?"":b?"Booked":kFmt(nightPrice(k));
+    h+=`<button type="button" class="${c}" data-k="${k}" ${past?"disabled":""} aria-label="${fmtD(k)}${b?", booked":p?", "+fmt(nightPrice(k))+" a night":""}"><span class="n">${d}</span><span class="p">${p}</span></button>`}
+  $("#calGrid").innerHTML=h}
+function openCal(which){calPick=which;const base=$("#"+which).value||$("#ci").value||todayK();const d=iso(base);calMonth=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),1));
+  $("#cal").hidden=false;$("#ciBtn").setAttribute("aria-expanded",which==="ci");$("#coBtn").setAttribute("aria-expanded",which==="co");
+  calSay(`<span class="tip">${which==="ci"?"Tap the day you arrive. Check-out is set to the next day; tap a later day to stay longer.":"Tap the day you leave."}</span>`);renderCal()}
+function closeCal(){$("#cal").hidden=true;$("#ciBtn").setAttribute("aria-expanded","false");$("#coBtn").setAttribute("aria-expanded","false")}
+function flash(k){const el=$(`.cal-d[data-k="${k}"]`);if(el){el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash")}}
+$("#calGrid").addEventListener("click",e=>{const btn=e.target.closest(".cal-d");if(!btn||btn.disabled)return;const k=btn.dataset.k;const bk=blockedSet();const ci=$("#ci").value;const minN=Math.max(1,PR.rules.minNights||1);
+  if(calPick==="co"&&ci&&k>ci){
+    let d=iso(ci),hit="";while(key(d)<k){if(bk.has(key(d))){hit=key(d);break}d=addDays(d,1)}
+    if(hit){flash(k);calSay(`<span class="hey">Oh, we're already hosting guests on <b>${fmtD(hit)}</b>! We'd love to have you, so your stay can run until the morning of ${fmtD(hit)}. Or pick other dates and we'll be ready for you. <a href="${waAsk(hit)}" target="_blank" rel="noopener">Ask Ginsen about ${fmtD(hit)} ↗</a></span>`);return}
+    const n=Math.round((iso(k)-iso(ci))/864e5);if(n<minN){flash(k);calSay(`<span class="hey">Minimum stay is ${minN} nights.</span>`);return}
+    setDates(ci,k);calPick="ci";renderCal();const q=calc(ci,k,+$("#guests").value||1,+$("#roomCount").value||1,[],promoApplied);
+    calSay(`<span class="tip">${n} night${n>1?"s":""}, ${fmtD(ci)} to ${fmtD(k)}${q.ok?` · about <b>${fmt(q.total)}</b> with GST`:""}. Tap Done, or tap a new arrival day.</span>`);return}
+  if(bk.has(k)){flash(k);const nf=nextFree(k,bk);
+    calSay(`<span class="hey">Oh, we're booked for <b>${fmtD(k)}</b>! Another family is enjoying the river that night. We'd love to host you, so we'd really appreciate it if you could pick another day${nf?`: <b>${fmtD(nf)}</b> is free`:""}. <a href="${waAsk(k)}" target="_blank" rel="noopener">Ask Ginsen to tell you if it frees up ↗</a></span>`);return}
+  let co=key(addDays(iso(k),minN));let d=iso(k),ok=true;for(let i=0;i<minN;i++){if(bk.has(key(d))){ok=false;break}d=addDays(d,1)}
+  if(!ok){flash(k);calSay(`<span class="hey">The nights after ${fmtD(k)} are already booked and the minimum stay is ${minN} nights. Could you try another day?</span>`);return}
+  setDates(k,co);calPick="co";renderCal();
+  calSay(`<span class="tip">Arriving ${fmtD(k)}, check-out set to <b>${fmtD(co)}</b>. Tap a later day to stay longer, or Done.</span>`)});
+$("#ciBtn").addEventListener("click",()=>$("#cal").hidden||calPick!=="ci"?openCal("ci"):closeCal());
+$("#coBtn").addEventListener("click",()=>$("#cal").hidden||calPick!=="co"?openCal("co"):closeCal());
+$("#calPrev").addEventListener("click",()=>{calMonth=new Date(Date.UTC(calMonth.getUTCFullYear(),calMonth.getUTCMonth()-1,1));renderCal()});
+$("#calNext").addEventListener("click",()=>{calMonth=new Date(Date.UTC(calMonth.getUTCFullYear(),calMonth.getUTCMonth()+1,1));renderCal()});
+$("#calDone").addEventListener("click",()=>{closeCal();$("#ciBtn").focus()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#cal").hidden)closeCal()});
 
 /* load live prices from the published Google Sheet */
 function parseCSV(t){const rows=[];let row=[],f="",q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c==='"'){if(t[i+1]==='"'){f+='"';i++}else q=false}else f+=c}else if(c==='"')q=true;else if(c===","){row.push(f);f=""}else if(c==="\n"||c==="\r"){if(c==="\r"&&t[i+1]==="\n")i++;row.push(f);rows.push(row);row=[];f=""}else f+=c}if(f||row.length){row.push(f);rows.push(row)}return rows}
@@ -1379,7 +1484,7 @@ function init3D(){
 const today=new Date();const toISO=d=>new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
 $("#ci").min=$("#co").min=toISO(today);
 const a=new Date(today);a.setDate(a.getDate()+14);const b=new Date(a);b.setDate(b.getDate()+2);
-$("#ci").value=toISO(a);$("#co").value=toISO(b);
+setDates(toISO(a),toISO(b));
 $("#tabExplore").addEventListener("click",e=>{e.preventDefault();if(location.hash){history.pushState(null,"",location.pathname+location.search);route()}else window.scrollTo(0,0)});
 addEventListener("popstate",route);
 route();setLang(lang);init3D();updateTime();loadPrices();
