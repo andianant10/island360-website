@@ -687,7 +687,7 @@ const ALL=[...ROOMS,...OUTSIDE,
   {key:"bath1",img:"bath-a",name:"Bathroom",text:"Next to Bedroom 1."},{key:"bath2",img:"bath-b",name:"Bathroom",text:"Next to Bedroom 2."},{key:"bath3",img:"bath-c",name:"Bathroom",text:"Next to Bedroom 3."},
   {key:"utility",name:"Utility area",text:"Small work and storage area behind the kitchen."},{key:"hall",name:"Hallway",text:"Runs from the front door to the back verandah."}];
 /* Published CSV link of the "Pricing" tab in the IslandStay Back Office Google Sheet (File → Share → Publish to web). */
-const SHEET_CSV="";
+const SHEET_CSV="https://docs.google.com/spreadsheets/d/e/2PACX-1vSA8OOkxf7erm0C95wbVDXDF0QAmG0Y3Jp4jN0LSn1b3vwmQu7yVeq6VuWy87bnQd0EHQmjvXAKf3lb/pub?gid=1077705261&single=true&output=csv";
 const DEF_PR={
   rooms:[{name:"Pachila (Bedroom 1)",wd:1700,we:2000,x3wd:500,x3we:600},{name:"Neelakurinji (Bedroom 2)",wd:1700,we:2000,x3wd:500,x3we:600},{name:"Mullappoo (Bedroom 3)",wd:1700,we:2000,x3wd:500,x3we:600}],
   rules:{weekend:"Fri, Sat",perRoom:2,maxPerRoom:3,groupAfter:9,groupWeekday:400,groupWeekend:500,maxGuests:16,minNights:1,gst:5,checkin:"12:00 PM",checkout:"10:00 AM"},
@@ -890,11 +890,12 @@ function fromSheet(rows){
   const P=structuredClone(DEF_PR);const T=["ROOM RATES","RULES","SEASONS","PROMO CODES","BLOCKED DATES","EXTRAS","HOW PRICES"];const sec={};let cur=null,skip=0;
   rows.forEach(r=>{const a=(r[0]||"").trim();const up=a.toUpperCase();const t=T.find(x=>up.startsWith(x));if(t){cur=t;skip=1;sec[t]=[];return}if(!cur)return;if(skip){skip--;return}if(r.every(c=>!String(c).trim()))return;sec[cur].push(r)});
   if(sec["ROOM RATES"]&&sec["ROOM RATES"].length)P.rooms=sec["ROOM RATES"].filter(r=>r[0]).map(r=>({name:r[0],wd:num(r[1]),we:num(r[2])||num(r[1]),x3wd:num(r[3]),x3we:num(r[4])||num(r[3])}));
-  (sec["RULES"]||[]).forEach(r=>{const k=(r[2]||"").trim();if(!k)return;P.rules[k]=["weekend","checkin","checkout"].includes(k)?String(r[1]).trim():num(r[1])});
+  const t12=v=>{v=String(v).trim();const m=v.match(/^(\d{1,2}):(\d{2})(?::\d{2})?$/);if(!m)return v;const h=+m[1];return `${(h%12)||12}:${m[2]} ${h<12?"AM":"PM"}`};
+  (sec["RULES"]||[]).forEach(r=>{const k=(r[2]||"").trim();if(!k)return;P.rules[k]=k==="weekend"?String(r[1]).trim():(k==="checkin"||k==="checkout")?t12(r[1]):num(r[1])});
   if(sec["SEASONS"])P.seasons=sec["SEASONS"].filter(r=>r[0]&&r[1]).map(r=>({name:r[0],from:isoDate(r[1]),to:isoDate(r[2])||isoDate(r[1]),pct:num(r[3])}));
   if(sec["PROMO CODES"])P.promos=sec["PROMO CODES"].filter(r=>r[0]).map(r=>({code:r[0].trim().toUpperCase(),pct:Math.min(100,Math.max(0,num(r[1]))),text:r[2]||"",from:isoDate(r[3]),to:isoDate(r[4]),active:/^y/i.test(String(r[5]||"").trim())}));
   if(sec["BLOCKED DATES"])P.blocked=sec["BLOCKED DATES"].filter(r=>r[0]).map(r=>({from:isoDate(r[0]),to:isoDate(r[1])||isoDate(r[0])}));
-  if(sec["EXTRAS"])P.extras=sec["EXTRAS"].filter(r=>r[0]).map(r=>({name:r[0],price:/\d/.test(String(r[1]||""))?num(r[1]):null,unit:(String(r[2]||"group").trim().toLowerCase())}));
+  if(sec["EXTRAS"])P.extras=sec["EXTRAS"].filter(r=>r[0]).map(r=>({name:r[0].replace(/\s*\(new row\)\s*$/i,"").trim(),price:/\d/.test(String(r[1]||""))?num(r[1]):null,unit:(String(r[2]||"group").trim().toLowerCase())}));
   return P}
 async function loadPrices(){
   if(!SHEET_CSV)return;
