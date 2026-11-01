@@ -306,6 +306,21 @@ details.faq p{margin-top:8px;color:var(--muted)}
 .lbl.home{background:#e6cf3e;color:#1b2310}
 .lbl.water{background:rgba(20,70,90,.7);font-style:italic}
 .lbl.small{font-size:.72rem;padding:3px 7px}
+
+/* pricing + offers */
+.room .rate{font-size:.88rem;color:var(--lagoon);font-weight:600}
+.offers{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
+.offer{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:2px;border:1.5px dashed var(--laterite);background:transparent;border-radius:10px;padding:8px 12px;cursor:pointer;max-width:100%}
+.offer b{font-family:ui-monospace,Menlo,monospace;letter-spacing:.06em;color:var(--laterite)}
+.offer span{font-size:.85rem;color:var(--muted)}
+.offer[aria-pressed="true"]{background:var(--lagoon);border-style:solid;border-color:var(--lagoon)}
+.offer[aria-pressed="true"] b,.offer[aria-pressed="true"] span{color:var(--paper)}
+.promo-row{display:flex;gap:8px}
+.promo-row input{flex:1;min-width:0;border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:8px 10px;text-transform:uppercase}
+.ok-t{color:var(--ok)}.bad-t{color:var(--bad)}
+.q-row.sub span:first-child{padding-left:12px;color:var(--muted)}
+.q-row.disc{color:var(--ok)}
+.offer-bar{margin-top:10px;background:color-mix(in srgb,var(--lemon) 30%,transparent);border-radius:8px;padding:8px 12px;font-size:.92rem}
 </style>
 
 <header class="top">
@@ -425,7 +440,8 @@ details.faq p{margin-top:8px;color:var(--muted)}
     <div class="wrap">
       <div class="sec-head">
         <h2 data-i18n="bookH">Check your dates.</h2>
-        <p class="muted">Fill this in and we'll write the WhatsApp message to Ginsen for you.</p>
+        <p class="muted">Fill this in and we'll write the WhatsApp message to Ginsen for you. Each room is priced for 2 guests; a 3rd guest in a room and groups over 9 cost a little extra.</p>
+        <p class="offer-bar" id="offerBar" hidden></p>
       </div>
       <div class="book-grid">
         <form class="card" id="bookForm" novalidate>
@@ -433,7 +449,13 @@ details.faq p{margin-top:8px;color:var(--muted)}
             <label class="f"><span data-i18n="ci">Arriving</span><input type="date" id="ci"></label>
             <label class="f"><span data-i18n="co">Leaving</span><input type="date" id="co"></label>
             <label class="f"><span data-i18n="guests">Guests</span><input type="number" id="guests" min="1" max="16" value="4"></label>
-            <label class="f"><span data-i18n="name">Your name</span><input type="text" id="gname" autocomplete="name"></label>
+            <label class="f"><span data-i18n="roomsLbl">Rooms</span><select id="rooms"><option value="2">2 rooms</option></select></label>
+            <label class="f full"><span data-i18n="name">Your name</span><input type="text" id="gname" autocomplete="name"></label>
+            <fieldset class="full"><legend data-i18n="offersLbl">Offers &amp; promo code</legend>
+              <div class="offers" id="offerList"></div>
+              <div class="promo-row"><input type="text" id="promo" placeholder="Enter a promo code" autocomplete="off" aria-label="Promo code"><button class="btn ghost sm" type="button" id="promoApply">Apply</button></div>
+              <div id="promoStatus" class="note" aria-live="polite"></div>
+            </fieldset>
             <fieldset class="full"><legend data-i18n="addExp">Interested in</legend><div class="opts" id="expOpts"></div></fieldset>
             <label class="f full"><span data-i18n="notes">Anything to tell Ginsen?</span><textarea id="gmsg" rows="2" placeholder="Arrival time, group details, pickup from the station…"></textarea></label>
           </div>
@@ -628,86 +650,10 @@ details.faq p{margin-top:8px;color:var(--muted)}
   </section>
 </main>
 
-<main id="gate" hidden>
-  <div class="wrap" style="padding-block:64px;max-width:460px">
-    <p class="eyebrow">Owner area</p>
-    <h1 style="font-size:2.6rem;color:var(--lagoon)">Enter your PIN</h1>
-    <form id="pinForm" class="panel" style="display:flex;flex-direction:column;gap:12px" novalidate>
-      <label class="f">Owner PIN<input type="password" id="pin" inputmode="numeric" autocomplete="off" maxlength="8" style="font-size:1.4rem;letter-spacing:.4em;text-align:center"></label>
-      <button class="btn dark" type="submit">Unlock</button>
-      <div id="pinStatus"></div>
-    </form>
-    <p class="note"><a href="#">Back to the website</a></p>
-  </div>
-</main>
-
-<main id="admin" hidden>
-  <div class="wrap" style="padding-block:36px 0">
-    <p class="eyebrow">Owner area</p>
-    <h1>Pricing &amp; availability</h1>
-    <p class="muted" style="max-width:62ch;margin-top:8px">Change a price here and the quote on the booking page updates. In this preview, changes are saved in this browser only. On the live site, this page reads and writes the Rates tab of your Google Sheet, so all partners see the same prices.</p>
-
-    <div class="panel">
-      <h2>Nightly rates</h2>
-      <div class="fields">
-        <label class="f">Weekday rate, whole house (₹/night)<input type="number" id="a_base" min="0" step="100"></label>
-        <label class="f">Fri &amp; Sat night rate (₹/night)<input type="number" id="a_weekend" min="0" step="100"></label>
-        <label class="f">Guests included in the rate<input type="number" id="a_incl" min="1" max="16"></label>
-        <label class="f">Extra guest (₹/person/night)<input type="number" id="a_extra" min="0" step="50"></label>
-        <label class="f">Maximum guests<input type="number" id="a_max" min="1" max="30"></label>
-        <label class="f">Minimum nights<input type="number" id="a_minn" min="1" max="30"></label>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2>Season rates</h2>
-      <p class="muted" style="font-size:.9rem;margin-bottom:10px">A season rate replaces the weekday and weekend rate for nights inside its dates.</p>
-      <div class="tbl-wrap"><table class="ed"><thead><tr><th>Season</th><th>From</th><th>To</th><th>₹/night</th><th></th></tr></thead><tbody id="seasonRows"></tbody></table></div>
-      <button class="btn ghost sm" type="button" id="addSeason" style="margin-top:10px">Add season</button>
-    </div>
-
-    <div class="panel">
-      <h2>Experiences</h2>
-      <div class="tbl-wrap"><table class="ed"><thead><tr><th>Experience</th><th>Price (₹)</th><th>Charged</th><th></th></tr></thead><tbody id="expRows"></tbody></table></div>
-      <button class="btn ghost sm" type="button" id="addExp" style="margin-top:10px">Add experience</button>
-    </div>
-
-    <div class="panel">
-      <h2>Payment, tax &amp; times</h2>
-      <div class="fields">
-        <label class="f">Advance % (for when online payment is switched on)<input type="number" id="a_adv" min="0" max="100"></label>
-        <label class="f">GST on stay (%)<input type="number" id="a_gst" min="0" max="28" step="0.5"></label>
-        <label class="f">Check-in time<input type="time" id="a_cit"></label>
-        <label class="f">Check-out time<input type="time" id="a_cot"></label>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2>Blocked dates &amp; calendar sync</h2>
-      <div class="fields">
-        <label class="f full">Blocked nights, one per line (YYYY-MM-DD, or a range like 2026-12-24 to 2026-12-26)<textarea id="a_block" rows="4"></textarea></label>
-        <label class="f full">Airbnb calendar link (iCal export)<input type="url" id="a_ical" placeholder="https://www.airbnb.co.in/calendar/ical/1086288667516773868.ics?s=…"></label>
-        <label class="f full">Booking.com / MakeMyTrip calendar links (one per line)<textarea id="a_ical2" rows="2"></textarea></label>
-      </div>
-      <p class="note">On the live site, a script reads these links every hour and blocks any dates already booked on those platforms, so the same night can't be sold twice. It also publishes this site's own calendar link for you to paste into Airbnb.</p>
-    </div>
-  </div>
-  <div class="savebar">
-    <div class="wrap">
-      <button class="btn dark" type="button" id="saveBtn">Save prices</button>
-      <button class="btn ghost" type="button" id="resetBtn">Back to defaults</button>
-      <button class="btn ghost" type="button" id="copyJson">Copy as data</button>
-      <a class="btn ghost" href="#">View site</a>
-      <button class="btn ghost" type="button" id="lockBtn">Lock</button>
-      <span class="toast" id="toast" aria-live="polite"></span>
-    </div>
-  </div>
-</main>
-
 <footer>
   <div class="wrap">
     <span>© IslandStay by LemonTree Homestay, Kollam, Kerala</span>
-    <span>Cancellation policy, house rules and privacy policy: to be added. · <a href="#admin">Owner login</a></span>
+    <span>Cancellation policy, house rules and privacy policy: to be added.</span>
   </div>
 </footer>
 
@@ -740,23 +686,17 @@ const OUTSIDE=[
 const ALL=[...ROOMS,...OUTSIDE,
   {key:"bath1",img:"bath-a",name:"Bathroom",text:"Next to Bedroom 1."},{key:"bath2",img:"bath-b",name:"Bathroom",text:"Next to Bedroom 2."},{key:"bath3",img:"bath-c",name:"Bathroom",text:"Next to Bedroom 3."},
   {key:"utility",name:"Utility area",text:"Small work and storage area behind the kitchen."},{key:"hall",name:"Hallway",text:"Runs from the front door to the back verandah."}];
-const DEFAULTS={
-  base:5000, weekend:5000, incl:6, extra:500, max:16, minNights:1,
-  advance:30, gst:5, cit:"12:00", cot:"10:00",
-  seasons:[{name:"Christmas & New Year (example)",from:"2026-12-20",to:"2027-01-05",rate:6500}],
-  exps:[
-    {name:"Kayaking on the river",price:500,unit:"person",img:"kayaker"},
-    {name:"Island cycling trail",price:200,unit:"person",img:"cycle-river"},
-    {name:"Campfire evening",price:1000,unit:"group",img:"campfire"},
-    {name:"Boat ride on the backwaters",price:1500,unit:"group",img:"boat"},
-    {name:"Pickup from Kollam station",price:800,unit:"trip",img:"gate"}
-  ],
-  blocked:"", ical:"", ical2:""
-};
-const KEY="lemontree.pricing.v1";
-let P=load();
-function load(){try{const s=localStorage.getItem(KEY);if(s)return Object.assign(structuredClone(DEFAULTS),JSON.parse(s));}catch(e){}return structuredClone(DEFAULTS);}
-function store(){try{localStorage.setItem(KEY,JSON.stringify(P));return true}catch(e){return false}}
+/* Published CSV link of the "Pricing" tab in the IslandStay Back Office Google Sheet (File → Share → Publish to web). */
+const SHEET_CSV="";
+const DEF_PR={
+  rooms:[{name:"Pachila (Bedroom 1)",wd:1700,we:2000,x3wd:500,x3we:600},{name:"Neelakurinji (Bedroom 2)",wd:1700,we:2000,x3wd:500,x3we:600},{name:"Mullappoo (Bedroom 3)",wd:1700,we:2000,x3wd:500,x3we:600}],
+  rules:{weekend:"Fri, Sat",perRoom:2,maxPerRoom:3,groupAfter:9,groupWeekday:400,groupWeekend:500,maxGuests:16,minNights:1,gst:5,checkin:"12:00 PM",checkout:"10:00 AM"},
+  seasons:[{name:"Christmas & New Year",from:"2026-12-20",to:"2027-01-05",pct:20}],
+  promos:[{code:"WELCOME10",pct:10,text:"10% off your first stay with us",from:"2026-11-01",to:"2027-03-31",active:false},{code:"LONGSTAY15",pct:15,text:"15% off when you stay 4 nights or more",from:"2026-11-01",to:"2027-12-31",active:false}],
+  blocked:[],
+  extras:[{name:"Kayaking on the river",price:500,unit:"person"},{name:"Island cycling trail",price:200,unit:"person"},{name:"Campfire evening",price:1000,unit:"group"},{name:"Boat ride on the backwaters",price:1500,unit:"group"},{name:"Pickup from Kollam station",price:800,unit:"trip"}]};
+const EXTRA_IMG={"Kayaking on the river":"kayaker","Island cycling trail":"cycle-river","Campfire evening":"campfire","Boat ride on the backwaters":"boat","Pickup from Kollam station":"gate"};
+let PR=(()=>{try{const s=localStorage.getItem("islandstay.prices");if(s)return Object.assign(structuredClone(DEF_PR),JSON.parse(s))}catch(e){}return structuredClone(DEF_PR)})();
 
 /* ---------- i18n ---------- */
 const T={
@@ -803,40 +743,27 @@ document.querySelectorAll("[data-go]").forEach(a=>a.addEventListener("click",e=>
   const go=()=>{const el=document.getElementById(a.dataset.go);if(el)el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})};
   if(location.hash){history.pushState(null,"",location.pathname+location.search);route();setTimeout(go,60)}else go();
 }));
-const PIN_HASH="736470460089f791bc0d4c1846a5d2c436e882d0ef63b31ef116877cf0de21b4";
-function unlocked(){try{return sessionStorage.getItem("lemontree.owner")==="1"}catch(e){return window.__own===1}}
-function setUnlocked(v){try{v?sessionStorage.setItem("lemontree.owner","1"):sessionStorage.removeItem("lemontree.owner")}catch(e){}window.__own=v?1:0}
-async function sha(s){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
-function lockInfo(){try{return JSON.parse(localStorage.getItem("lemontree.pinfail")||'{"n":0,"until":0}')}catch(e){return {n:0,until:0}}}
-function saveLock(o){try{localStorage.setItem("lemontree.pinfail",JSON.stringify(o))}catch(e){}}
-$("#pinForm").addEventListener("submit",async e=>{
-  e.preventDefault();const st=$("#pinStatus");const L=lockInfo();
-  if(Date.now()<L.until){st.innerHTML=`<div class="status bad">Too many wrong tries. Try again in ${Math.ceil((L.until-Date.now())/60000)} min.</div>`;return}
-  const v=$("#pin").value.trim();if(!v){st.innerHTML=`<div class="status warn">Enter your PIN.</div>`;return}
-  let h="";try{h=await sha("islandstay:"+v)}catch(err){st.innerHTML=`<div class="status bad">This browser can't check the PIN. Open the page in Chrome or Safari.</div>`;return}
-  if(h===PIN_HASH){saveLock({n:0,until:0});setUnlocked(true);$("#pin").value="";st.innerHTML="";route()}
-  else{L.n++;if(L.n>=5){L.until=Date.now()+5*60000;L.n=0}saveLock(L);$("#pin").value="";st.innerHTML=`<div class="status bad">Wrong PIN.${L.until>Date.now()?" Locked for 5 minutes.":""}</div>`}
-});
-$("#lockBtn").addEventListener("click",()=>{setUnlocked(false);route()});
 function route(){
-  const admin=location.hash==="#admin";const ok=admin&&unlocked();const things=location.hash==="#things";
-  $("#gate").hidden=!(admin&&!ok);$("#admin").hidden=!ok;$("#site").hidden=admin||things;$("#things").hidden=!things;$("#sitenav").hidden=admin||things;document.querySelector(".clock").hidden=!things;
+  const admin=false;const things=location.hash==="#things";
+  $("#site").hidden=things;$("#things").hidden=!things;$("#sitenav").hidden=admin||things;document.querySelector(".clock").hidden=!things;
   $("#tabExplore").setAttribute("aria-current",!admin&&!things?"page":"false");$("#tabThings").setAttribute("aria-current",things?"page":"false");
   if(things)setTimeout(updateTime,0);
-  if(ok)fillAdmin();else if(admin)setTimeout(()=>$("#pin").focus(),50);else if(!things)renderSite();
+  if(!things)renderSite();
   window.scrollTo(0,0);
 }
 window.addEventListener("hashchange",route);
 
 /* ---------- site rendering ---------- */
 function renderSite(){
-  $("#roomList").innerHTML=ROOMS.map(r=>`<article class="room"><div class="ph" style="background:${r.color}">${r.img?`<img src="img/${r.img}.jpg" alt="${r.name}" loading="lazy">`:`${r.name}<span>Photo coming soon</span>`}</div><div class="body"><h3>${r.name}${r.ml?`<span class="ml">${r.ml}</span>`:""}</h3>${r.mean?`<p class="mean">${r.mean}</p>`:""}<p class="beds">${r.beds}</p><p>${r.text}</p><button class="btn ghost sm" type="button" data-focus="${r.key}" style="align-self:flex-start;margin-top:auto">See in 3D</button></div></article>`).join("");
-  $("#expList").innerHTML=P.exps.map((x,i)=>{const im=x.img||(DEFAULTS.exps.find(d=>d.name===x.name)||{}).img;return `<article class="exp"><div class="eimg">${im?`<img src="img/${im}.jpg" alt="${esc(x.name)}" loading="lazy">`:""}</div><div class="etext"><h3>${esc(x.name)}</h3><p class="price num">${fmt(x.price)} <span class="muted" style="font-weight:400">${unitLabel(x.unit)}</span></p></div></article>`}).join("");
+  $("#roomList").innerHTML=ROOMS.map(r=>`<article class="room"><div class="ph" style="background:${r.color}">${r.img?`<img src="img/${r.img}.jpg" alt="${r.name}" loading="lazy">`:`${r.name}<span>Photo coming soon</span>`}</div><div class="body"><h3>${r.name}${r.ml?`<span class="ml">${r.ml}</span>`:""}</h3>${r.mean?`<p class="mean">${r.mean}</p>`:""}<p class="beds">${r.beds}</p>${/^bed[123]$/.test(r.key)?`<p class="rate num" data-rate="${+r.key.slice(3)-1}"></p>`:""}<p>${r.text}</p><button class="btn ghost sm" type="button" data-focus="${r.key}" style="align-self:flex-start;margin-top:auto">See in 3D</button></div></article>`).join("");
+  $("#expList").innerHTML=PR.extras.map((x,i)=>{const im=EXTRA_IMG[x.name];return `<article class="exp"><div class="eimg">${im?`<img src="img/${im}.jpg" alt="${esc(x.name)}" loading="lazy">`:""}</div><div class="etext"><h3>${esc(x.name)}</h3><p class="price num">${fmt(x.price)} <span class="muted" style="font-weight:400">${unitLabel(x.unit)}</span></p></div></article>`}).join("");
   renderGallery();
-  $("#expOpts").innerHTML=P.exps.map((x,i)=>`<label><input type="checkbox" value="${i}" class="expChk"> <span>${esc(x.name)} <span class="muted num">(${fmt(x.price)} ${unitLabel(x.unit)})</span></span></label>`).join("");
-  $("#ciTime").textContent="From "+fmtTime(P.cit);$("#coTime").textContent="By "+fmtTime(P.cot);
-  $("#faqCi").textContent=fmtTime(P.cit);$("#faqCo").textContent=fmtTime(P.cot);$("#faqMax").textContent=P.max;
-  $("#guests").max=P.max;
+  $("#expOpts").innerHTML=PR.extras.map((x,i)=>`<label><input type="checkbox" value="${i}" class="expChk"> <span>${esc(x.name)} <span class="muted num">(${fmt(x.price)} ${unitLabel(x.unit)})</span></span></label>`).join("");
+  const R=PR.rules;$("#ciTime").textContent="From "+R.checkin;$("#coTime").textContent="By "+R.checkout;
+  $("#faqCi").textContent=R.checkin;$("#faqCo").textContent=R.checkout;$("#faqMax").textContent=R.maxGuests;
+  $("#guests").max=R.maxGuests;const rv=$("#rooms").value;$("#rooms").innerHTML=PR.rooms.map((x,i)=>`<option value="${i+1}">${i+1} room${i?"s":""}</option>`).join("");if(roomsTouched&&rv)$("#rooms").value=rv;autoRooms();
+  document.querySelectorAll("[data-rate]").forEach(el=>{const x=PR.rooms[+el.dataset.rate];el.textContent=x?`From ${fmt(x.wd)} a night for 2 · 3rd guest ${fmt(x.x3wd)}`:""});
+  renderOffers();
   document.querySelectorAll("[data-focus]").forEach(b=>b.addEventListener("click",()=>{$("#house").scrollIntoView({behavior:"smooth"});focusPart(b.dataset.focus)}));
   document.querySelectorAll(".expChk").forEach(c=>c.addEventListener("change",buildMsg));
   buildMsg();updateTime();
@@ -873,65 +800,105 @@ $("#lb").addEventListener("click",e=>{if(e.target.id==="lb")closeLb()});
 document.addEventListener("keydown",e=>{if($("#lb").hidden)return;if(e.key==="Escape")closeLb();if(e.key==="ArrowLeft")openLb(lbI-1);if(e.key==="ArrowRight")openLb(lbI+1)});
 let tx=null;$("#lb").addEventListener("touchstart",e=>tx=e.touches[0].clientX,{passive:true});$("#lb").addEventListener("touchend",e=>{if(tx==null)return;const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50)openLb(lbI+(d<0?1:-1));tx=null});
 
-/* ---------- pricing engine ---------- */
-function parseBlocked(txt){
-  const set=new Set();
-  (txt||"").split(/\n+/).map(s=>s.trim()).filter(Boolean).forEach(line=>{
-    const m=line.match(/^(\d{4}-\d{2}-\d{2})(?:\s*(?:to|-|–)\s*(\d{4}-\d{2}-\d{2}))?$/);
-    if(!m)return;let d=iso(m[1]);const end=iso(m[2]||m[1]);
-    while(d<=end){set.add(key(d));d=addDays(d,1)}
-  });return set;
-}
+/* ---------- pricing engine: prices come from the IslandStay Back Office Google Sheet ---------- */
 function iso(s){const [y,m,d]=s.split("-").map(Number);return new Date(Date.UTC(y,m-1,d))}
 function key(d){return d.toISOString().slice(0,10)}
 function addDays(d,n){const x=new Date(d);x.setUTCDate(x.getUTCDate()+n);return x}
-function nightRate(d){
-  const k=key(d);
-  for(const s of P.seasons){if(s.from&&s.to&&k>=s.from&&k<=s.to)return {rate:+s.rate,label:s.name}}
-  const wd=d.getUTCDay();
-  return (wd===5||wd===6)?{rate:+P.weekend,label:"Fri/Sat"}:{rate:+P.base,label:"Weekday"};
-}
-function calc(ciS,coS,guests,expIdx){
-  const out={ok:false,msg:""};
+const DAYS={sun:0,mon:1,tue:2,wed:3,thu:4,fri:5,sat:6};
+const weekendSet=()=>new Set(String(PR.rules.weekend||"Fri, Sat").toLowerCase().split(/[^a-z]+/).map(s=>DAYS[s.slice(0,3)]).filter(v=>v!==undefined));
+function seasonFor(k){return PR.seasons.find(s=>s.from&&s.to&&k>=s.from&&k<=s.to)}
+function calc(ciS,coS,guests,rooms,expIdx,promo){
+  const out={ok:false,msg:""};const R=PR.rules;const allRooms=PR.rooms.length;
   if(!ciS||!coS){out.msg="Choose check-in and check-out dates.";out.kind="warn";return out}
   const ci=iso(ciS),co=iso(coS);const nights=Math.round((co-ci)/864e5);
   if(nights<=0){out.msg="Check-out must be after check-in.";out.kind="bad";return out}
-  if(nights<P.minNights){out.msg=`Minimum stay is ${P.minNights} nights.`;out.kind="bad";return out}
-  if(guests>P.max){out.msg=`This home sleeps up to ${P.max} guests.`;out.kind="bad";return out}
-  const blocked=parseBlocked(P.blocked);const groups={};let stay=0;const clash=[];
-  for(let i=0;i<nights;i++){const d=addDays(ci,i);if(blocked.has(key(d)))clash.push(key(d));const r=nightRate(d);stay+=r.rate;const g=groups[r.label+"|"+r.rate]||(groups[r.label+"|"+r.rate]={label:r.label,rate:r.rate,n:0});g.n++}
-  if(clash.length){out.msg="Already booked on "+clash.join(", ")+". Try other dates.";out.kind="bad";return out}
-  const extraN=Math.max(0,guests-P.incl);const extra=extraN*P.extra*nights;
-  const exps=expIdx.map(i=>{const x=P.exps[i];const mult=x.unit==="person"?guests:x.unit==="person-day"?guests*nights:1;return {name:x.name,amt:x.price*mult}});
+  if(nights<R.minNights){out.msg=`Minimum stay is ${R.minNights} nights.`;out.kind="bad";return out}
+  if(guests>R.maxGuests){out.msg=`IslandStay sleeps up to ${R.maxGuests} guests.`;out.kind="bad";return out}
+  rooms=Math.max(1,Math.min(allRooms,rooms));
+  if(rooms<allRooms&&guests>R.maxPerRoom*rooms){out.msg=`${guests} guests need at least ${Math.ceil(guests/R.maxPerRoom)} rooms (up to ${R.maxPerRoom} per room).`;out.kind="bad";return out}
+  const chosen=PR.rooms.slice(0,rooms);const thirdN=Math.max(0,Math.min(guests,R.maxPerRoom*rooms)-R.perRoom*rooms);
+  const groupN=rooms===allRooms?Math.max(0,guests-Math.max(R.groupAfter,R.maxPerRoom*rooms)):0;
+  const wk=weekendSet();const blocked=new Set();PR.blocked.forEach(b=>{if(!b.from)return;let d=iso(b.from);const e=iso(b.to||b.from);while(d<=e){blocked.add(key(d));d=addDays(d,1)}});
+  const lines={};let stay=0;const clash=[];
+  for(let i=0;i<nights;i++){const d=addDays(ci,i),k=key(d);if(blocked.has(k))clash.push(k);const we=wk.has(d.getUTCDay());const s=seasonFor(k);const f=s?1+s.pct/100:1;
+    const roomAmt=chosen.reduce((a,r)=>a+(we?r.we:r.wd),0)*f;const thirdAmt=chosen.slice(0,thirdN).reduce((a,r)=>a+(we?r.x3we:r.x3wd),0)*f;const grpAmt=groupN*(we?R.groupWeekend:R.groupWeekday)*f;
+    const lab=(we?"Weekend":"Weekday")+(s?` · ${s.name} ${s.pct>0?"+":""}${s.pct}%`:"");
+    const L=lines[lab]||(lines[lab]={label:lab,n:0,rooms:0,third:0,group:0});L.n++;L.rooms+=roomAmt;L.third+=thirdAmt;L.group+=grpAmt;stay+=roomAmt+thirdAmt+grpAmt}
+  if(clash.length){out.msg="Already booked on "+clash.map(fmtD).join(", ")+". Try other dates.";out.kind="bad";return out}
+  const exps=expIdx.map(i=>{const x=PR.extras[i];const mult=x.unit==="person"?guests:x.unit==="person-day"?guests*nights:1;return {name:x.name,amt:x.price*mult}});
   const expTotal=exps.reduce((a,b)=>a+b.amt,0);
-  const gst=(stay+extra)*P.gst/100;const total=stay+extra+gst+expTotal;
-  return Object.assign(out,{ok:true,nights,groups:Object.values(groups),stay,extraN,extra,exps,expTotal,gst,total});
+  let pc=null,pcMsg="";if(promo){pc=PR.promos.find(p=>p.code.toUpperCase()===promo.toUpperCase());
+    if(!pc||!pc.active){pcMsg=`Promo code ${promo.toUpperCase()} isn't valid.`;pc=null}
+    else if((pc.from&&ciS<pc.from)||(pc.to&&ciS>pc.to)){pcMsg=`${pc.code} is valid for check-in ${pc.from?"from "+fmtD(pc.from):""}${pc.to?" to "+fmtD(pc.to):""}.`;pc=null}}
+  const pct=pc?pc.pct:0;const sub=stay+expTotal;const disc=sub*pct/100;const gst=stay*(1-pct/100)*R.gst/100;const total=sub-disc+gst;
+  return Object.assign(out,{ok:true,nights,rooms,thirdN,groupN,lines:Object.values(lines),stay,exps,expTotal,sub,pc,pcMsg,disc,gst,total});
 }
 const WA="919442344770";
 function fmtD(k){return iso(k).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"})}
+let roomsTouched=false,promoApplied="";
+function autoRooms(){if(roomsTouched)return;const g=+$("#guests").value||1;$("#rooms").value=String(Math.min(PR.rooms.length,Math.max(1,Math.ceil(Math.min(g,PR.rules.perRoom*PR.rooms.length)/PR.rules.perRoom))))}
 function buildMsg(){
-  const g=+$("#guests").value||1;const idx=[...document.querySelectorAll(".expChk:checked")].map(c=>+c.value);
-  const ci=$("#ci").value,co=$("#co").value;const q=calc(ci,co,g,idx);const name=$("#gname").value.trim();const note=$("#gmsg").value.trim();
+  const g=+$("#guests").value||1;const rooms=+$("#rooms").value||1;const idx=[...document.querySelectorAll(".expChk:checked")].map(c=>+c.value);
+  const ci=$("#ci").value,co=$("#co").value;const q=calc(ci,co,g,rooms,idx,promoApplied);const name=$("#gname").value.trim();const note=$("#gmsg").value.trim();
   let m=`Hello IslandStay! ${name?`This is ${name}. `:""}I'd like to stay with you.\n\n`;
   m+=q.ok?`Dates: ${fmtD(ci)} to ${fmtD(co)} (${q.nights} night${q.nights>1?"s":""})\n`:`Dates: not fixed yet, could you suggest some?\n`;
-  m+=`Guests: ${g}\n`;
-  if(idx.length)m+=`Interested in: ${idx.map(i=>P.exps[i].name).join(", ")}\n`;
+  m+=`Guests: ${g}\nRooms: ${rooms}\n`;
+  if(idx.length)m+=`Interested in: ${idx.map(i=>PR.extras[i].name).join(", ")}\n`;
+  if(q.ok&&q.pc)m+=`Promo code: ${q.pc.code} (${q.pc.pct}% off)\n`;
   if(note)m+=`\n${note}\n`;
   if(q.ok)m+=`\nThe website estimate was ${fmt(q.total)}.`;
   $("#waText").textContent=m;$("#waLink").href=`https://wa.me/${WA}?text=${encodeURIComponent(m)}`;
   let h="";
-  if(q.ok){h=q.groups.map(x=>`<div class="q-row num"><span>${esc(x.label)} · ${x.n} × ${fmt(x.rate)}</span><span>${fmt(x.n*x.rate)}</span></div>`).join("");
-    if(q.extra)h+=`<div class="q-row num"><span>Extra guests · ${q.extraN} × ${q.nights} nights</span><span>${fmt(q.extra)}</span></div>`;
-    if(P.gst>0)h+=`<div class="q-row num"><span>GST on stay (${P.gst}%)</span><span>${fmt(q.gst)}</span></div>`;
+  if(q.ok){h=q.lines.map(x=>`<div class="q-row num"><span>${esc(x.label)} · ${x.n} night${x.n>1?"s":""} · ${q.rooms} room${q.rooms>1?"s":""}</span><span>${fmt(x.rooms)}</span></div>`+
+      (x.third?`<div class="q-row num sub"><span>3rd guest in ${q.thirdN} room${q.thirdN>1?"s":""}</span><span>${fmt(x.third)}</span></div>`:"")+
+      (x.group?`<div class="q-row num sub"><span>Group: ${q.groupN} extra guest${q.groupN>1?"s":""}</span><span>${fmt(x.group)}</span></div>`:"")).join("");
     q.exps.forEach(x=>h+=`<div class="q-row num"><span>${esc(x.name)}</span><span>${fmt(x.amt)}</span></div>`);
-    h+=`<div class="q-row total num"><span>Estimated total</span><span>${fmt(q.total)}</span></div>`}
+    if(q.pc)h+=`<div class="q-row num disc"><span>Promo ${esc(q.pc.code)} · ${q.pc.pct}% off</span><span>−${fmt(q.disc)}</span></div>`;
+    if(PR.rules.gst>0)h+=`<div class="q-row num"><span>GST on stay (${PR.rules.gst}%)</span><span>${fmt(q.gst)}</span></div>`;
+    h+=`<div class="q-row total num"><span>Estimated total</span><span>${q.pc?`<s class="muted">${fmt(q.sub+q.stay*PR.rules.gst/100)}</s> `:""}${fmt(q.total)}</span></div>`;
+    if(q.pcMsg)h+=`<div class="status warn">${esc(q.pcMsg)}</div>`}
   else if(q.kind==="bad")h=`<div class="status bad">${q.msg}</div>`;
-  else h=`<p class="note">Whole house from <b class="num">${fmt(P.base)}</b> a night for up to ${P.incl} guests.</p>`;
+  else{const lo=Math.min(...PR.rooms.map(r=>r.wd));h=`<p class="note">Rooms from <b class="num">${fmt(lo)}</b> a night for 2 guests.</p>`}
   $("#quoteBody").innerHTML=h;
+  $("#promoStatus").innerHTML=promoApplied?(q.ok&&q.pc?`<span class="ok-t">${esc(q.pc.code)} applied: ${q.pc.pct}% off</span>`:(q.ok&&q.pcMsg?`<span class="bad-t">${esc(q.pcMsg)}</span>`:"")):"";
 }
-["#ci","#co","#guests","#gname","#gmsg"].forEach(s=>$(s).addEventListener("input",buildMsg));
+function renderOffers(){
+  const live=PR.promos.filter(p=>p.active&&(!p.to||p.to>=new Date().toISOString().slice(0,10)));
+  $("#offerList").innerHTML=live.length?live.map(p=>`<button type="button" class="offer" data-code="${esc(p.code)}" aria-pressed="${p.code===promoApplied}"><b>${esc(p.code)}</b><span>${esc(p.text||p.pct+"% off")}</span></button>`).join(""):`<p class="muted note">No offers running right now.</p>`;
+  $("#offerBar").hidden=!live.length;$("#offerBar").innerHTML=live.length?`Current offer${live.length>1?"s":""}: ${live.map(p=>`<b>${esc(p.code)}</b> · ${esc(p.text||p.pct+"% off")}`).join(" &nbsp;|&nbsp; ")}`:"";
+}
+$("#offerList").addEventListener("click",e=>{const b=e.target.closest("[data-code]");if(!b)return;promoApplied=b.dataset.code===promoApplied?"":b.dataset.code;$("#promo").value=promoApplied;renderOffers();buildMsg()});
+$("#promoApply").addEventListener("click",()=>{promoApplied=$("#promo").value.trim().toUpperCase();$("#promo").value=promoApplied;renderOffers();buildMsg()});
+$("#promo").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("#promoApply").click()}});
+$("#rooms").addEventListener("change",()=>{roomsTouched=true;buildMsg()});
+$("#guests").addEventListener("input",()=>{autoRooms();buildMsg()});
+["#ci","#co","#gname","#gmsg"].forEach(s=>$(s).addEventListener("input",buildMsg));
 $("#copyWa").addEventListener("click",()=>{const btn=$("#copyWa"),old=btn.textContent;navigator.clipboard.writeText($("#waText").textContent).then(()=>{btn.textContent="Copied";setTimeout(()=>btn.textContent=old,1500)}).catch(()=>{const rg=document.createRange();rg.selectNodeContents($("#waText"));const sl=getSelection();sl.removeAllRanges();sl.addRange(rg);btn.textContent="Press Ctrl+C"})});
 $("#heroWa").href=`https://wa.me/${WA}?text=${encodeURIComponent("Hello IslandStay! I have a question about staying with you.")}`;
+
+/* load live prices from the published Google Sheet */
+function parseCSV(t){const rows=[];let row=[],f="",q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c==='"'){if(t[i+1]==='"'){f+='"';i++}else q=false}else f+=c}else if(c==='"')q=true;else if(c===","){row.push(f);f=""}else if(c==="\n"||c==="\r"){if(c==="\r"&&t[i+1]==="\n")i++;row.push(f);rows.push(row);row=[];f=""}else f+=c}if(f||row.length){row.push(f);rows.push(row)}return rows}
+const num=v=>{const n=parseFloat(String(v==null?"":v).replace(/[^0-9.\-]/g,""));return isNaN(n)?0:n};
+const pad=n=>String(n).padStart(2,"0");
+function isoDate(v){v=String(v||"").trim();if(!v)return "";let m=v.match(/^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})/);if(m)return `${m[1]}-${pad(m[2])}-${pad(m[3])}`;
+  m=v.match(/^(\d{1,2})[-/.](\d{1,2})[-/.](\d{2,4})$/);if(m){const y=m[3].length===2?"20"+m[3]:m[3];return `${y}-${pad(m[2])}-${pad(m[1])}`}
+  const d=new Date(v);return isNaN(d)?"":`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`}
+function fromSheet(rows){
+  const P=structuredClone(DEF_PR);const T=["ROOM RATES","RULES","SEASONS","PROMO CODES","BLOCKED DATES","EXTRAS","HOW PRICES"];const sec={};let cur=null,skip=0;
+  rows.forEach(r=>{const a=(r[0]||"").trim();const up=a.toUpperCase();const t=T.find(x=>up.startsWith(x));if(t){cur=t;skip=1;sec[t]=[];return}if(!cur)return;if(skip){skip--;return}if(r.every(c=>!String(c).trim()))return;sec[cur].push(r)});
+  if(sec["ROOM RATES"]&&sec["ROOM RATES"].length)P.rooms=sec["ROOM RATES"].filter(r=>r[0]).map(r=>({name:r[0],wd:num(r[1]),we:num(r[2])||num(r[1]),x3wd:num(r[3]),x3we:num(r[4])||num(r[3])}));
+  (sec["RULES"]||[]).forEach(r=>{const k=(r[2]||"").trim();if(!k)return;P.rules[k]=["weekend","checkin","checkout"].includes(k)?String(r[1]).trim():num(r[1])});
+  if(sec["SEASONS"])P.seasons=sec["SEASONS"].filter(r=>r[0]&&r[1]).map(r=>({name:r[0],from:isoDate(r[1]),to:isoDate(r[2])||isoDate(r[1]),pct:num(r[3])}));
+  if(sec["PROMO CODES"])P.promos=sec["PROMO CODES"].filter(r=>r[0]).map(r=>({code:r[0].trim().toUpperCase(),pct:Math.min(100,Math.max(0,num(r[1]))),text:r[2]||"",from:isoDate(r[3]),to:isoDate(r[4]),active:/^y/i.test(String(r[5]||"").trim())}));
+  if(sec["BLOCKED DATES"])P.blocked=sec["BLOCKED DATES"].filter(r=>r[0]).map(r=>({from:isoDate(r[0]),to:isoDate(r[1])||isoDate(r[0])}));
+  if(sec["EXTRAS"])P.extras=sec["EXTRAS"].filter(r=>r[0]).map(r=>({name:r[0],price:num(r[1]),unit:(String(r[2]||"group").trim().toLowerCase())}));
+  return P}
+async function loadPrices(){
+  if(!SHEET_CSV)return;
+  try{const ctl=new AbortController();const tmo=setTimeout(()=>ctl.abort(),8000);const res=await fetch(SHEET_CSV+(SHEET_CSV.includes("?")?"&":"?")+"t="+Date.now(),{signal:ctl.signal});clearTimeout(tmo);
+    if(!res.ok)throw 0;const P=fromSheet(parseCSV(await res.text()));if(!P.rooms.length)throw 0;PR=P;try{localStorage.setItem("islandstay.prices",JSON.stringify(PR))}catch(e){}
+    if(!$("#site").hidden)renderSite()}catch(e){}
+}
 
 /* ---------- things to do: real photos + clock follow the scroll ---------- */
 const SECS=[...document.querySelectorAll("#things .tsec[data-t]")];
@@ -951,36 +918,6 @@ function updateTime(){
   const k=act.dataset.bg;if(k!==curBg){if(curBg)BGS[curBg].classList.remove("on");BGS[k].classList.add("on");curBg=k}
 }
 addEventListener("scroll",updateTime,{passive:true});addEventListener("resize",updateTime);
-
-/* ---------- owner pricing editor ---------- */
-function fillAdmin(){
-  $("#a_base").value=P.base;$("#a_weekend").value=P.weekend;$("#a_incl").value=P.incl;$("#a_extra").value=P.extra;$("#a_max").value=P.max;$("#a_minn").value=P.minNights;
-  $("#a_adv").value=P.advance;$("#a_gst").value=P.gst;$("#a_cit").value=P.cit;$("#a_cot").value=P.cot;
-  $("#a_block").value=P.blocked;$("#a_ical").value=P.ical;$("#a_ical2").value=P.ical2;
-  drawSeasons();drawExps();
-}
-function drawSeasons(){
-  $("#seasonRows").innerHTML=P.seasons.map((s,i)=>`<tr><td><input data-s="${i}" data-f="name" value="${esc(s.name)}" aria-label="Season name"></td><td><input type="date" data-s="${i}" data-f="from" value="${s.from}" aria-label="From"></td><td><input type="date" data-s="${i}" data-f="to" value="${s.to}" aria-label="To"></td><td><input type="number" step="100" data-s="${i}" data-f="rate" value="${s.rate}" aria-label="Rate"></td><td><button class="del" type="button" data-sdel="${i}">Remove</button></td></tr>`).join("")||`<tr><td colspan="5" class="muted">No seasons. Weekday and weekend rates apply all year.</td></tr>`;
-}
-function drawExps(){
-  $("#expRows").innerHTML=P.exps.map((x,i)=>`<tr><td><input data-e="${i}" data-f="name" value="${esc(x.name)}" aria-label="Experience name"></td><td><input type="number" step="50" data-e="${i}" data-f="price" value="${x.price}" aria-label="Price"></td><td><select data-e="${i}" data-f="unit" aria-label="Charged">${["person","group","person-day","trip"].map(u=>`<option value="${u}"${u===x.unit?" selected":""}>${unitLabel(u)}</option>`).join("")}</select></td><td><button class="del" type="button" data-edel="${i}">Remove</button></td></tr>`).join("");
-}
-$("#seasonRows").addEventListener("input",e=>{const i=e.target.dataset.s;if(i==null)return;const f=e.target.dataset.f;P.seasons[i][f]=f==="rate"?+e.target.value:e.target.value});
-$("#seasonRows").addEventListener("click",e=>{const i=e.target.dataset.sdel;if(i==null)return;P.seasons.splice(+i,1);drawSeasons()});
-$("#addSeason").addEventListener("click",()=>{P.seasons.push({name:"New season",from:"",to:"",rate:P.base});drawSeasons()});
-$("#expRows").addEventListener("input",e=>{const i=e.target.dataset.e;if(i==null)return;const f=e.target.dataset.f;P.exps[i][f]=f==="price"?+e.target.value:e.target.value});
-$("#expRows").addEventListener("change",e=>{const i=e.target.dataset.e;if(i==null)return;P.exps[i][e.target.dataset.f]=e.target.dataset.f==="price"?+e.target.value:e.target.value});
-$("#expRows").addEventListener("click",e=>{const i=e.target.dataset.edel;if(i==null)return;P.exps.splice(+i,1);drawExps()});
-$("#addExp").addEventListener("click",()=>{P.exps.push({name:"New experience",price:0,unit:"group"});drawExps()});
-function readAdmin(){
-  P.base=+$("#a_base").value||0;P.weekend=+$("#a_weekend").value||P.base;P.incl=+$("#a_incl").value||1;P.extra=+$("#a_extra").value||0;P.max=+$("#a_max").value||16;P.minNights=+$("#a_minn").value||1;
-  P.advance=Math.min(100,Math.max(0,+$("#a_adv").value||0));P.gst=+$("#a_gst").value||0;P.cit=$("#a_cit").value;P.cot=$("#a_cot").value;
-  P.blocked=$("#a_block").value;P.ical=$("#a_ical").value;P.ical2=$("#a_ical2").value;
-}
-function toast(m){$("#toast").textContent=m;setTimeout(()=>{if($("#toast").textContent===m)$("#toast").textContent=""},3000)}
-$("#saveBtn").addEventListener("click",()=>{readAdmin();toast(store()?"Saved in this browser":"Couldn't save: this browser blocks storage")});
-$("#resetBtn").addEventListener("click",()=>{if($("#resetBtn").dataset.arm){P=structuredClone(DEFAULTS);store();fillAdmin();toast("Back to defaults");delete $("#resetBtn").dataset.arm;$("#resetBtn").textContent="Back to defaults"}else{$("#resetBtn").dataset.arm=1;$("#resetBtn").textContent="Click again to reset"}});
-$("#copyJson").addEventListener("click",()=>{readAdmin();const b=$("#copyJson");navigator.clipboard.writeText(JSON.stringify(P,null,2)).then(()=>toast("Copied")).catch(()=>toast("Copy blocked here"))});
 
 /* ---------- 3D house ---------- */
 let focusPart=()=>{},updateRoofLabel=()=>{};
@@ -1405,7 +1342,7 @@ const a=new Date(today);a.setDate(a.getDate()+14);const b=new Date(a);b.setDate(
 $("#ci").value=toISO(a);$("#co").value=toISO(b);
 $("#tabExplore").addEventListener("click",e=>{e.preventDefault();if(location.hash){history.pushState(null,"",location.pathname+location.search);route()}else window.scrollTo(0,0)});
 addEventListener("popstate",route);
-route();setLang(lang);init3D();updateTime();
+route();setLang(lang);init3D();updateTime();loadPrices();
 })();
 </script>
 
