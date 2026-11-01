@@ -1,0 +1,1413 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="IslandStay, a riverside homestay on the Kallada river between Munroe Island and West Kallada, Kollam, Kerala. Three bedrooms, kayaks, bonfire, enquire on WhatsApp.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>IslandStay · Riverside homestay, Munroe Island, Kollam</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Figtree:wght@400;500;600;700&family=Noto+Sans+Malayalam:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600&family=Tiro+Devanagari+Hindi&display=swap">
+<style>
+/* Layout: river-to-house — a live 3D model of the property opens the page, then the stay reads top to bottom and ends at a sticky quote that follows the booking form. */
+:root{
+  --paper:#F2F5EE; --card:#FFFFFF; --ink:#15231E; --muted:#56665F; --line:#D3DCD2;
+  --lagoon:#0F4C4A; --lagoon-soft:#DCEAE5; --laterite:#A9482A; --lemon:#E6CF3E; --on-lemon:#1B2310;
+  --ok:#2F7A4B; --warn:#9A6A0B; --bad:#A33A2A;
+  --sky-top:#CFE3DC; --sky-bot:#EEF3E6;
+  --display:"Cormorant Garamond","Tiro Devanagari Hindi","Noto Sans Malayalam",Georgia,serif;
+  --body:"Figtree","Noto Sans Devanagari","Noto Sans Malayalam",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0D1614; --card:#14201D; --ink:#E5EDE8; --muted:#9BABA4; --line:#26362F;
+  --lagoon:#6CC0B2; --lagoon-soft:#173430; --laterite:#DD7E57; --lemon:#E6CF3E; --on-lemon:#1B2310;
+  --ok:#6CC08A; --warn:#E0B24A; --bad:#EE8270;
+  --sky-top:#0F2422; --sky-bot:#162B26; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0D1614; --card:#14201D; --ink:#E5EDE8; --muted:#9BABA4; --line:#26362F;
+  --lagoon:#6CC0B2; --lagoon-soft:#173430; --laterite:#DD7E57; --lemon:#E6CF3E; --on-lemon:#1B2310;
+  --ok:#6CC08A; --warn:#E0B24A; --bad:#EE8270;
+  --sky-top:#0F2422; --sky-bot:#162B26; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+html[lang="ml"] body{font-family:"Noto Sans Malayalam",var(--body);font-size:15px}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.05;letter-spacing:-.01em;text-wrap:balance;margin:0}
+html[lang="hi"] h1,html[lang="hi"] h2,html[lang="hi"] h3{font-family:"Tiro Devanagari Hindi",serif;font-weight:400;line-height:1.25}
+html[lang="ml"] h1,html[lang="ml"] h2,html[lang="ml"] h3{font-family:"Noto Sans Malayalam",serif;font-weight:600}
+p{margin:0}
+a{color:var(--lagoon)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--lemon);outline-offset:2px}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--laterite);font-weight:600}
+.muted{color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+
+/* header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:16px;padding-block:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);margin-right:auto}
+.brand .leaf{width:30px;height:30px;border-radius:50% 0 50% 50%;background:var(--lemon);transform:rotate(-45deg);box-shadow:inset -4px -4px 0 rgba(0,0,0,.08)}
+.bname{display:flex;flex-direction:column;line-height:1}
+.bname b{font-family:var(--display);font-weight:700;font-size:1.55rem;letter-spacing:.01em}
+.bname small{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+nav.links{display:flex;gap:4px;flex-wrap:wrap}
+nav.links a{text-decoration:none;color:var(--ink);padding:6px 10px;border-radius:6px;font-size:.95rem}
+nav.links a:hover{background:var(--lagoon-soft)}
+.tools{display:flex;gap:8px;align-items:center}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.lang button{border:0;background:transparent;padding:4px 10px;cursor:pointer;font-size:.85rem}
+.lang button[aria-pressed="true"]{background:var(--lagoon);color:var(--paper)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:8px;padding:11px 18px;font-weight:600;cursor:pointer;text-decoration:none;transition:transform .15s}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--lemon);color:var(--on-lemon)}
+.btn.dark{background:var(--lagoon);color:var(--paper)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn.sm{padding:6px 12px;font-size:.88rem}
+@media (max-width:760px){nav.links{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap}}
+
+/* hero + 3D */
+.hero{position:relative;background:linear-gradient(var(--sky-top),var(--sky-bot));border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px;align-items:center;padding-block:40px 28px}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;padding-block:28px 20px}}
+.hero h1{font-size:clamp(3.2rem,7.5vw,5.6rem);color:var(--lagoon);font-weight:700}
+.hero h1 small{display:block;font-size:.36em;font-style:italic;font-weight:500;color:var(--laterite);margin-top:10px;letter-spacing:0}
+.hero .lede{margin-top:16px;font-size:1.08rem;max-width:44ch}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;padding:0;list-style:none}
+.facts li{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 12px;font-size:.9rem}
+.hero .ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.stage{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(180deg,var(--sky-top),var(--sky-bot));aspect-ratio:4/3;max-width:100%}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+#scene:active{cursor:grabbing}
+.stage .hud{position:absolute;left:12px;right:12px;top:12px;display:flex;justify-content:space-between;gap:8px;pointer-events:none}
+.stage .hud>*{pointer-events:auto}
+.stage .tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.8rem}
+.stage .fallback{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px}
+.info{position:absolute;left:12px;bottom:12px;max-width:min(330px,calc(100% - 24px));background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.info h3{font-size:1.5rem;color:var(--lagoon)}
+.info p{font-size:.92rem;margin-top:4px}
+.info .x{position:absolute;right:8px;top:6px;border:0;background:transparent;font-size:1.2rem;cursor:pointer;color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 12px;font-size:.85rem;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--lagoon);color:var(--paper);border-color:var(--lagoon)}
+
+/* sections */
+section.block{padding-block:56px}
+section.block+section.block{border-top:1px solid var(--line)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.sec-head h2{font-size:clamp(2.2rem,4.2vw,3.1rem)}
+.sec-head p{max-width:52ch}
+
+.rooms{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.room{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+.room .ph{aspect-ratio:16/10;max-width:100%;display:grid;place-items:center;color:var(--paper);font-family:var(--display);font-size:1.5rem;position:relative}
+.room .ph span{position:absolute;right:10px;bottom:8px;font-family:var(--body);font-size:.72rem;opacity:.85}
+.room .body{padding:14px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.room h3{font-size:1.55rem}
+.room .beds{font-size:.9rem;color:var(--muted)}
+
+.amen{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;list-style:none;padding:0;margin:0}
+.amen li{display:flex;gap:10px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line)}
+.amen li i{width:8px;height:8px;border-radius:2px;background:var(--lagoon);transform:rotate(45deg);flex:none}
+
+.exps{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.exp{border-top:3px solid var(--laterite);background:var(--card);border-radius:0 0 var(--r) var(--r);padding:16px;display:flex;flex-direction:column;gap:6px}
+.exp h3{font-size:1.45rem}
+.exp .price{margin-top:auto;font-weight:600;color:var(--lagoon)}
+
+/* booking */
+.book-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:24px;align-items:start}
+@media (max-width:900px){.book-grid{grid-template-columns:1fr}}
+form.card,.quote{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.quote{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fields .full{grid-column:1/-1}
+@media (max-width:520px){.fields{grid-template-columns:1fr}}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:.88rem;font-weight:500;min-width:0}
+label.f input,label.f select,label.f textarea{border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:9px 10px;width:100%;min-width:0}
+fieldset{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:0;min-width:0}
+legend{font-size:.88rem;font-weight:500;padding:0 4px}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts label{display:flex;gap:8px;align-items:flex-start;font-size:.93rem;cursor:pointer}
+.opts input{margin-top:5px}
+.q-row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;font-size:.95rem}
+.q-row.total{border-top:1px solid var(--line);margin-top:6px;padding-top:10px;font-weight:600;font-size:1.05rem}
+.q-row.pay{background:var(--lagoon-soft);border-radius:8px;padding:10px 12px;margin-top:10px;font-weight:600}
+.status{font-size:.88rem;padding:8px 10px;border-radius:8px;margin-top:10px}
+.status.ok{color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent)}
+.status.bad{color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent)}
+.status.warn{color:var(--warn);background:color-mix(in srgb,var(--warn) 12%,transparent)}
+.note{font-size:.82rem;color:var(--muted);margin-top:10px}
+.files{font-size:.85rem;color:var(--muted)}
+.confirm{margin-top:16px;border:1px dashed var(--lagoon);border-radius:var(--r);padding:16px}
+.confirm pre{white-space:pre-wrap;font-family:var(--body);font-size:.9rem;background:var(--paper);padding:10px;border-radius:8px;margin:10px 0}
+
+.loc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+@media (max-width:760px){.loc{grid-template-columns:1fr}}
+.loc dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:0}
+.loc dt{color:var(--muted)}
+.loc dd{margin:0}
+
+footer{border-top:1px solid var(--line);padding-block:28px;font-size:.88rem;color:var(--muted)}
+footer .wrap{display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap}
+
+/* owner pricing editor */
+#admin h1{font-size:clamp(2rem,4vw,2.8rem);color:var(--lagoon)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-top:20px}
+.panel h2{font-size:1.5rem;margin-bottom:12px}
+.tbl-wrap{overflow-x:auto}
+table.ed{border-collapse:collapse;width:100%;min-width:520px}
+table.ed th{text-align:left;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--line)}
+table.ed td{padding:6px 8px;border-bottom:1px solid var(--line)}
+table.ed input,table.ed select{border:1px solid var(--line);background:var(--paper);border-radius:6px;padding:6px 8px;width:100%}
+.del{border:0;background:transparent;color:var(--bad);cursor:pointer;font-size:.88rem}
+.savebar{position:sticky;bottom:0;background:var(--card);border-top:1px solid var(--line);padding-block:12px calc(12px + env(safe-area-inset-bottom,0px));margin-top:24px;z-index:5}
+.savebar .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.toast{margin-left:auto;font-size:.9rem;color:var(--ok)}
+.badge{display:inline-block;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;background:color-mix(in srgb,var(--warn) 16%,transparent);color:var(--warn);border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:middle}
+
+/* photos */
+.strip{padding-block:28px 8px}
+.mosaic{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:230px 230px;gap:10px}
+.mosaic figure{margin:0;position:relative;border-radius:var(--r);overflow:hidden;min-width:0}
+.mosaic .m1{grid-row:1/3}.mosaic .m2{grid-column:2/4}
+.mosaic img,.gal img,.room .ph img,.exp img{width:100%;height:100%;object-fit:cover;display:block}
+.mosaic figcaption{position:absolute;left:10px;bottom:10px;background:rgba(10,20,18,.62);color:#fff;font-size:.82rem;padding:3px 10px;border-radius:999px}
+@media (max-width:760px){.mosaic{grid-template-columns:1fr 1fr;grid-template-rows:240px 150px 150px}.mosaic .m1{grid-row:auto;grid-column:1/3}.mosaic .m2{grid-column:1/3}}
+.room .ph img{position:absolute;inset:0}
+.exp{padding:0;overflow:hidden}.exp .eimg{aspect-ratio:16/10;max-width:100%;background:var(--lagoon-soft)}
+.exp .etext{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
+.gal button{border:0;padding:0;border-radius:8px;overflow:hidden;aspect-ratio:4/3;max-width:100%;cursor:zoom-in;background:var(--lagoon-soft)}
+.gal button:hover img{transform:scale(1.04)}.gal img{transition:transform .3s}
+.lb{position:fixed;inset:0;z-index:50;background:rgba(6,12,11,.94);display:grid;grid-template-rows:auto 1fr auto;padding:calc(10px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));color:#fff}
+.lb .bar{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.9rem}
+.lb figure{margin:0;display:grid;place-items:center;min-height:0}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;border-radius:6px}
+.lb .nav{display:flex;justify-content:center;gap:12px}
+.lb button{background:rgba(255,255,255,.12);color:#fff;border:0;border-radius:999px;padding:8px 16px;cursor:pointer;font-size:1rem}
+.info img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:6px;margin-bottom:8px;display:block}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+/* scroll story: a fixed river scene whose time of day follows the scroll */
+:root{--wa:#1d7a4c;--on-wa:#ffffff}
+.sky{position:fixed;inset:0;z-index:0;background:linear-gradient(var(--skyA,#c9c3d3),var(--skyB,#f1d8cf))}
+.sky canvas{width:100%;height:100%;display:block}
+#site,#admin,#gate,footer{position:relative;z-index:1}
+#admin,#gate,footer{background:var(--paper)}
+.tsec{padding-block:clamp(48px,12vh,120px)}
+.tsec .wrap{display:flex}
+.glass{background:color-mix(in srgb,var(--card) 87%,transparent);-webkit-backdrop-filter:blur(12px) saturate(1.1);backdrop-filter:blur(12px) saturate(1.1);border:1px solid color-mix(in srgb,var(--line) 70%,transparent);border-radius:18px;padding:clamp(20px,3.2vw,40px);box-shadow:0 24px 60px rgba(8,28,30,.14);min-width:0}
+.narrow{max-width:640px}.wide{width:100%}
+.opening{min-height:84svh;display:flex;align-items:center}
+.opening .wrap{width:100%}
+.opening h1{font-size:clamp(3.2rem,8.5vw,6.4rem);line-height:.92;color:var(--lagoon);font-weight:700;margin-top:10px}
+.opening .lede{margin-top:18px;font-size:1.1rem;max-width:46ch}
+.ml-word{font-family:"Noto Sans Malayalam",sans-serif;letter-spacing:0;text-transform:none}
+.hint{margin-top:22px;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.btn.wa{background:var(--wa);color:var(--on-wa)}
+.stamp{display:flex;align-items:baseline;gap:8px;margin-bottom:6px;color:var(--laterite)}
+.stamp b{font-family:var(--display);font-size:clamp(2.4rem,5vw,3.4rem);font-weight:700;line-height:1;color:var(--lagoon)}
+.stamp .ap{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.stamp .ml{font-family:"Noto Sans Malayalam",sans-serif;font-size:.92rem;margin-left:4px}
+.glass h2{font-size:clamp(2rem,4.4vw,3.2rem);margin-bottom:8px}
+.sub{color:var(--muted);max-width:60ch;margin-bottom:22px}
+.sec-head{margin-bottom:16px}
+.minor{font-size:1.6rem;margin:30px 0 14px}
+.clock{display:flex;flex-direction:column;align-items:flex-end;line-height:1.05;min-width:96px}
+.clock b{font-family:var(--display);font-size:1.45rem;font-weight:700;color:var(--lagoon)}
+.clock b small{font-family:var(--body);font-size:.7rem;font-weight:600;margin-left:3px;letter-spacing:.08em;text-transform:uppercase}
+.clock span{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.clock .bar{width:100%;height:2px;background:var(--line);margin-top:4px;border-radius:2px;overflow:hidden}
+.clock .bar i{display:block;height:100%;background:var(--laterite);width:0}
+@media (max-width:760px){.clock span,.clock .bar{display:none}.clock{min-width:0}}
+.room .ml{font-family:"Noto Sans Malayalam",sans-serif;color:var(--laterite);font-size:.95rem;margin-left:6px;font-weight:400}
+.room .mean{font-style:italic;color:var(--muted);font-size:.9rem;font-family:var(--display);font-size:1.05rem}
+.room{background:color-mix(in srgb,var(--card) 92%,transparent)}
+.stage{aspect-ratio:16/9}
+@media (max-width:760px){.stage{aspect-ratio:4/5}}
+.timeline{list-style:none;padding:0;margin:0}
+.timeline li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:18px;padding:16px 0;border-top:1px solid var(--line)}
+.timeline time{font-family:var(--display);font-size:1.35rem;font-weight:700;color:var(--lagoon);white-space:nowrap}
+.timeline h3{font-size:1.4rem}
+.timeline p{color:var(--muted);margin-top:2px}
+.ways{display:grid;grid-template-columns:auto 1fr;gap:12px 18px;margin:0}
+.ways dt{font-weight:600;color:var(--laterite);font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;padding-top:3px}
+.ways dd{margin:0}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:680px){.compare{grid-template-columns:1fr}}
+.compare .col{border-radius:14px;padding:20px;border:1px solid var(--line)}
+.compare .us{background:var(--lagoon);color:var(--paper);border-color:var(--lagoon)}
+.compare .us .eyebrow{color:var(--lemon)}
+.compare ul{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:14px}
+.compare li{display:flex;flex-direction:column}
+.compare li span{opacity:.78;font-size:.93rem}
+.compare .app{opacity:.85}
+.wa-box{background:color-mix(in srgb,var(--paper) 80%,transparent);border:1px solid var(--line);border-radius:14px;padding:18px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 80px)}
+.wa-box pre{white-space:pre-wrap;word-break:break-word;background:var(--card);border-radius:10px;padding:14px;font-family:var(--body);font-size:.93rem;margin:8px 0 12px;border-left:3px solid var(--wa)}
+#bookForm .fields{gap:14px}
+.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:10px}
+.review{margin:0;padding:20px;border-radius:14px;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 92%,transparent);display:flex;flex-direction:column;gap:14px}
+.review blockquote{margin:0;font-family:var(--display);font-size:1.45rem;font-style:italic;line-height:1.3}
+.review figcaption{font-size:.9rem;color:var(--muted);margin-top:auto}
+.review .src{display:block;color:var(--laterite);font-size:.8rem;margin-top:2px}
+details.faq{border-top:1px solid var(--line);padding:14px 0}
+details.faq summary{cursor:pointer;font-weight:600;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;gap:12px}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{content:"+";color:var(--laterite);font-size:1.3rem;line-height:1}
+details.faq[open] summary::after{content:"–"}
+details.faq p{margin-top:8px;color:var(--muted)}
+.mosaic{grid-template-rows:240px 200px}
+
+/* explore page cover + things-to-do page */
+.cover{position:relative;min-height:min(86svh,820px);display:flex;align-items:flex-end;overflow:hidden;background:#0b1513}
+.cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}
+.cover-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,20,18,.2) 0%,rgba(6,20,18,.25) 40%,rgba(6,20,18,.8) 100%)}
+.cover-inner{position:relative;padding-block:120px 48px;width:100%;color:#fff}
+.cover h1{font-size:clamp(3.2rem,8vw,6.2rem);color:#fff;line-height:.95;max-width:12ch;font-weight:700}
+.cover .lede{color:rgba(255,255,255,.92);max-width:52ch;margin-top:16px;font-size:1.1rem}
+.cover .facts li{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.32);color:#fff}
+.eyebrow.light{color:var(--lemon)}
+.btn.glassbtn{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.42)}
+.narrowcol{max-width:780px}
+.tabs{display:flex;gap:2px;background:var(--lagoon-soft);border-radius:999px;padding:3px}
+.tabs a{padding:6px 14px;border-radius:999px;text-decoration:none;color:var(--ink);font-weight:600;font-size:.9rem;white-space:nowrap}
+.tabs a[aria-current="page"]{background:var(--lagoon);color:var(--paper)}
+#things{position:relative;background:#0b1513}
+.tbg{position:fixed;inset:0;z-index:0}
+.tbg div{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.2s ease}
+.tbg div.on{opacity:1}
+.tbg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,15,14,.5),rgba(5,15,14,.08) 65%)}
+#things .tsec{position:relative;z-index:1;min-height:82svh;display:flex;align-items:center}
+#things .glass h1{font-size:clamp(2.8rem,7vw,5.2rem);line-height:.95;color:var(--lagoon);font-weight:700;margin-top:8px}
+#things .glass h2{font-size:clamp(2rem,4.4vw,3rem)}
+#things .glass p{margin-top:8px}
+.meta{margin-top:14px!important;font-size:.85rem;color:var(--laterite);font-weight:600;letter-spacing:.03em}
+.trips{list-style:none;padding:0;margin:16px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.trips li{display:flex;flex-direction:column;border-top:2px solid var(--laterite);padding-top:10px}
+.trips span{color:var(--muted);font-size:.93rem}
+@media (prefers-reduced-motion:reduce){.tbg div{transition:none}}
+
+/* 3D world */
+.views{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.stage{background:#bcd3dc}
+.labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.lbl{position:absolute;left:0;top:0;white-space:nowrap;background:rgba(14,26,24,.78);color:#fff;border-radius:8px;padding:4px 9px;font-size:.78rem;line-height:1.2;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.lbl b{font-weight:600;display:block}
+.lbl span{display:block;font-size:.7rem;opacity:.8}
+.lbl.home{background:#e6cf3e;color:#1b2310}
+.lbl.water{background:rgba(20,70,90,.7);font-style:italic}
+.lbl.small{font-size:.72rem;padding:3px 7px}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><span class="leaf" aria-hidden="true"></span><span class="bname"><b>IslandStay</b><small>LemonTree Homestay</small></span></a>
+    <nav class="tabs" aria-label="Pages">
+      <a href="#" id="tabExplore" data-i18n="tabExplore">Explore the property</a>
+      <a href="#things" id="tabThings" data-i18n="tabThings">Things to do</a>
+    </nav>
+    <nav class="links" id="sitenav">
+      <a href="#" data-go="rooms" data-i18n="navRooms">Rooms</a>
+      <a href="#" data-go="house" data-i18n="navHouse">3D house</a>
+      <a href="#" data-go="gallery" data-i18n="navGal">Photos</a>
+      <a href="#" data-go="book" data-i18n="navBook">Enquire</a>
+    </nav>
+    <div class="tools">
+      <div class="clock" aria-hidden="true" hidden><b id="clockT">5.45<small>am</small></b><span id="clockL">Dawn mist · Kollam</span><span class="bar"><i id="clockBar"></i></span></div>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="ml" aria-pressed="false">മല</button>
+        <button type="button" data-lang="hi" aria-pressed="false">हि</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="site">
+  <section class="cover" id="top">
+    <img class="cover-img" src="img/garden-river.jpg" alt="The garden of IslandStay running down to the river through coconut palms">
+    <div class="cover-shade"></div>
+    <div class="wrap cover-inner">
+      <p class="eyebrow light">Homestay · Munroe Island &amp; West Kallada, Kollam · <span class="ml-word">ഐലൻഡ് സ്റ്റേ</span></p>
+      <h1 data-i18n="heroH">Wake up beside the river.</h1>
+      <p class="lede" data-i18n="lede">IslandStay is a whole riverside home for your group: three bedrooms, a big garden of coconut palms running down to the water, and kayaks waiting at the bank. Ginsen will meet you at the gate.</p>
+      <ul class="facts">
+        <li data-i18n="f1">3 bedrooms</li><li data-i18n="f2">4 bathrooms</li><li data-i18n="f3">Up to 16 guests</li><li data-i18n="f4">On the river</li><li data-i18n="f5">Kerala Tourism classified</li>
+      </ul>
+      <div class="ctas">
+        <a class="btn primary" href="#" data-go="book" data-i18n="cta">Check dates</a>
+        <a class="btn glassbtn" href="#" data-go="house" data-i18n="see3d">See the house in 3D</a>
+        <a class="btn wa" id="heroWa" href="https://wa.me/919442344770" target="_blank" rel="noopener" data-i18n="wa">WhatsApp Ginsen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip">
+    <div class="wrap mosaic">
+      <figure class="m1"><img src="img/exterior-front.jpg" alt="IslandStay from the front courtyard"><figcaption>The house</figcaption></figure>
+      <figure class="m2"><img src="img/river-palms.jpg" alt="The river behind the garden, lined with coconut palms"><figcaption>River view from the backyard</figcaption></figure>
+      <figure class="m3"><img src="img/living-a.jpg" alt="Living room with sofa and TV"><figcaption>Living room</figcaption></figure>
+      <figure class="m4"><img src="img/river-kayak-dawn.jpg" alt="View from a kayak on the river at sunrise"><figcaption>Sunrise kayak</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="block" id="rooms">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-i18n="roomsH">Three bedrooms, each with its own name.</h2>
+        <p class="muted">The whole house is yours. Each bedroom has a queen bed and a bathroom beside it, and the living room has a sofa and floor mattresses for extra guests.</p>
+      </div>
+      <div class="rooms" id="roomList"></div>
+    </div>
+  </section>
+
+  <section class="block" id="house">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2 data-i18n="houseH">Explore the house and the island in 3D.</h2><p class="muted">Zoom out to see the Kallada river, the roads and how far the stations are.</p></div>
+        <button class="btn ghost" type="button" id="roofBtn" data-i18n="liftRoof">Lift the roof</button>
+      </div>
+      <div class="views" role="group" aria-label="3D view">
+        <button type="button" class="chip" data-view="house" aria-pressed="true">The house</button>
+        <button type="button" class="chip" data-view="area" aria-pressed="false">The neighbourhood</button>
+        <button type="button" class="chip" data-view="region" aria-pressed="false">To the railway stations</button>
+      </div>
+      <div class="stage" id="stage">
+        <canvas id="scene" aria-label="Interactive 3D model of the homestay. Drag to rotate, scroll or pinch to zoom, tap a room for details."></canvas>
+        <div class="labels" id="labels" aria-hidden="true"></div>
+        <div class="hud"><span class="tag" data-i18n="hint3d">Drag to turn · tap a room</span><span class="tag">Roads &amp; river: OpenStreetMap</span></div>
+        <div class="info" id="info" hidden>
+          <button class="x" type="button" id="infoClose" aria-label="Close">×</button>
+          <img id="infoImg" alt="" hidden>
+          <h3 id="infoTitle"></h3>
+          <p id="infoText"></p>
+        </div>
+        <div class="fallback" id="fallback" hidden><p>The 3D view needs WebGL, which this browser has turned off. The rooms are listed above.</p></div>
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Jump to a part of the house"></div>
+    </div>
+  </section>
+
+  <section class="block" id="gallery">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-i18n="galH">Every corner, in photos.</h2>
+        <div class="filters" id="filters" role="group" aria-label="Filter photos"></div>
+      </div>
+      <div class="gal" id="gal"></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head"><h2 data-i18n="amenH">What the place offers</h2></div>
+      <ul class="amen">
+        <li><i></i>River frontage at the back</li><li><i></i>Kayaks</li><li><i></i>Bicycles</li><li><i></i>Campfire area</li>
+        <li><i></i>Full kitchen with cookware</li><li><i></i>Dining table for six</li><li><i></i>Wi-Fi</li><li><i></i>Covered car porch</li>
+        <li><i></i>Large garden with coconut palms</li><li><i></i>AC bedrooms</li>
+      </ul>
+      <h3 class="minor" data-i18n="expH">Extras you can add</h3>
+      <div class="exps" id="expList"></div>
+      <p class="note">Meals aren't provided. The kitchen has utensils and cookware so your group can cook. Want ideas for the day? See <a href="#things">Things to do around the island</a>.</p>
+    </div>
+  </section>
+
+  <section class="block" id="book">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-i18n="bookH">Check your dates.</h2>
+        <p class="muted">Fill this in and we'll write the WhatsApp message to Ginsen for you.</p>
+      </div>
+      <div class="book-grid">
+        <form class="card" id="bookForm" novalidate>
+          <div class="fields">
+            <label class="f"><span data-i18n="ci">Arriving</span><input type="date" id="ci"></label>
+            <label class="f"><span data-i18n="co">Leaving</span><input type="date" id="co"></label>
+            <label class="f"><span data-i18n="guests">Guests</span><input type="number" id="guests" min="1" max="16" value="4"></label>
+            <label class="f"><span data-i18n="name">Your name</span><input type="text" id="gname" autocomplete="name"></label>
+            <fieldset class="full"><legend data-i18n="addExp">Interested in</legend><div class="opts" id="expOpts"></div></fieldset>
+            <label class="f full"><span data-i18n="notes">Anything to tell Ginsen?</span><textarea id="gmsg" rows="2" placeholder="Arrival time, group details, pickup from the station…"></textarea></label>
+          </div>
+        </form>
+        <aside class="wa-box" aria-live="polite">
+          <p class="eyebrow">Your message to Ginsen</p>
+          <pre id="waText"></pre>
+          <div id="quoteBody"></div>
+          <div class="ctas">
+            <a class="btn wa" id="waLink" href="https://wa.me/919442344770" target="_blank" rel="noopener" data-i18n="send">Send on WhatsApp</a>
+            <button class="btn ghost" type="button" id="copyWa" data-i18n="copy">Copy message</button>
+          </div>
+          <p class="note"><span data-i18n="noPay">No payment now. Ginsen confirms availability on WhatsApp first.</span> WhatsApp: <span class="num">+91 94423 44770</span></p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="location">
+    <div class="wrap loc">
+      <div>
+        <h2 style="font-size:clamp(2.2rem,4.2vw,3.1rem)" data-i18n="locH">Getting here</h2>
+        <p style="margin-top:12px;max-width:52ch">On the Kallada river, between Munroe Island and West Kallada in Kollam district. Ginsen sends a live location on WhatsApp and meets you at the gate.</p>
+        <p style="margin-top:16px"><a href="https://www.google.com/maps/place/LemonTree+Homestay/@9.0039,76.623606,17z" target="_blank" rel="noopener">Open in Google Maps ↗</a></p>
+      </div>
+      <dl>
+        <dt>Nearest station</dt><dd>Munroturuttu (MQO), on the island</dd>
+        <dt>Main station</dt><dd>Kollam Junction</dd>
+        <dt>Airport</dt><dd>Trivandrum (TRV); Kochi (COK) is further north</dd>
+        <dt>Check-in</dt><dd id="ciTime" class="num"></dd>
+        <dt>Check-out</dt><dd id="coTime" class="num"></dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="block" id="guestbook">
+    <div class="wrap">
+      <div class="sec-head"><h2 data-i18n="guestH">From the guest book.</h2></div>
+      <div class="reviews">
+        <figure class="review"><blockquote>The host was very friendly and responsive. He arranged a boat trip on the backwaters, and provided us utensils and cookware to cook. Even though our stay was short, we had fun to the maximum.</blockquote>
+          <figcaption><b>Nithin</b> · group of 9 · November 2025 <span class="src">★★★★★ on Airbnb</span></figcaption></figure>
+        <figure class="review"><blockquote>The beauty of nature and vintage home.</blockquote>
+          <figcaption><b>Akash</b> · June 2025 <span class="src">★★★★★ on Airbnb</span></figcaption></figure>
+      </div>
+      <p class="note">Reviews copied from the IslandStay listing on Airbnb.</p>
+    </div>
+  </section>
+
+  <section class="block" id="faq">
+    <div class="wrap narrowcol">
+      <div class="sec-head"><h2 data-i18n="faqH">Good questions.</h2></div>
+      <details class="faq"><summary>Are meals included?</summary><p>No. The house has a full kitchen with utensils and cookware, so groups usually cook for themselves.</p></details>
+      <details class="faq"><summary>How many people can stay?</summary><p>Three bedrooms with queen beds, plus a sofa and floor mattresses in the living room, for groups of up to <span id="faqMax" class="num">16</span>. Tell Ginsen your group size and he'll confirm the setup.</p></details>
+      <details class="faq"><summary>How do I pay?</summary><p>Nothing is paid on this website. Send an enquiry, Ginsen confirms availability on WhatsApp, then shares payment details.</p></details>
+      <details class="faq"><summary>What ID do I need?</summary><p>Every adult shows a government photo ID at check-in. Foreign guests need their passport and visa page.</p></details>
+      <details class="faq"><summary>Is the river safe for children?</summary><p>The garden opens onto the river, so please keep an eye on children near the water, and wear life jackets on kayaks and boats.</p></details>
+      <details class="faq"><summary>When are check-in and check-out?</summary><p>Check-in from <span id="faqCi" class="num"></span>, check-out by <span id="faqCo" class="num"></span>.</p></details>
+    </div>
+  </section>
+
+  <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <div class="bar"><span id="lbCap"></span><button type="button" id="lbClose">Close ✕</button></div>
+    <figure><img id="lbImg" alt=""></figure>
+    <div class="nav"><button type="button" id="lbPrev">‹ Prev</button><span id="lbCount" class="num" style="align-self:center"></span><button type="button" id="lbNext">Next ›</button></div>
+  </div>
+</main>
+
+<main id="things" hidden>
+  <div class="tbg" id="tbg" aria-hidden="true"></div>
+  <section class="tsec opening" data-t="5.5" data-bg="river-kayak-dawn">
+    <div class="wrap"><div class="glass narrow">
+      <p class="eyebrow">Things to do · Munroe Island &amp; West Kallada</p>
+      <h1 data-i18n="thingsH">A day on the island, hour by hour.</h1>
+      <p class="lede">Munroe Island is a cluster of small islands where the Kallada river meets Ashtamudi lake, laced with narrow canals and mangroves. Here is how a good day around IslandStay can go. Scroll and the clock moves with you.</p>
+      <p class="hint">Scroll through the day</p>
+    </div></div>
+  </section>
+
+  <section class="tsec" data-t="5.9" data-bg="river-kayak-dawn">
+    <div class="wrap"><div class="glass narrow">
+      <p class="stamp"><b>5.45</b><span class="ap">am</span><span class="ml">പുലർച്ചെ</span></p>
+      <h2>Sunrise at Palliyarthuruth</h2>
+      <p>Locals point visitors to Palliyarthuruth on Munroe Island for sunrise. Leave in the dark and watch the light come up over the water.</p>
+      <p class="meta">Short drive or boat from the house · go before 6</p>
+    </div></div>
+  </section>
+
+  <section class="tsec" data-t="6.6" data-bg="boat">
+    <div class="wrap"><div class="glass narrow">
+      <p class="stamp"><b>6.30</b><span class="ap">am</span><span class="ml">തോണി</span></p>
+      <h2>Canoe through the island canals</h2>
+      <p>The classic Munroe Island trip: a country boat or canoe through narrow canals, past village homes, coconut groves and mangroves, with herons and kingfishers along the banks. Ginsen can help arrange a boatman.</p>
+      <p class="meta">About 2 to 3 hours · life jackets on, stay seated in small boats</p>
+    </div></div>
+  </section>
+
+  <section class="tsec" data-t="8.25" data-bg="kayaker">
+    <div class="wrap"><div class="glass narrow">
+      <p class="stamp"><b>8.15</b><span class="ap">am</span><span class="ml">കയാക്ക്</span></p>
+      <h2>Kayak from the bottom of the garden</h2>
+      <p>Back at IslandStay, the kayaks sit on the riverbank. Paddle out on the Kallada river while the water is still glassy.</p>
+      <p class="meta">From the house · add kayaking when you enquire</p>
+    </div></div>
+  </section>
+
+  <section class="tsec" data-t="10" data-bg="garden-river">
+    <div class="wrap"><div class="glass narrow">
+      <p class="stamp"><b>10.00</b><span class="ap">am</span><span class="ml">കണ്ടൽ</span></p>
+      <h2>Mangroves at Pappani</h2>
+      <p>Where Kallada lake meets Ashtamudi lake, you can wade through shallow water among the mangroves. Nearby, the S-curve channel winds through mangrove tunnels by boat.</p>
+      <p class="meta">Morning, before the heat · ask your boatman</p>
+    </div></div>
+  </section>
+
+  <section class="tsec" data-t="11.75" data-bg="cycle-river">
+    <div class="wrap"><div class="glass narrow">
+      <p class="stamp"><b>11.45</b><span class="ap">am</span><span class="ml">ചരിത്രം</span></p>
+      <h2>An old church and a British name</h2>
+      <p>The island takes its name from Colonel John Munro, a British Resident of Travancore. Look for the Munroe Museum and the old Dutch church on the island.</p>
+      <p class="meta">An easy late-morning stop on the way back</p>
+    </div></div>
+  </section>
+
+  <section class="tsec" data-t="13.5" data-bg="garden-house">
+    <div class="wrap"><div class="glass narrow">
+      <p class="stamp"><b>1.30</b><span class="ap">pm</span><span class="ml">വിശ്രമം</span></p>
+      <h2>A slow afternoon at the house</h2>
+      <p>Cook lunch together in the kitchen, then shade under the coconut palms, a book on the verandah, or a nap with the fan on.</p>
+      <p class="meta">At IslandStay</p>
+    </div></div>
+  </section>
+
+  <section class="tsec" data-t="15.5" data-bg="cycle">
+    <div class="wrap"><div class="glass narrow">
+      <p class="stamp"><b>3.30</b><span class="ap">pm</span><span class="ml">സൈക്കിൾ</span></p>
+      <h2>Cycle the island lanes</h2>
+      <p>Take the house bicycles along the narrow lanes, over small bridges and past the canals. Munroe Island is quiet, with far more boats than cars.</p>
+      <p class="meta">From the house · bicycles for guests</p>
+    </div></div>
+  </section>
+
+  <section class="tsec" data-t="17.1" data-bg="river-palms">
+    <div class="wrap"><div class="glass narrow">
+      <p class="stamp"><b>5.00</b><span class="ap">pm</span><span class="ml">കായൽ</span></p>
+      <h2>Out on the backwaters</h2>
+      <p>An evening boat on the Kallada river and out towards Ashtamudi, as the fishermen head home. Past guests rate the evening ride as the highlight; Ginsen can arrange it.</p>
+      <p class="meta">About 1 to 2 hours · add a boat ride when you enquire</p>
+    </div></div>
+  </section>
+
+  <section class="tsec" data-t="18.3" data-bg="exterior-dusk">
+    <div class="wrap"><div class="glass narrow">
+      <p class="stamp"><b>6.15</b><span class="ap">pm</span><span class="ml">അസ്തമയം</span></p>
+      <h2>Sunset at Perungalam</h2>
+      <p>For sunset, locals head to the Vedan Chadimala viewpoint at Perungalam. Or stay on the riverbank at the house and watch the lights come on.</p>
+      <p class="meta">Be there by 6</p>
+    </div></div>
+  </section>
+
+  <section class="tsec" data-t="19.75" data-bg="campfire">
+    <div class="wrap"><div class="glass narrow">
+      <p class="stamp"><b>7.45</b><span class="ap">pm</span><span class="ml">തീക്കുണ്ഡം</span></p>
+      <h2>Campfire by the river</h2>
+      <p>The fire pit is in the back garden near the water. Bring food for the grill and stay out under the palms.</p>
+      <p class="meta">At IslandStay · add a campfire when you enquire</p>
+    </div></div>
+  </section>
+
+  <section class="tsec" data-t="21.5" data-bg="river-night">
+    <div class="wrap"><div class="glass narrow">
+      <p class="stamp"><b>9.30</b><span class="ap">pm</span><span class="ml">രാത്രി</span></p>
+      <h2>Stars over the water</h2>
+      <p>No city glow out here. Walk down to the riverbank before bed.</p>
+    </div></div>
+  </section>
+
+  <section class="tsec" data-t="22" data-bg="river-night">
+    <div class="wrap"><div class="glass wide">
+      <p class="eyebrow">Worth a day trip</p>
+      <h2>Further afield</h2>
+      <ul class="trips">
+        <li><b>Sasthamcotta Lake</b><span>Kerala's largest freshwater lake, a short drive from West Kallada.</span></li>
+        <li><b>Sambranikodi</b><span>A small island in Ashtamudi lake, reached by boat from the mainland near Kollam.</span></li>
+        <li><b>Kollam town</b><span>The old port town on Ashtamudi lake, about 25 km away.</span></li>
+        <li><b>Kallada boat race</b><span>Snake boats race on the Kallada river during the Onam season.</span></li>
+      </ul>
+      <div class="ctas" style="margin-top:26px">
+        <a class="btn primary" href="#" data-go="book" data-i18n="bookStay">Book your stay</a>
+        <a class="btn wa" href="https://wa.me/919442344770" target="_blank" rel="noopener" data-i18n="wa">WhatsApp Ginsen</a>
+      </div>
+    </div></div>
+  </section>
+</main>
+
+<main id="gate" hidden>
+  <div class="wrap" style="padding-block:64px;max-width:460px">
+    <p class="eyebrow">Owner area</p>
+    <h1 style="font-size:2.6rem;color:var(--lagoon)">Enter your PIN</h1>
+    <form id="pinForm" class="panel" style="display:flex;flex-direction:column;gap:12px" novalidate>
+      <label class="f">Owner PIN<input type="password" id="pin" inputmode="numeric" autocomplete="off" maxlength="8" style="font-size:1.4rem;letter-spacing:.4em;text-align:center"></label>
+      <button class="btn dark" type="submit">Unlock</button>
+      <div id="pinStatus"></div>
+    </form>
+    <p class="note"><a href="#">Back to the website</a></p>
+  </div>
+</main>
+
+<main id="admin" hidden>
+  <div class="wrap" style="padding-block:36px 0">
+    <p class="eyebrow">Owner area</p>
+    <h1>Pricing &amp; availability</h1>
+    <p class="muted" style="max-width:62ch;margin-top:8px">Change a price here and the quote on the booking page updates. In this preview, changes are saved in this browser only. On the live site, this page reads and writes the Rates tab of your Google Sheet, so all partners see the same prices.</p>
+
+    <div class="panel">
+      <h2>Nightly rates</h2>
+      <div class="fields">
+        <label class="f">Weekday rate, whole house (₹/night)<input type="number" id="a_base" min="0" step="100"></label>
+        <label class="f">Fri &amp; Sat night rate (₹/night)<input type="number" id="a_weekend" min="0" step="100"></label>
+        <label class="f">Guests included in the rate<input type="number" id="a_incl" min="1" max="16"></label>
+        <label class="f">Extra guest (₹/person/night)<input type="number" id="a_extra" min="0" step="50"></label>
+        <label class="f">Maximum guests<input type="number" id="a_max" min="1" max="30"></label>
+        <label class="f">Minimum nights<input type="number" id="a_minn" min="1" max="30"></label>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Season rates</h2>
+      <p class="muted" style="font-size:.9rem;margin-bottom:10px">A season rate replaces the weekday and weekend rate for nights inside its dates.</p>
+      <div class="tbl-wrap"><table class="ed"><thead><tr><th>Season</th><th>From</th><th>To</th><th>₹/night</th><th></th></tr></thead><tbody id="seasonRows"></tbody></table></div>
+      <button class="btn ghost sm" type="button" id="addSeason" style="margin-top:10px">Add season</button>
+    </div>
+
+    <div class="panel">
+      <h2>Experiences</h2>
+      <div class="tbl-wrap"><table class="ed"><thead><tr><th>Experience</th><th>Price (₹)</th><th>Charged</th><th></th></tr></thead><tbody id="expRows"></tbody></table></div>
+      <button class="btn ghost sm" type="button" id="addExp" style="margin-top:10px">Add experience</button>
+    </div>
+
+    <div class="panel">
+      <h2>Payment, tax &amp; times</h2>
+      <div class="fields">
+        <label class="f">Advance % (for when online payment is switched on)<input type="number" id="a_adv" min="0" max="100"></label>
+        <label class="f">GST on stay (%)<input type="number" id="a_gst" min="0" max="28" step="0.5"></label>
+        <label class="f">Check-in time<input type="time" id="a_cit"></label>
+        <label class="f">Check-out time<input type="time" id="a_cot"></label>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Blocked dates &amp; calendar sync</h2>
+      <div class="fields">
+        <label class="f full">Blocked nights, one per line (YYYY-MM-DD, or a range like 2026-12-24 to 2026-12-26)<textarea id="a_block" rows="4"></textarea></label>
+        <label class="f full">Airbnb calendar link (iCal export)<input type="url" id="a_ical" placeholder="https://www.airbnb.co.in/calendar/ical/1086288667516773868.ics?s=…"></label>
+        <label class="f full">Booking.com / MakeMyTrip calendar links (one per line)<textarea id="a_ical2" rows="2"></textarea></label>
+      </div>
+      <p class="note">On the live site, a script reads these links every hour and blocks any dates already booked on those platforms, so the same night can't be sold twice. It also publishes this site's own calendar link for you to paste into Airbnb.</p>
+    </div>
+  </div>
+  <div class="savebar">
+    <div class="wrap">
+      <button class="btn dark" type="button" id="saveBtn">Save prices</button>
+      <button class="btn ghost" type="button" id="resetBtn">Back to defaults</button>
+      <button class="btn ghost" type="button" id="copyJson">Copy as data</button>
+      <a class="btn ghost" href="#">View site</a>
+      <button class="btn ghost" type="button" id="lockBtn">Lock</button>
+      <span class="toast" id="toast" aria-live="polite"></span>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© IslandStay by LemonTree Homestay, Kollam, Kerala</span>
+    <span>Cancellation policy, house rules and privacy policy: to be added. · <a href="#admin">Owner login</a></span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/objects/Sky.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/objects/Water.js"></script>
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s);
+const fmt=n=>"₹"+Math.round(n).toLocaleString("en-IN");
+
+/* ---------- data ---------- */
+const ROOMS=[
+  {key:"bed1",name:"Pachila",ml:"പച്ചില",mean:"the green leaf",beds:"Bedroom 1 · 1 queen bed",text:"Bright green walls, AC and a wardrobe, in the back corner of the house nearest the river. Bathroom right next door.",color:"#0F4C4A",img:"bed1-a"},
+  {key:"bed2",name:"Neelakurinji",ml:"നീലക്കുറിഞ്ഞി",mean:"the blue hill flower",beds:"Bedroom 2 · 1 queen bed",text:"Soft lavender walls, AC, a dressing table and wardrobe. Front corner of the house, with its own bathroom next door.",color:"#2D6B5E",img:"bed2-a"},
+  {key:"bed3",name:"Mullappoo",ml:"മുല്ലപ്പൂ",mean:"jasmine",beds:"Bedroom 3 · 1 queen bed",text:"A calm white room with a wardrobe, in the middle of the house with a bathroom beside it.",color:"#4F7F4A",img:"bed3-a"},
+  {key:"living",name:"Living room",beds:"Sofa · 2 floor mattresses",text:"The front room, with a sofa, TV and coffee table. Extra guests sleep here.",color:"#A9482A",img:"living-a"},
+  {key:"dining",name:"Dining room",beds:"Table for 6",text:"Right next to the kitchen, with a dining table that seats six.",color:"#8C6A1F",img:"dining-a"},
+  {key:"kitchen",name:"Kitchen",beds:"Full kitchen",text:"Counter, stove and sink, with utensils and cookware. Meals aren't provided, so groups cook for themselves.",color:"#7A5A3C"}
+];
+const OUTSIDE=[
+  {key:"sitout",name:"Back verandah",text:"A long sit-out along the back of the house, looking over the garden towards the river."},
+  {key:"garden",img:"garden-river",name:"Garden",text:"A big garden of coconut palms and fruit trees between the house and the river."},
+  {key:"river",img:"river-palms",name:"The river",text:"The property backs onto the river, near the Ashtamudi backwaters. Kayaks launch from the riverbank."},
+  {key:"fire",img:"campfire",name:"Campfire spot",text:"In the back garden near the river, for evenings around the fire."},
+  {key:"porch",img:"exterior-wide",name:"Car porch",text:"Covered parking at the front for two cars."}
+];
+const ALL=[...ROOMS,...OUTSIDE,
+  {key:"bath1",img:"bath-a",name:"Bathroom",text:"Next to Bedroom 1."},{key:"bath2",img:"bath-b",name:"Bathroom",text:"Next to Bedroom 2."},{key:"bath3",img:"bath-c",name:"Bathroom",text:"Next to Bedroom 3."},
+  {key:"utility",name:"Utility area",text:"Small work and storage area behind the kitchen."},{key:"hall",name:"Hallway",text:"Runs from the front door to the back verandah."}];
+const DEFAULTS={
+  base:5000, weekend:5000, incl:6, extra:500, max:16, minNights:1,
+  advance:30, gst:5, cit:"12:00", cot:"10:00",
+  seasons:[{name:"Christmas & New Year (example)",from:"2026-12-20",to:"2027-01-05",rate:6500}],
+  exps:[
+    {name:"Kayaking on the river",price:500,unit:"person",img:"kayaker"},
+    {name:"Island cycling trail",price:200,unit:"person",img:"cycle-river"},
+    {name:"Campfire evening",price:1000,unit:"group",img:"campfire"},
+    {name:"Boat ride on the backwaters",price:1500,unit:"group",img:"boat"},
+    {name:"Pickup from Kollam station",price:800,unit:"trip",img:"gate"}
+  ],
+  blocked:"", ical:"", ical2:""
+};
+const KEY="lemontree.pricing.v1";
+let P=load();
+function load(){try{const s=localStorage.getItem(KEY);if(s)return Object.assign(structuredClone(DEFAULTS),JSON.parse(s));}catch(e){}return structuredClone(DEFAULTS);}
+function store(){try{localStorage.setItem(KEY,JSON.stringify(P));return true}catch(e){return false}}
+
+/* ---------- i18n ---------- */
+const T={
+ en:{},
+ ml:{navRooms:"മുറികൾ",navHouse:"3D വീട്",navGal:"ചിത്രങ്ങൾ",tabExplore:"വീട് കാണാം",tabThings:"ചെയ്യാനുള്ളവ",see3d:"വീട് 3D-യിൽ കാണുക",thingsH:"ദ്വീപിലെ ഒരു ദിവസം, മണിക്കൂറുകളായി.",bookStay:"താമസം ബുക്ക് ചെയ്യുക",amenH:"ഇവിടെയുള്ള സൗകര്യങ്ങൾ",navBook:"അന്വേഷിക്കുക",
+  heroH:"പുഴയോരത്ത് ഉണരാം.",lede:"ഐലൻഡ് സ്റ്റേ നിങ്ങളുടെ സംഘത്തിന് മുഴുവനായി ലഭിക്കുന്ന പുഴയോരത്തെ വീടാണ്: മൂന്ന് കിടപ്പുമുറികൾ, പുഴ വരെ നീളുന്ന തെങ്ങിൻതോപ്പ്, കരയിൽ കാത്തിരിക്കുന്ന കയാക്കുകൾ. ഗേറ്റിൽ ജിൻസെൻ നിങ്ങളെ സ്വീകരിക്കും.",
+  f1:"3 കിടപ്പുമുറികൾ",f2:"4 കുളിമുറികൾ",f3:"16 പേർ വരെ",f4:"പുഴയോരം",f5:"കേരള ടൂറിസം അംഗീകാരം",
+  cta:"തീയതി നോക്കുക",wa:"ജിൻസെനുമായി വാട്സ്ആപ്പിൽ",hint:"ഇവിടത്തെ ഒരു ദിവസം കാണാൻ താഴേക്ക് സ്ക്രോൾ ചെയ്യുക",
+  mornH:"സൂര്യോദയത്തിലെ പുഴ.",roomsH:"മൂന്ന് മുറികൾ, ഓരോന്നിനും ഓരോ പേര്.",houseH:"വീടും ദ്വീപും 3D-യിൽ കാണാം.",galH:"എല്ലാ കോണുകളും, ചിത്രങ്ങളിൽ.",
+  dayH:"ഇവിടത്തെ ഒരു ദിവസം.",expH:"ചേർക്കാവുന്ന അധിക സേവനങ്ങൾ",locH:"ഇവിടെ എങ്ങനെ എത്താം.",directH:"ആപ്പ് വഴിയല്ല, ജിൻസെനോട് നേരിട്ട്.",
+  bookH:"നിങ്ങളുടെ തീയതികൾ നോക്കാം.",guestH:"അതിഥികൾ പറയുന്നത്.",faqH:"സാധാരണ ചോദ്യങ്ങൾ.",
+  liftRoof:"മേൽക്കൂര ഉയർത്തുക",dropRoof:"മേൽക്കൂര താഴ്ത്തുക",hint3d:"തിരിക്കാൻ വലിക്കുക · മുറിയിൽ തൊടുക",
+  ci:"എത്തുന്ന ദിവസം",co:"മടങ്ങുന്ന ദിവസം",guests:"അതിഥികൾ",name:"നിങ്ങളുടെ പേര്",addExp:"താൽപ്പര്യമുള്ളവ",notes:"ജിൻസെനോട് പറയാനുള്ളത്",
+  send:"വാട്സ്ആപ്പിൽ അയയ്ക്കുക",copy:"സന്ദേശം കോപ്പി ചെയ്യുക",noPay:"ഇപ്പോൾ പണമടയ്ക്കേണ്ടതില്ല. ലഭ്യത ആദ്യം ജിൻസെൻ വാട്സ്ആപ്പിൽ സ്ഥിരീകരിക്കും."},
+ hi:{navRooms:"कमरे",navHouse:"3D घर",navGal:"तस्वीरें",tabExplore:"प्रॉपर्टी देखें",tabThings:"घूमने की जगहें",see3d:"घर को 3D में देखें",thingsH:"द्वीप पर एक दिन, घंटे दर घंटे।",bookStay:"अपना ठहराव बुक करें",amenH:"यहाँ की सुविधाएँ",navBook:"पूछताछ",
+  heroH:"नदी किनारे जागिए।",lede:"आईलैंडस्टे आपके पूरे ग्रुप के लिए नदी किनारे का पूरा घर है: तीन बेडरूम, नदी तक फैला नारियल का बगीचा और किनारे पर इंतज़ार करते कयाक। गेट पर जिन्सेन आपका स्वागत करेंगे।",
+  f1:"3 बेडरूम",f2:"4 बाथरूम",f3:"16 मेहमानों तक",f4:"नदी किनारे",f5:"केरल टूरिज़्म से मान्यता प्राप्त",
+  cta:"तारीखें देखें",wa:"जिन्सेन से व्हाट्सऐप पर बात करें",hint:"यहाँ का एक दिन देखने के लिए नीचे स्क्रॉल करें",
+  mornH:"सूर्योदय के समय नदी।",roomsH:"तीन कमरे, हर एक का अपना नाम।",houseH:"घर और द्वीप को 3D में देखें।",galH:"हर कोना, तस्वीरों में।",
+  dayH:"यहाँ एक दिन कैसा होता है।",expH:"जोड़ी जा सकने वाली सुविधाएँ",locH:"यहाँ कैसे पहुँचें।",directH:"ऐप से नहीं, सीधे जिन्सेन से बुक करें।",
+  bookH:"अपनी तारीखें देखें।",guestH:"मेहमानों की राय।",faqH:"अक्सर पूछे जाने वाले सवाल।",
+  liftRoof:"छत हटाएँ",dropRoof:"छत लगाएँ",hint3d:"घुमाने के लिए खींचें · कमरे पर टैप करें",
+  ci:"आने की तारीख",co:"जाने की तारीख",guests:"मेहमान",name:"आपका नाम",addExp:"रुचि",notes:"जिन्सेन के लिए संदेश",
+  send:"व्हाट्सऐप पर भेजें",copy:"संदेश कॉपी करें",noPay:"अभी कोई भुगतान नहीं। जिन्सेन पहले व्हाट्सऐप पर उपलब्धता की पुष्टि करेंगे।"}
+};
+const EN={};
+document.querySelectorAll("[data-i18n]").forEach(el=>EN[el.dataset.i18n]=el.textContent);
+EN.dropRoof="Put the roof back";
+let lang="en";
+try{lang=localStorage.getItem("lemontree.lang")||"en"}catch(e){}
+function t(k){return (lang!=="en"&&T[lang][k])||EN[k]||k}
+function setLang(l){
+  lang=l;document.documentElement.lang=l;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{el.textContent=t(el.dataset.i18n)});
+  document.querySelectorAll("[data-lang]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===l));
+  updateRoofLabel();
+  try{localStorage.setItem("lemontree.lang",l)}catch(e){}
+}
+document.querySelectorAll("[data-lang]").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
+
+/* ---------- navigation (hash kept to #admin only) ---------- */
+document.querySelectorAll("[data-go]").forEach(a=>a.addEventListener("click",e=>{
+  e.preventDefault();
+  const go=()=>{const el=document.getElementById(a.dataset.go);if(el)el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})};
+  if(location.hash){history.pushState(null,"",location.pathname+location.search);route();setTimeout(go,60)}else go();
+}));
+const PIN_HASH="736470460089f791bc0d4c1846a5d2c436e882d0ef63b31ef116877cf0de21b4";
+function unlocked(){try{return sessionStorage.getItem("lemontree.owner")==="1"}catch(e){return window.__own===1}}
+function setUnlocked(v){try{v?sessionStorage.setItem("lemontree.owner","1"):sessionStorage.removeItem("lemontree.owner")}catch(e){}window.__own=v?1:0}
+async function sha(s){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
+function lockInfo(){try{return JSON.parse(localStorage.getItem("lemontree.pinfail")||'{"n":0,"until":0}')}catch(e){return {n:0,until:0}}}
+function saveLock(o){try{localStorage.setItem("lemontree.pinfail",JSON.stringify(o))}catch(e){}}
+$("#pinForm").addEventListener("submit",async e=>{
+  e.preventDefault();const st=$("#pinStatus");const L=lockInfo();
+  if(Date.now()<L.until){st.innerHTML=`<div class="status bad">Too many wrong tries. Try again in ${Math.ceil((L.until-Date.now())/60000)} min.</div>`;return}
+  const v=$("#pin").value.trim();if(!v){st.innerHTML=`<div class="status warn">Enter your PIN.</div>`;return}
+  let h="";try{h=await sha("islandstay:"+v)}catch(err){st.innerHTML=`<div class="status bad">This browser can't check the PIN. Open the page in Chrome or Safari.</div>`;return}
+  if(h===PIN_HASH){saveLock({n:0,until:0});setUnlocked(true);$("#pin").value="";st.innerHTML="";route()}
+  else{L.n++;if(L.n>=5){L.until=Date.now()+5*60000;L.n=0}saveLock(L);$("#pin").value="";st.innerHTML=`<div class="status bad">Wrong PIN.${L.until>Date.now()?" Locked for 5 minutes.":""}</div>`}
+});
+$("#lockBtn").addEventListener("click",()=>{setUnlocked(false);route()});
+function route(){
+  const admin=location.hash==="#admin";const ok=admin&&unlocked();const things=location.hash==="#things";
+  $("#gate").hidden=!(admin&&!ok);$("#admin").hidden=!ok;$("#site").hidden=admin||things;$("#things").hidden=!things;$("#sitenav").hidden=admin||things;document.querySelector(".clock").hidden=!things;
+  $("#tabExplore").setAttribute("aria-current",!admin&&!things?"page":"false");$("#tabThings").setAttribute("aria-current",things?"page":"false");
+  if(things)setTimeout(updateTime,0);
+  if(ok)fillAdmin();else if(admin)setTimeout(()=>$("#pin").focus(),50);else if(!things)renderSite();
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);
+
+/* ---------- site rendering ---------- */
+function renderSite(){
+  $("#roomList").innerHTML=ROOMS.map(r=>`<article class="room"><div class="ph" style="background:${r.color}">${r.img?`<img src="img/${r.img}.jpg" alt="${r.name}" loading="lazy">`:`${r.name}<span>Photo coming soon</span>`}</div><div class="body"><h3>${r.name}${r.ml?`<span class="ml">${r.ml}</span>`:""}</h3>${r.mean?`<p class="mean">${r.mean}</p>`:""}<p class="beds">${r.beds}</p><p>${r.text}</p><button class="btn ghost sm" type="button" data-focus="${r.key}" style="align-self:flex-start;margin-top:auto">See in 3D</button></div></article>`).join("");
+  $("#expList").innerHTML=P.exps.map((x,i)=>{const im=x.img||(DEFAULTS.exps.find(d=>d.name===x.name)||{}).img;return `<article class="exp"><div class="eimg">${im?`<img src="img/${im}.jpg" alt="${esc(x.name)}" loading="lazy">`:""}</div><div class="etext"><h3>${esc(x.name)}</h3><p class="price num">${fmt(x.price)} <span class="muted" style="font-weight:400">${unitLabel(x.unit)}</span></p></div></article>`}).join("");
+  renderGallery();
+  $("#expOpts").innerHTML=P.exps.map((x,i)=>`<label><input type="checkbox" value="${i}" class="expChk"> <span>${esc(x.name)} <span class="muted num">(${fmt(x.price)} ${unitLabel(x.unit)})</span></span></label>`).join("");
+  $("#ciTime").textContent="From "+fmtTime(P.cit);$("#coTime").textContent="By "+fmtTime(P.cot);
+  $("#faqCi").textContent=fmtTime(P.cit);$("#faqCo").textContent=fmtTime(P.cot);$("#faqMax").textContent=P.max;
+  $("#guests").max=P.max;
+  document.querySelectorAll("[data-focus]").forEach(b=>b.addEventListener("click",()=>{$("#house").scrollIntoView({behavior:"smooth"});focusPart(b.dataset.focus)}));
+  document.querySelectorAll(".expChk").forEach(c=>c.addEventListener("change",buildMsg));
+  buildMsg();updateTime();
+}
+function unitLabel(u){return {person:"per person",group:"per group","person-day":"per person, per day",trip:"per trip"}[u]||u}
+function fmtTime(s){if(!s)return "—";const [h,m]=s.split(":").map(Number);return ((h%12)||12)+":"+String(m).padStart(2,"0")+(h<12?" AM":" PM")}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+/* ---------- gallery ---------- */
+const GAL=[
+ ["exterior-dusk","house","The house at dusk"],["exterior-front","house","Front courtyard"],["exterior-wide","house","House and car porch"],["exterior-night","house","Lit up at night"],
+ ["gate","house","Front gate"],["exterior-side","house","Side of the house"],["exterior-door","house","Front entrance"],["garden-house","house","Garden path"],
+ ["bed1-a","rooms","Bedroom 1"],["bed1-b","rooms","Bedroom 1"],["bed1-c","rooms","Bedroom 1"],["bed1-d","rooms","Bedroom 1"],
+ ["bed2-a","rooms","Bedroom 2"],["bed2-b","rooms","Bedroom 2"],["bed2-c","rooms","Bedroom 2"],["bed2-d","rooms","Bedroom 2"],
+ ["bed3-a","rooms","Bedroom 3"],["bed3-b","rooms","Bedroom 3"],["bed3-c","rooms","Bedroom 3"],
+ ["living-a","rooms","Living room"],["living-b","rooms","Living room"],["living-c","rooms","Living room"],["dining-a","rooms","Dining room"],["dining-b","rooms","Dining room"],["storage","rooms","Storage room"],
+ ["bath-a","baths","Bathroom"],["bath-b","baths","Bathroom"],["bath-c","baths","Bathroom"],["bath-d","baths","Bathroom"],["bath-e","baths","Bathroom"],["bath-f","baths","Bathroom"],["bath-g","baths","Bathroom"],["bath-h","baths","Bathroom"],
+ ["river-palms","river","The river behind the garden"],["garden-river","river","Garden down to the river"],["river-kayak-dawn","river","Kayak at sunrise"],["kayaker","river","Kayaking on the river"],
+ ["boat","river","Boat on the backwaters"],["river-night","river","The river at night"],["campfire","river","Campfire under the palms"],["campfire-tent","river","Campfire and tent"],["cycle-river","river","Cycling by the river"],["cycle","river","Bicycles for guests"]
+].map(([f,c,a])=>({src:`img/${f}.jpg`,cat:c,alt:a}));
+const CATS=[["all","All"],["house","House"],["rooms","Rooms"],["baths","Bathrooms"],["river","River & outdoors"]];
+let galCat="all",galList=GAL,lbI=0,lbReturn=null;
+function renderGallery(){
+  $("#filters").innerHTML=CATS.map(([k,l])=>`<button type="button" class="chip" data-cat="${k}" aria-pressed="${k===galCat}">${l} <span class="muted num">${k==="all"?GAL.length:GAL.filter(g=>g.cat===k).length}</span></button>`).join("");
+  galList=galCat==="all"?GAL:GAL.filter(g=>g.cat===galCat);
+  $("#gal").innerHTML=galList.map((g,i)=>`<button type="button" data-i="${i}" aria-label="Open photo: ${g.alt}"><img src="${g.src}" alt="${g.alt}" loading="lazy"></button>`).join("");
+}
+$("#filters").addEventListener("click",e=>{const b=e.target.closest("[data-cat]");if(!b)return;galCat=b.dataset.cat;renderGallery()});
+$("#gal").addEventListener("click",e=>{const b=e.target.closest("[data-i]");if(!b)return;lbReturn=b;openLb(+b.dataset.i)});
+function openLb(i){lbI=(i+galList.length)%galList.length;const g=galList[lbI];$("#lbImg").src=g.src;$("#lbImg").alt=g.alt;$("#lbCap").textContent=g.alt;$("#lbCount").textContent=`${lbI+1} / ${galList.length}`;$("#lb").hidden=false;$("#lbClose").focus()}
+function closeLb(){$("#lb").hidden=true;if(lbReturn)lbReturn.focus()}
+$("#lbClose").addEventListener("click",closeLb);$("#lbPrev").addEventListener("click",()=>openLb(lbI-1));$("#lbNext").addEventListener("click",()=>openLb(lbI+1));
+$("#lb").addEventListener("click",e=>{if(e.target.id==="lb")closeLb()});
+document.addEventListener("keydown",e=>{if($("#lb").hidden)return;if(e.key==="Escape")closeLb();if(e.key==="ArrowLeft")openLb(lbI-1);if(e.key==="ArrowRight")openLb(lbI+1)});
+let tx=null;$("#lb").addEventListener("touchstart",e=>tx=e.touches[0].clientX,{passive:true});$("#lb").addEventListener("touchend",e=>{if(tx==null)return;const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50)openLb(lbI+(d<0?1:-1));tx=null});
+
+/* ---------- pricing engine ---------- */
+function parseBlocked(txt){
+  const set=new Set();
+  (txt||"").split(/\n+/).map(s=>s.trim()).filter(Boolean).forEach(line=>{
+    const m=line.match(/^(\d{4}-\d{2}-\d{2})(?:\s*(?:to|-|–)\s*(\d{4}-\d{2}-\d{2}))?$/);
+    if(!m)return;let d=iso(m[1]);const end=iso(m[2]||m[1]);
+    while(d<=end){set.add(key(d));d=addDays(d,1)}
+  });return set;
+}
+function iso(s){const [y,m,d]=s.split("-").map(Number);return new Date(Date.UTC(y,m-1,d))}
+function key(d){return d.toISOString().slice(0,10)}
+function addDays(d,n){const x=new Date(d);x.setUTCDate(x.getUTCDate()+n);return x}
+function nightRate(d){
+  const k=key(d);
+  for(const s of P.seasons){if(s.from&&s.to&&k>=s.from&&k<=s.to)return {rate:+s.rate,label:s.name}}
+  const wd=d.getUTCDay();
+  return (wd===5||wd===6)?{rate:+P.weekend,label:"Fri/Sat"}:{rate:+P.base,label:"Weekday"};
+}
+function calc(ciS,coS,guests,expIdx){
+  const out={ok:false,msg:""};
+  if(!ciS||!coS){out.msg="Choose check-in and check-out dates.";out.kind="warn";return out}
+  const ci=iso(ciS),co=iso(coS);const nights=Math.round((co-ci)/864e5);
+  if(nights<=0){out.msg="Check-out must be after check-in.";out.kind="bad";return out}
+  if(nights<P.minNights){out.msg=`Minimum stay is ${P.minNights} nights.`;out.kind="bad";return out}
+  if(guests>P.max){out.msg=`This home sleeps up to ${P.max} guests.`;out.kind="bad";return out}
+  const blocked=parseBlocked(P.blocked);const groups={};let stay=0;const clash=[];
+  for(let i=0;i<nights;i++){const d=addDays(ci,i);if(blocked.has(key(d)))clash.push(key(d));const r=nightRate(d);stay+=r.rate;const g=groups[r.label+"|"+r.rate]||(groups[r.label+"|"+r.rate]={label:r.label,rate:r.rate,n:0});g.n++}
+  if(clash.length){out.msg="Already booked on "+clash.join(", ")+". Try other dates.";out.kind="bad";return out}
+  const extraN=Math.max(0,guests-P.incl);const extra=extraN*P.extra*nights;
+  const exps=expIdx.map(i=>{const x=P.exps[i];const mult=x.unit==="person"?guests:x.unit==="person-day"?guests*nights:1;return {name:x.name,amt:x.price*mult}});
+  const expTotal=exps.reduce((a,b)=>a+b.amt,0);
+  const gst=(stay+extra)*P.gst/100;const total=stay+extra+gst+expTotal;
+  return Object.assign(out,{ok:true,nights,groups:Object.values(groups),stay,extraN,extra,exps,expTotal,gst,total});
+}
+const WA="919442344770";
+function fmtD(k){return iso(k).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"})}
+function buildMsg(){
+  const g=+$("#guests").value||1;const idx=[...document.querySelectorAll(".expChk:checked")].map(c=>+c.value);
+  const ci=$("#ci").value,co=$("#co").value;const q=calc(ci,co,g,idx);const name=$("#gname").value.trim();const note=$("#gmsg").value.trim();
+  let m=`Hello IslandStay! ${name?`This is ${name}. `:""}I'd like to stay with you.\n\n`;
+  m+=q.ok?`Dates: ${fmtD(ci)} to ${fmtD(co)} (${q.nights} night${q.nights>1?"s":""})\n`:`Dates: not fixed yet, could you suggest some?\n`;
+  m+=`Guests: ${g}\n`;
+  if(idx.length)m+=`Interested in: ${idx.map(i=>P.exps[i].name).join(", ")}\n`;
+  if(note)m+=`\n${note}\n`;
+  if(q.ok)m+=`\nThe website estimate was ${fmt(q.total)}.`;
+  $("#waText").textContent=m;$("#waLink").href=`https://wa.me/${WA}?text=${encodeURIComponent(m)}`;
+  let h="";
+  if(q.ok){h=q.groups.map(x=>`<div class="q-row num"><span>${esc(x.label)} · ${x.n} × ${fmt(x.rate)}</span><span>${fmt(x.n*x.rate)}</span></div>`).join("");
+    if(q.extra)h+=`<div class="q-row num"><span>Extra guests · ${q.extraN} × ${q.nights} nights</span><span>${fmt(q.extra)}</span></div>`;
+    if(P.gst>0)h+=`<div class="q-row num"><span>GST on stay (${P.gst}%)</span><span>${fmt(q.gst)}</span></div>`;
+    q.exps.forEach(x=>h+=`<div class="q-row num"><span>${esc(x.name)}</span><span>${fmt(x.amt)}</span></div>`);
+    h+=`<div class="q-row total num"><span>Estimated total</span><span>${fmt(q.total)}</span></div>`}
+  else if(q.kind==="bad")h=`<div class="status bad">${q.msg}</div>`;
+  else h=`<p class="note">Whole house from <b class="num">${fmt(P.base)}</b> a night for up to ${P.incl} guests.</p>`;
+  $("#quoteBody").innerHTML=h;
+}
+["#ci","#co","#guests","#gname","#gmsg"].forEach(s=>$(s).addEventListener("input",buildMsg));
+$("#copyWa").addEventListener("click",()=>{const btn=$("#copyWa"),old=btn.textContent;navigator.clipboard.writeText($("#waText").textContent).then(()=>{btn.textContent="Copied";setTimeout(()=>btn.textContent=old,1500)}).catch(()=>{const rg=document.createRange();rg.selectNodeContents($("#waText"));const sl=getSelection();sl.removeAllRanges();sl.addRange(rg);btn.textContent="Press Ctrl+C"})});
+$("#heroWa").href=`https://wa.me/${WA}?text=${encodeURIComponent("Hello IslandStay! I have a question about staying with you.")}`;
+
+/* ---------- things to do: real photos + clock follow the scroll ---------- */
+const SECS=[...document.querySelectorAll("#things .tsec[data-t]")];
+const BGS={};[...new Set(SECS.map(x=>x.dataset.bg))].forEach(k=>{const d=document.createElement("div");d.style.backgroundImage=`url(img/${k}.jpg)`;$("#tbg").appendChild(d);BGS[k]=d});
+function phase(t){return t<6.8?"Dawn":t<11?"Morning":t<15?"Midday":t<17.8?"Afternoon":t<19.2?"Sunset":"Night"}
+function clockText(t){let h=Math.floor(t),m=Math.round((t-h)*60/5)*5;if(m===60){h++;m=0}return {hm:((h%12)||12)+"."+String(m).padStart(2,"0"),ap:h<12?"am":"pm"}}
+let curBg=null;
+function updateTime(){
+  if($("#things").hidden)return;
+  const y=scrollY+innerHeight*.5;let t=+SECS[0].dataset.t,act=SECS[0];
+  for(let i=0;i<SECS.length;i++){const top=SECS[i].offsetTop,next=SECS[i+1],t0=+SECS[i].dataset.t;
+    if(y<top)break;act=SECS[i];
+    if(!next){t=t0;break}
+    const nt=next.offsetTop;if(y<nt){t=t0+(y-top)/(nt-top)*(+next.dataset.t-t0);break}}
+  const c=clockText(t);$("#clockT").innerHTML=`${c.hm}<small>${c.ap}</small>`;$("#clockL").textContent=phase(t)+" · Munroe Island";
+  $("#clockBar").style.width=Math.min(100,(t-5.5)/(22-5.5)*100).toFixed(1)+"%";
+  const k=act.dataset.bg;if(k!==curBg){if(curBg)BGS[curBg].classList.remove("on");BGS[k].classList.add("on");curBg=k}
+}
+addEventListener("scroll",updateTime,{passive:true});addEventListener("resize",updateTime);
+
+/* ---------- owner pricing editor ---------- */
+function fillAdmin(){
+  $("#a_base").value=P.base;$("#a_weekend").value=P.weekend;$("#a_incl").value=P.incl;$("#a_extra").value=P.extra;$("#a_max").value=P.max;$("#a_minn").value=P.minNights;
+  $("#a_adv").value=P.advance;$("#a_gst").value=P.gst;$("#a_cit").value=P.cit;$("#a_cot").value=P.cot;
+  $("#a_block").value=P.blocked;$("#a_ical").value=P.ical;$("#a_ical2").value=P.ical2;
+  drawSeasons();drawExps();
+}
+function drawSeasons(){
+  $("#seasonRows").innerHTML=P.seasons.map((s,i)=>`<tr><td><input data-s="${i}" data-f="name" value="${esc(s.name)}" aria-label="Season name"></td><td><input type="date" data-s="${i}" data-f="from" value="${s.from}" aria-label="From"></td><td><input type="date" data-s="${i}" data-f="to" value="${s.to}" aria-label="To"></td><td><input type="number" step="100" data-s="${i}" data-f="rate" value="${s.rate}" aria-label="Rate"></td><td><button class="del" type="button" data-sdel="${i}">Remove</button></td></tr>`).join("")||`<tr><td colspan="5" class="muted">No seasons. Weekday and weekend rates apply all year.</td></tr>`;
+}
+function drawExps(){
+  $("#expRows").innerHTML=P.exps.map((x,i)=>`<tr><td><input data-e="${i}" data-f="name" value="${esc(x.name)}" aria-label="Experience name"></td><td><input type="number" step="50" data-e="${i}" data-f="price" value="${x.price}" aria-label="Price"></td><td><select data-e="${i}" data-f="unit" aria-label="Charged">${["person","group","person-day","trip"].map(u=>`<option value="${u}"${u===x.unit?" selected":""}>${unitLabel(u)}</option>`).join("")}</select></td><td><button class="del" type="button" data-edel="${i}">Remove</button></td></tr>`).join("");
+}
+$("#seasonRows").addEventListener("input",e=>{const i=e.target.dataset.s;if(i==null)return;const f=e.target.dataset.f;P.seasons[i][f]=f==="rate"?+e.target.value:e.target.value});
+$("#seasonRows").addEventListener("click",e=>{const i=e.target.dataset.sdel;if(i==null)return;P.seasons.splice(+i,1);drawSeasons()});
+$("#addSeason").addEventListener("click",()=>{P.seasons.push({name:"New season",from:"",to:"",rate:P.base});drawSeasons()});
+$("#expRows").addEventListener("input",e=>{const i=e.target.dataset.e;if(i==null)return;const f=e.target.dataset.f;P.exps[i][f]=f==="price"?+e.target.value:e.target.value});
+$("#expRows").addEventListener("change",e=>{const i=e.target.dataset.e;if(i==null)return;P.exps[i][e.target.dataset.f]=e.target.dataset.f==="price"?+e.target.value:e.target.value});
+$("#expRows").addEventListener("click",e=>{const i=e.target.dataset.edel;if(i==null)return;P.exps.splice(+i,1);drawExps()});
+$("#addExp").addEventListener("click",()=>{P.exps.push({name:"New experience",price:0,unit:"group"});drawExps()});
+function readAdmin(){
+  P.base=+$("#a_base").value||0;P.weekend=+$("#a_weekend").value||P.base;P.incl=+$("#a_incl").value||1;P.extra=+$("#a_extra").value||0;P.max=+$("#a_max").value||16;P.minNights=+$("#a_minn").value||1;
+  P.advance=Math.min(100,Math.max(0,+$("#a_adv").value||0));P.gst=+$("#a_gst").value||0;P.cit=$("#a_cit").value;P.cot=$("#a_cot").value;
+  P.blocked=$("#a_block").value;P.ical=$("#a_ical").value;P.ical2=$("#a_ical2").value;
+}
+function toast(m){$("#toast").textContent=m;setTimeout(()=>{if($("#toast").textContent===m)$("#toast").textContent=""},3000)}
+$("#saveBtn").addEventListener("click",()=>{readAdmin();toast(store()?"Saved in this browser":"Couldn't save: this browser blocks storage")});
+$("#resetBtn").addEventListener("click",()=>{if($("#resetBtn").dataset.arm){P=structuredClone(DEFAULTS);store();fillAdmin();toast("Back to defaults");delete $("#resetBtn").dataset.arm;$("#resetBtn").textContent="Back to defaults"}else{$("#resetBtn").dataset.arm=1;$("#resetBtn").textContent="Click again to reset"}});
+$("#copyJson").addEventListener("click",()=>{readAdmin();const b=$("#copyJson");navigator.clipboard.writeText(JSON.stringify(P,null,2)).then(()=>toast("Copied")).catch(()=>toast("Copy blocked here"))});
+
+/* ---------- 3D house ---------- */
+let focusPart=()=>{},updateRoofLabel=()=>{};
+const chips=[...ROOMS,...OUTSIDE];
+$("#chips").innerHTML=chips.map(c=>`<button class="chip" type="button" data-part="${c.key}" aria-pressed="false">${c.name}</button>`).join("");
+document.querySelectorAll("[data-part]").forEach(b=>b.addEventListener("click",()=>focusPart(b.dataset.part)));
+$("#infoClose").addEventListener("click",()=>focusPart(null));
+
+const OSM="wA:758,1,11,64,75,54,86,-82,25,5,29,-47,-4,-48,26,-7,18,97,78,29,-4,28,39,13,38,46,24,111,25,9,14,-20,40,22,-46,14,-6,34,-22,-26,-34,23,-30,-143,-21,-29,-49,4,-1,53,-41,-49,20,-14,-19,-29,10,-21,-30,-20,-40,13,16,12,-28,68,24,28,-24,9,-27,-41,-35,3,20,72,73,47,37,-17,-13,20,30,4,89,78,57,-29,51,77,125,20,51,42,3,59,-45,-63,-14,30,21,33,-93,25,-11,-29,-29,20,39,45,0,34,36,2,-12,44,-24,-12,-1,14,-113,2,39,42,32,-11,-9,46,-54,6,12,18,16,-17,42,10,-2,23,30,6,-20,63,50,-1,11,22,-14,20,73,25,-26,26,23,9,-19,32,29,3,21,-21,-4,32,41,12,-28,3,-8,33,-82,-32,-8,16,23,57,76,27,-45,20,31,41,-17,61,-50,-99,-37,19,10,18,-59,-34,-33,32,9,-54,45,-4,12,-21,-13,-47,12,-34,-39,24,34,-74,-26,-6,-26,54,-18,-14,21,-39,-16,-10,9,-26,32,-8,-26,-44,-11,46,-58,33,26,12,-4,34,-37,-1,-14,26,31,23,-15,20,55,11,-36,23,-42,-20,-20,10,19,14,6,45,26,4,-5,29,36,73,-21,10,-6,-31,-52,-51,-58,25,5,27,-24,31,1,-41,-24,-7,-46,-63,72,34,31,-37,19,4,-15,-37,-26,11,-48,-61,18,-16,42,23,-3,-28,-34,-16,61,-5,20,-55,-6,-12,-30,29,8,-43,-39,-35,88,-5,5,-18,-40,-18,-108,8,33,73,-38,-37,-15,105,-15,2,-13,-52,20,-35,-27,-20,-23,-65,20,-34,25,30,48,-20,-20,-24,13,-32,58,47,45,-1,-14,-41,28,-34,12,-68,-30,-20,-37,9,6,59,-21,18,-20,-57,-41,-27,-29,24,-12,-18,67,-81,27,38,18,-3,-16,-24,24,-15,50,43,39,-11,-26,-9,29,-24,-41,-43,-80,35,-98,-46,-22,19,-16,-22,27,-31,-215,-193,-5,48,28,6,35,42,-11,22,24,35,-3,30,89,9,-39,8,9,46,-16,-19,-22,6,8,72,-27,4,-16,-105,-54,3,3,-84,-44,-8,7,-84,-21,-17,-1,-48,-19,-12,-20,31,-20,-19,-24,6,-8,37,-88,17,137,106,4,33,34,8,-51,-1,-62,-62,-40,-13,-13,-31,-27,23,25,22,4,67,86,19,19,21,-55,31,21,38,151,85,-3,33,30,18,-19,22,23,42,-27,17,-6,-31,-82,-79,-103,21,-31,40,13,-50,36,-17,-36,-12,42,-23,-73,-50,-60,-94,46,-67,-35,-16,-69,21,-18,26,9,-47,33,2,24,-31,45,-5,4,-39,-81,-36,25,-25,27,20,113,-18,23,-37,59,-37,107,-13,-5,-72,34,-107,-10,-30,32,-3;v:2300,2572,-30,-64,31,-28,-11,-71,-72,-10,-23,-81,-55,-1,4,-58,-23,-61,17,-26,117,1,30,-26,-90,-92,62,-80,-49,-42,28,-56,-25,-45,36,-102,-21,-7,-146,119,-30,1,1,-77,-72,-42,16,-25,-10,-36,59,-43,-19,-153,-38,-19,-13,42,-50,7,-10,-22,-69,-27,-24,-74,-147,-1,15,-35,-35,-96,38,-32;t:438,826,69,40;s:260,653,-61,-1;s:270,691,42,178;s:-123,1534,142,134;p:233,559,-34,93;p:164,841,-76,189;p:64,1309,179,13,124,102,133,0,141,-82,146,50;s:169,528,86,-18;p:58,1309,2,0;s:255,552,14,94;r:272,629,-27,-113,-24,11,-17,81;s:1072,1487,56,-18,54,-93,199,-33,36,-109;p:406,242,248,-81;s:336,506,27,-5,-40,135;s:249,429,6,81;r:284,673,112,142;r:207,594,16,-57;r:216,556,19,-9;p:423,796,2,16;t:768,45,65,-68,200,-67,85,28;s:1282,376,2,-106;r:-342,1156,350,-226,195,-322;s:-54,757,220,-234;t:1998,981,289,4;s:2001,-45,20,109;s:1822,735,-13,-199,68,-230;s:2021,64,70,-5,-3,87;s:1967,1498,-29,109,-122,120,-126,331,-208,202,-4,46;v:1678,1075,-57,-20,-57,10,-5,-29,29,-41,-27,-22,-6,-46,-58,13,-39,-34,-59,-137,15,-62,-27,-79,36,-88,-23,-60,-35,-28,-222,19;p:441,394,32,11,34,75,118,74;r:2056,47,719,-211,304,-150,76,15;s:453,217,43,-122,94,-67;s:229,295,-34,142;s:195,437,34,-142;s:828,677,8,-87;p:270,508,-11,2;s:340,1410,-7,-92,64,-146,-23,-95;t:542,904,25,21;t:1174,1639,27,49;t:509,869,32,35;t:33,1574,1,8;r:264,538,6,71;r:262,533,7,67;r:261,560,12,79;r:272,622,-13,-95;r:258,529,10,68;r:259,530,10,67;r:258,529,11,72;r:260,559,8,53;r:260,560,9,55;r:259,560,9,51;r:259,560,7,47;r:261,557,10,69;r:1108,682,16,-5;s:290,352,116,-110;s:48,1147,-52,7,7,130;s:-58,979,176,11;l:1423,895,-10,-2,-2,-8,-4,-1,-1,-2,-13,3,-4,-5,-3,0,-35,-31;l:1341,730,7,-11,20,3,2,5,5,1,13,0,2,-2,10,2,-6,27,-7,16,1,4;l:1414,945,-1,-2,-7,-2,-6,-6,-5,-2,-2,4,-6,-2,-11,-9,1,-4,-13,-2,-3,-2,-4,-5,-4,-11,-4,-1,-8,-8,-6,-10,-2,-9;l:1488,1187,-1,-8,-5,-6,-1,-4,-21,-16,-4,-16,-6,-10,-3,-23,-5,-20,0,-13,3,-9,11,-19,-1,-18,7,-2,-2,-12,-8,-1,-14,2,-1,-10,-8,0,-1,-6,1,-11,-9,-2,0,-15,-8,-3,0,-12,2,-8,7,-2,0,-4,3,-6;l:1421,943,10,-1,5,6,1,11,14,2,1,18,-2,7,5,2,-3,22;s:1556,1140,55,206;s:1659,1246,362,95;s:1567,1136,63,39,17,72;s:1642,1642,-170,-38,-226,75;s:1246,1679,110,37;s:1421,1728,153,-25,94,36;s:2008,708,7,273;t:1649,664,3,4;s:1574,942,-108,-35,-50,-123,21,-95,60,-26;t:1652,668,39,52,111,6,20,20;t:1411,-49,3,181,60,220;s:1595,382,19,184;s:1665,1054,-49,-21,29,-82,-48,-80,11,-111;s:1056,1574,-138,91,-78,-16;s:649,1798,22,-137;r:1197,1815,-15,-38,16,-87;r:1198,1690,0,-2;r:1198,1688,-43,-114,-114,-114,-83,-160,-201,-197;s:238,442,-27,77;t:34,1582,-14,45;t:49,1187,13,112;t:86,1037,3,0;p:86,1039,-1,-3;t:56,1335,0,-2;t:56,1335,-16,139;p:164,841,-7,-59;p:88,1030,-1,9;p:333,345,-18,69;p:270,505,31,-64;p:298,446,-26,60;p:252,533,-1,-13;p:348,325,-4,6;p:344,331,4,-6;p:348,325,58,-83;t:730,49,38,-4;p:157,769,7,-18;p:164,751,35,-99;p:164,751,-7,31;p:80,1047,5,-11;t:87,1039,2,-2;t:428,837,4,-2;s:58,1309,-145,-62,-23,-46,54,-198;t:61,1296,-14,-140,33,-109;p:259,510,10,-3;p:269,507,1,-2;p:333,343,11,-12;t:1158,-50,203,-21,128,44,74,-4,88,58,131,-19;t:80,1047,7,-8;p:358,381,71,12;p:272,508,-3,8;p:274,547,42,71;p:268,515,2,-6;p:422,792,1,4;t:255,941,-16,9;t:428,837,-5,4;t:1170,1636,4,3;p:429,393,12,1;t:814,847,60,86,-2,104,81,189,9,78;t:810,841,4,6;t:1665,1054,87,56,193,-43;t:960,1306,64,138,125,129,21,63;r:852,824,79,-43,106,-10,71,-89;r:1415,688,81,-31;t:2848,1928,-86,-44,-41,-157,-57,-94,-194,-89,-3,-41,-104,-12,-100,-71,-145,-280,-120,-157;r:395,817,-112,-143;t:1998,983,-1,0;t:1996,982,2,-1;t:1998,981,0,2;t:1997,983,-1,-1;t:1884,892,-54,-30;s:1595,382,68,10;s:1725,427,79,10;s:1814,299,62,11;s:1704,32,2,73;s:1538,349,-64,3;s:1282,376,-103,-50;s:1471,447,-108,-64;s:1955,-45,21,75;r:2023,46,92,-18;l:1423,895,-1,9,7,1,-4,11,0,12;s:1812,1770,22,71,104,46;r:1827,-32,94,29,62,62,47,-5;s:1347,385,-65,-9;s:613,20,93,9;s:828,677,146,57,6,36;s:225,1422,-189,82;r:255,522,15,82;r:396,815,2,2;r:397,817,-2,-1;r:396,818,-1,-1;r:860,820,-43,23,-139,-2,-136,32,-91,-17,-54,-39;r:398,817,49,36,95,19,310,-48;s:2292,609,-150,12;s:795,451,-100,-144;s:1593,205,60,11,18,-48;r:865,817,72,-37;r:937,780,-76,39;r:2434,-64,-378,111;r:2180,9,-149,45;r:1173,681,-5,-1;r:1125,678,-16,6;r:1324,721,-151,-40;r:1168,680,-43,-2;r:1168,679,5,1;r:1124,677,44,2;r:1043,769,-3,2;r:1109,684,-66,85;r:271,617,8,44;r:260,557,2,10;r:269,576,-9,-47;t:660,141,-6,20;t:724,642,86,199;t:616,375,6,98;r:1026,1432,-38,-84;r:989,1349,2,6;r:1023,1425,2,5;r:627,939,-69,-20;r:559,920,6,1;r:623,938,3,1;l:1388,778,-7,13,0,11;s:2062,184,-22,79;s:2166,62,18,-90;s:2166,62,-3,110;s:1728,286,87,-5;s:2194,987,-3,-155;l:1450,841,2,-1,0,-4,2,-1,1,-4,13,-1,3,-2,7,-1,15,0,2,-13,5,4,5,1,10,-1,5,-3,8,2,9,0,4,-2,3,2,13,1,1,-6,4,0,2,-2,15,3;s:1602,1393,62,95;l:1499,905,1,-8,15,-10,2,-4,12,2,13,-2,45,19,6,-4,3,-9,9,-6;l:1515,818,0,7,3,3,-2,20,-5,5,-1,5;s:2089,7,-19,-62;r:-341,1157,345,-222,200,-327;r:203,608,20,-85,35,4;r:1496,658,-81,31;r:1326,721,-2,0;r:1325,720,77,-28;r:1324,721,1,-1;r:1408,690,1,0;r:1173,680,151,41;t:1201,1688,16,140;r:273,637,1,6;r:274,645,2,6;r:273,636,-1,-6;r:272,620,0,9;r:271,616,-1,-6;r:270,604,-9,-75;r:258,526,-3,-4;r:213,566,1,-7;r:2122,27,-6,1;r:2113,29,6,-2;r:2115,29,-79,24;r:2105,32,8,-3;r:2109,30,-5,1;r:2034,53,-8,2;r:2030,54,-7,2;r:2019,58,-7,1;r:2082,31,-59,16;r:1972,100,6,-11;r:1749,543,3,-6;r:1748,544,-41,77;r:1707,622,-5,7;r:1707,621,42,-77;r:2030,54,93,-28;r:432,846,-36,-28;r:2056,47,-57,19;r:1409,690,6,-2;r:1402,692,6,-2;r:1415,689,-12,4;r:1403,693,-77,28;r:1040,771,-103,9,-77,40;r:395,816,-111,-143;s:624,521,31,-63;t:614,622,11,-68;t:622,473,1,17;t:639,211,-2,7;t:654,161,-5,18;p:233,559,22,-7;s:53,822,-83,-53;s:2304,1052,-127,23;t:1474,355,11,110;t:1474,352,0,3;t:1417,1234,70,-40,11,-36;t:1658,1072,4,-10;s:2038,277,-102,338;s:2048,1345,88,18,61,-35;s:2144,175,2,253;t:541,904,1,0;t:567,925,46,13,80,74,114,160,153,134;p:252,515,2,-3;p:251,520,0,-2;s:277,1589,63,-179;l:1386,808,-1,22,2,8;l:1394,885,1,-12,-4,-34,-4,-1;l:1387,838,-32,-6,-5,-4,-6,17;l:1420,832,-14,0,-6,-5,-15,3;t:507,866,2,3;t:625,554,91,79;s:790,1453,-3,-61;s:804,1679,-71,37;s:732,1717,-83,81;t:40,1474,0,2;t:40,1476,-7,98;s:175,1922,12,-134;s:1368,360,106,-5;t:1485,467,129,99,35,98;t:1485,465,0,2;t:716,633,5,3;t:723,636,1,6;t:725,639,-1,1;t:722,638,-1,-2;t:726,636,0,1;s:1932,173,-31,89;s:1982,1712,-124,23;r:757,1103,-114,-155,-135,-44,-76,-58;t:962,1304,41,20,265,-16,106,-28,43,-46;t:1498,1158,1,-2;t:1501,1154,66,-18,29,-40,54,0,8,-24;t:1501,1155,0,-1;t:1499,1156,2,-1;l:1574,1108,5,-15,-3,-6,-3,-2,2,-11,-7,0,-11,-5,-9,-23,0,-3,5,-4,5,-11,13,-11,4,-16,0,-7,-13,-8,-3,-3,-1,-5,-7,-4,-1,-3,1,-14,5,-10,-2,-6,-8,-8,-10,0,-9,2,-6,7,-7,0,-5,3,-6,8,-11,-2,-8,-4;l:1451,961,0,-2,9,-7,7,-14,11,6,2,4;l:1467,938,-1,-7,-3,-1;l:1464,945,10,4,3,4,2,-1,1,-4;s:1611,1346,-90,118,20,147;s:671,1661,24,-107,41,-2;s:2177,1075,-31,81;s:225,1422,75,-16;p:64,1309,-4,0;l:1424,934,-4,-1,-1,-2,-14,-8,-6,2,-1,-3;l:1429,905,6,1,1,-2;l:1413,966,-17,-1,-3,8,-8,-2,-7,12,-2,8,1,5;l:1412,956,-6,-2,-5,-4,-6,1,-4,-4,-8,-2,-3,0,-13,7;s:1639,1809,46,-69,131,7;v:1692,1210,-20,-30,6,-105;s:1608,758,17,-83;l:1531,885,-3,8,0,12;l:1551,855,-14,0,-1,3,-4,1,1,18,-1,1,-7,-1,-1,7;l:1458,875,4,0,0,2,2,1,3,-17;l:1436,904,2,-3,-2,-2,0,-7,2,-6,-1,-5,-2,-3,-6,-1;l:1445,898,-8,1;l:1462,949,1,6,9,2;l:1436,957,-11,0,-1,6,-3,2,-1,4;l:1478,908,0,-9,3,-2,2,-8,-4,-13,1,-17;s:1498,663,133,-9;t:703,72,1,-1;t:704,71,26,-22;t:660,141,43,-69;t:649,179,-10,32;t:653,161,7,-20;t:649,179,4,-18;l:1505,829,-12,-2;l:1510,858,-12,1,-11,-2,-1,2,-13,0,-1,3,-16,-4;l:1503,858,0,-3,-3,-1,0,-4,-3,-4;l:1421,753,12,4,1,3,6,-2,9,2,6,3,0,5,17,7,2,3,5,1,1,8,8,2,2,2,-1,7,5,0,2,2,-1,7,-2,1,2,6;l:1558,812,-4,-7,-9,-3,0,-13,-19,2,0,-3,-6,-2,-1,-4,-6,-1,-4,-8,-6,0,0,-3,-3,-4,-7,1,-5,-9,-3,-3,-4,-1,-4,-5,-9,-3,-13,-1,-7,-4,-12,-2,-8,-4;l:1473,819,0,9;l:1526,802,2,3,-1,3,2,9;l:1366,847,7,-1,6,1,1,3,4,0,4,3,11,1,1,4,6,1,5,3,14,1;l:1422,904,-1,6,-12,-2;l:1425,927,0,2,9,1,7,-1,3,-3,3,-14,0,-3,-3,-1,-5,4,-5,1,-6,-5;l:1409,917,6,-2,-2,-6;l:1397,918,-2,2,-2,-1,2,-4,0,-6,-5,-1,1,-8,-11,2,-2,-6,-5,0,-13,-7;l:1417,877,-1,4,-5,-1,-1,-3,-6,0,-1,-2,-8,0;s:2145,473,18,230,69,7,47,151;l:1388,777,9,6,8,24,14,23,8,17,-2,17,4,13,-6,14,0,4;l:1372,822,-2,-17,11,-3;l:1381,767,0,7,7,3;l:1383,727,-2,8,-2,0,-2,7,7,2,-1,7,-2,1,-2,9,-6,-3;l:1383,750,2,0,-1,7,-4,0;l:1382,788,-7,0,-3,-3;l:1428,873,11,-1;l:1397,918,1,4,-1,5,-4,4,1,3;l:1360,962,9,3,7,-7,11,0,6,6,3,0;l:1397,951,-1,14;t:625,530,-2,-40;l:1437,816,10,-2,-1,-6;l:1514,818,0,-4,-4,-5,1,-3,-5,-4,-3,-6,-5,0;r:1496,657,1,0;r:1497,657,129,16,62,-23,138,-250,76,-67,5,-43;r:1497,658,-1,0;r:1907,290,-2,40,-76,66,-143,256,-55,21,-134,-15;r:1906,285,1,5;r:1999,66,-95,158,2,61;r:1905,285,-5,-54,83,-151,73,-33;r:1907,290,-2,-5;s:696,810,84,-28;s:866,48,-44,-63;t:31,1694,7,44;t:31,1694,-11,-67;t:20,1627,11,67;t:24,1775,-87,124,-176,100,-91,91;t:24,1775,14,-37;t:38,1738,-14,37;t:329,896,-6,3;t:414,846,-31,19;s:532,785,144,15;s:1177,326,-49,-21,-8,-62,-106,-34;p:425,812,13,14;t:575,738,-47,33;s:34,736,126,23;p:325,645,-1,-2;p:316,618,9,26;p:329,653,93,139;s:323,635,40,-139;s:737,1550,71,-35,-18,-61;p:85,1036,3,-6;s:1889,744,94,-11;s:1929,628,-42,111;s:2025,1314,-59,176;t:1933,945,0,-1;t:1996,982,-63,-37;t:1933,944,-49,-52;s:2152,661,-71,4;r:259,530,10,67;r:258,527,1,3;r:852,824,8,-4;r:258,527,0,2;r:269,597,0,4;s:1660,416,64,10;s:2031,1036,-60,28;s:187,1788,-4,-134,-114,-89;s:1014,209,-85,14,-25,-54;t:724,642,-2,-4;t:625,554,0,0;t:721,636,2,0;t:625,554,0,-24;t:637,218,-18,65;t:597,706,17,-84;s:1664,1488,-19,77;s:57,1313,-147,40;l:1516,797,2,-4,-1,-3,-4,-1,-2,-5,2,-3;l:1509,804,6,-7;l:1510,859,10,2,1,-2,6,1,6,5;s:1881,1727,25,73;l:1424,960,-11,0;l:1516,886,-5,-2,-7,0,0,-3,-5,0,-1,-16;s:310,1822,-46,-127,13,-100;r:265,545,5,40;l:1381,767,-11,-4,-12,1,-3,2;p:328,384,30,-3;l:1484,986,11,-18,2,-8;p:255,552,-3,-19;p:201,632,19,-59;p:220,573,13,-14;p:199,652,2,-20;t:1782,8,36,-26;l:1436,892,-13,-1;s:322,900,52,177;t:616,375,-1,-28;t:619,283,-4,64;t:615,347,1,28;t:56,1333,1,-8;p:329,653,-3,-5;p:60,1309,4,0;p:60,1309,-2,0;t:89,1037,147,-86;t:239,950,-92,55;t:88,1040,-1,0;t:87,1040,-38,147;p:87,1039,1,1;p:326,648,-1,-3;p:324,643,-8,-25;p:157,782,0,-13;t:443,828,-11,7;t:432,835,6,-6;s:820,1257,143,53;s:2050,1065,0,200;s:1593,205,-55,137;s:727,636,101,41;s:867,498,-72,-47;s:980,770,87,-1,35,-72;s:895,797,-73,-77;s:1644,1582,-2,60;s:1816,1727,-25,-60,-74,-37,-75,12;t:722,638,1,-2;p:254,512,5,-2;p:251,518,1,-3;t:78,1054,-30,132;t:47,1186,29,-132;t:508,782,67,-44;t:450,823,-7,5;t:442,827,7,-5;t:322,900,-42,26;t:280,924,8,-5;t:288,919,35,-21;t:323,899,-1,1;t:374,871,-45,25;t:328,895,58,-34;t:383,865,-9,6;t:575,738,22,-32;t:449,822,34,-23;t:483,799,8,-4;t:490,797,-40,26;t:528,771,-38,26;t:57,1328,-1,7;t:1822,746,8,116;t:1996,985,1,-2;t:1945,1067,51,-82;t:1662,1062,3,-8;p:333,345,0,-2;p:314,413,19,-68;p:310,426,-8,15;p:315,414,-5,12;p:301,441,3,-8;p:304,433,10,-20;p:302,441,-4,5;p:272,506,0,2;p:270,505,2,1;p:272,506,0,0;p:272,508,0,0;p:272,508,-2,1;p:270,509,0,-1;p:270,508,-1,-1;l:1446,909,2,-4,-3,-7,2,-8,-8,-18;s:1102,1534,-46,39;t:62,1287,-15,-101;t:48,1186,15,101;p:325,644,0,1;p:787,1392,132,-13,93,42;s:787,1392,33,-135;t:491,795,17,-13;t:58,1321,-1,7;t:280,926,-10,5;t:270,931,-2,2;t:268,933,-12,7;t:256,940,-1,1;p:269,519,5,27;p:274,546,0,1;p:506,477,10,5;r:283,673,-10,-34;r:283,674,0,-1;r:269,601,15,71;r:284,672,0,1;r:284,673,-12,-44;r:284,673,0,0;p:269,516,0,3;p:269,519,-1,-4;t:146,1005,-58,35;t:147,1005,-1,0;t:423,841,-9,5;t:386,861,28,-15;t:323,898,5,-3;t:269,930,11,-6;t:266,932,3,-2;t:236,951,18,-11;t:256,939,10,-7;t:254,940,2,-1;p:1014,1422,-2,-1;p:1012,1421,1,0;s:315,448,20,58;t:959,1305,2,2;t:438,829,1,-1;t:439,828,3,-1";
+function init3D(){
+  if(!window.THREE){$("#fallback").hidden=false;return}
+  const canvas=$("#scene");let renderer;
+  try{renderer=new THREE.WebGLRenderer({canvas,antialias:true})}catch(e){$("#fallback").hidden=false;return}
+  renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));
+  renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.72;
+  renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  const scene=new THREE.Scene();
+  const cam=new THREE.PerspectiveCamera(42,1,.3,120000);
+  const ctl=new THREE.OrbitControls(cam,canvas);ctl.enableDamping=true;ctl.dampingFactor=.08;ctl.maxPolarAngle=1.42;ctl.minDistance=6;ctl.maxDistance=42000;ctl.zoomSpeed=1.3;
+  const still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const V=(x,y,z)=>new THREE.Vector3(x,y,z);
+
+  /* ---- geography: lat/lon to metres around the homestay pin ---- */
+  const LAT0=9.0055,LON0=76.6262;
+  const geo=(la,lo)=>[(lo-LON0)*109950,-(la-LAT0)*110600];
+  const WAYS=OSM.split(";").map(w=>{const [k,d]=w.split(":");const v=d.split(",").map(Number);let a=v[0],b=v[1];const pts=[geo(8.86+a/1e4,76.54+b/1e4)];
+    for(let i=2;i<v.length;i+=2){a+=v[i];b+=v[i+1];pts.push(geo(8.86+a/1e4,76.54+b/1e4))}return {k,pts}});
+  const rivers=WAYS.filter(w=>w.k==="v"),lake=WAYS.find(w=>w.k==="wA");
+  const segDist=(px,pz,pts)=>{let best=[1e12,0,0];for(let i=0;i<pts.length-1;i++){const [ax,az]=pts[i],[bx,bz]=pts[i+1];const dx=bx-ax,dz=bz-az,L=dx*dx+dz*dz||1;const t=Math.max(0,Math.min(1,((px-ax)*dx+(pz-az)*dz)/L));const x=ax+t*dx,z=az+t*dz,d=Math.hypot(px-x,pz-z);if(d<best[0])best=[d,x,z]}return best};
+  const inPoly=(x,z,pts)=>{let c=false;for(let i=0,j=pts.length-1;i<pts.length;j=i++){const [xi,zi]=pts[i],[xj,zj]=pts[j];if(((zi>z)!==(zj>z))&&(x<(xj-xi)*(z-zi)/(zj-zi)+xi))c=!c}return c};
+  const RIVER_W=85;
+  const isWater=(x,z)=>(lake&&inPoly(x,z,lake.pts))||rivers.some(r=>segDist(x,z,r.pts)[0]<RIVER_W/2+6);
+
+  /* ---- canvas textures ---- */
+  const TX=(w,h,draw,rx,ry,srgb=true)=>{const c=document.createElement("canvas");c.width=w;c.height=h;draw(c.getContext("2d"),w,h);const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rx||1,ry||1);t.anisotropy=renderer.capabilities.getMaxAnisotropy();if(srgb)t.encoding=THREE.sRGBEncoding;return t};
+  let sd=11;const rnd=()=>(sd=(sd*16807)%2147483647)/2147483647;
+  const speckle=(g,w,h,base,cols,n,s)=>{g.fillStyle=base;g.fillRect(0,0,w,h);for(let i=0;i<n;i++){g.fillStyle=cols[i%cols.length];g.globalAlpha=.25+rnd()*.5;const r=s*(.4+rnd());g.beginPath();g.ellipse(rnd()*w,rnd()*h,r,r*(.5+rnd()),rnd()*3,0,7);g.fill()}g.globalAlpha=1};
+  const grassT=TX(256,256,(g,w,h)=>speckle(g,w,h,"#56813a",["#4a7431","#6a9444","#3f6a2b","#7aa04c","#5b8a37"],1800,5),1,1);
+  const regionT=grassT.clone();regionT.needsUpdate=true;regionT.repeat.set(2600,2600);
+  const plotT=grassT.clone();plotT.needsUpdate=true;
+  const soilT=TX(128,128,(g,w,h)=>speckle(g,w,h,"#9a7b55",["#8a6b47","#a88a62","#7d6040"],500,4),4,4);
+  const paverT=TX(256,256,(g,w,h)=>{g.fillStyle="#8d8d8a";g.fillRect(0,0,w,h);const cw=32,ch=16;for(let y=0;y<h/ch;y++)for(let x=-1;x<w/cw+1;x++){const ox=(y%2)*cw/2;const shade=((x+y)%3===0)?"#e9e8e2":((x*7+y)%4===0?"#6f6f6c":"#b9b8b3");g.fillStyle=shade;g.fillRect(x*cw+ox+1,y*ch+1,cw-2,ch-2)}});
+  const plasterT=TX(128,128,(g,w,h)=>speckle(g,w,h,"#f1ece1",["#e6e0d3","#f7f3ea","#ddd6c7"],700,3),1,1);
+  const roofTex=TX(128,128,(g,w,h)=>speckle(g,w,h,"#cfcac0",["#bdb8ad","#d8d4cb","#aaa59a"],600,4),3,3);
+  const tileW=TX(128,128,(g,w,h)=>{g.fillStyle="#efede8";g.fillRect(0,0,w,h);g.strokeStyle="#d6d3cc";g.lineWidth=2;for(let i=0;i<=4;i++){g.beginPath();g.moveTo(i*32,0);g.lineTo(i*32,h);g.stroke();g.beginPath();g.moveTo(0,i*32);g.lineTo(w,i*32);g.stroke()}},3,3);
+  const tileG=TX(128,128,(g,w,h)=>{for(let i=0;i<4;i++){g.fillStyle=["#8e8f8c","#9d9e9a","#858682","#979893"][i];g.fillRect(0,i*32,w,32);g.fillStyle="rgba(0,0,0,.15)";g.fillRect(0,i*32,w,1.5)}for(let i=0;i<120;i++){g.fillStyle="rgba(255,255,255,.08)";g.fillRect(rnd()*w,rnd()*h,20*rnd(),1)}},2,2);
+  const asphaltT=TX(64,256,(g,w,h)=>{speckle(g,w,h,"#3b3d40",["#2f3134","#46484b","#55575a"],500,1.5);g.fillStyle="#d9d5c4";for(let y=0;y<h;y+=64)g.fillRect(w/2-1.5,y,3,30)},1,1);
+  const laneT=TX(64,128,(g,w,h)=>speckle(g,w,h,"#7d776c",["#6c675e","#8d877b","#5f5a52"],400,2),1,1);
+  const ballastT=TX(64,128,(g,w,h)=>{speckle(g,w,h,"#7a7066",["#655c53","#8c8277"],300,1.5);g.fillStyle="#4a3a2c";for(let y=0;y<h;y+=10)g.fillRect(4,y,w-8,4);g.fillStyle="#aab0b4";g.fillRect(16,0,3,h);g.fillRect(w-19,0,3,h)},1,1);
+  const woodT=TX(128,128,(g,w,h)=>{g.fillStyle="#6b4527";g.fillRect(0,0,w,h);for(let y=0;y<h;y+=16){g.fillStyle=y%32?"#7a5030":"#5e3b21";g.fillRect(0,y,w,15);g.fillStyle="rgba(0,0,0,.25)";g.fillRect(0,y+15,w,1)}for(let i=0;i<200;i++){g.fillStyle="rgba(40,20,5,.2)";g.fillRect(rnd()*w,rnd()*h,30*rnd(),1)}},1,1);
+  const thatchT=TX(128,128,(g,w,h)=>{g.fillStyle="#b08a4a";g.fillRect(0,0,w,h);for(let i=0;i<900;i++){g.strokeStyle=["#8a6a35","#c9a564","#9c7a40","#d6b778"][i%4];g.globalAlpha=.6;g.beginPath();const x=rnd()*w,y=rnd()*h;g.moveTo(x,y);g.lineTo(x+(rnd()-.5)*4,y+10+rnd()*10);g.stroke()}g.globalAlpha=1},3,2);
+  const barkT=TX(32,128,(g,w,h)=>{g.fillStyle="#7a6450";g.fillRect(0,0,w,h);for(let y=0;y<h;y+=6){g.fillStyle=y%12?"#6a5543":"#8a735d";g.fillRect(0,y,w,3)}},1,6);
+  const frondT=TX(256,64,(g,w,h)=>{g.clearRect(0,0,w,h);g.strokeStyle="#3d6b22";g.lineWidth=3;g.beginPath();g.moveTo(0,h/2);g.lineTo(w,h/2);g.stroke();for(let x=6;x<w-4;x+=5){const len=(1-Math.abs(x/w-.45)*1.6)*h*.5;for(const s of [-1,1]){g.strokeStyle=["#4f8a2c","#3f7a24","#5f9a35"][(x/5|0)%3];g.lineWidth=3;g.beginPath();g.moveTo(x,h/2);g.lineTo(x+10,h/2+s*Math.max(4,len));g.stroke()}}},1,1,true);
+  frondT.wrapS=frondT.wrapT=THREE.ClampToEdgeWrapping;
+  const waterNormals=TX(256,256,(g,w,h)=>{const img=g.createImageData(w,h);const H=(x,y)=>Math.sin(x*.09+y*.05)*1+Math.sin(x*.21-y*.17)*.6+Math.sin(x*.05-y*.31)*.5+Math.sin((x+y)*.37)*.25;for(let y=0;y<h;y++)for(let x=0;x<w;x++){const dx=H(x+1,y)-H(x-1,y),dy=H(x,y+1)-H(x,y-1);const n=new THREE.Vector3(-dx,-dy,2).normalize();const i=(y*w+x)*4;img.data[i]=(n.x*.5+.5)*255;img.data[i+1]=(n.y*.5+.5)*255;img.data[i+2]=(n.z*.5+.5)*255;img.data[i+3]=255}g.putImageData(img,0,0)},1,1,false);
+
+  /* ---- sky, sun, environment ---- */
+  const sunDir=new THREE.Vector3().setFromSphericalCoords(1,THREE.MathUtils.degToRad(90-32),THREE.MathUtils.degToRad(150));
+  if(THREE.Sky){const sky=new THREE.Sky();sky.scale.setScalar(400000);const u=sky.material.uniforms;u.turbidity.value=7;u.rayleigh.value=1.4;u.mieCoefficient.value=.006;u.mieDirectionalG.value=.82;u.sunPosition.value.copy(sunDir);
+    const pm=new THREE.PMREMGenerator(renderer);const tmp=new THREE.Scene();tmp.add(sky);scene.environment=pm.fromScene(tmp).texture;scene.add(sky)}
+  else scene.background=new THREE.Color(0xbcd7e6);
+  scene.fog=new THREE.Fog(0xc9dbe0,3000,60000);
+  scene.add(new THREE.HemisphereLight(0xdfeefa,0x4a5a3a,.45));
+  const sun=new THREE.DirectionalLight(0xfff0d6,2.4);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
+  Object.assign(sun.shadow.camera,{left:-60,right:60,top:60,bottom:-60,near:1,far:400});sun.shadow.bias=-.0004;sun.shadow.normalBias=.03;scene.add(sun);scene.add(sun.target);
+
+  const greens2=[0x3f7a2e,0x4d8a34,0x37702a,0x5c9638];
+  const STD=(o)=>{o=Object.assign({roughness:.85},o);if(typeof o.color==="number")o.color=new THREE.Color(o.color).convertSRGBToLinear();if(typeof o.emissive==="number")o.emissive=new THREE.Color(o.emissive).convertSRGBToLinear();return new THREE.MeshStandardMaterial(o)};
+  const mats={grass:STD({map:plotT}),region:STD({map:regionT,roughness:1}),paver:STD({map:paverT,roughness:.9}),soil:STD({map:soilT}),plaster:STD({map:plasterT,roughness:.9}),
+    roof:STD({map:roofTex,roughness:.95}),wood:STD({map:woodT,roughness:.6}),thatch:STD({map:thatchT,roughness:1,side:THREE.DoubleSide}),bark:STD({map:barkT}),
+    frond:STD({map:frondT,alphaTest:.4,side:THREE.DoubleSide,roughness:.8}),glass:STD({color:0x1e2a33,roughness:.08,metalness:.9}),dark:STD({color:0x2a2420,roughness:.5}),
+    white:STD({color:0xf4f2ec,roughness:.6}),metal:STD({color:0x4c5156,roughness:.4,metalness:.6}),pillar:STD({map:plasterT})};
+  const add=(m,p)=>{(p||scene).add(m);return m};
+  const mesh=(geo,mat,x,y,z,p,cast=true)=>{const m=new THREE.Mesh(geo,mat);m.position.set(x,y,z);m.castShadow=cast;m.receiveShadow=true;return add(m,p)};
+  const boxM=(w,h,d,mat,x,y,z,p,ry)=>{const m=mesh(new THREE.BoxGeometry(w,h,d),mat,x,y,z,p);if(ry)m.rotation.y=ry;return m};
+
+  /* ---- ground ---- */
+  const ground=new THREE.Mesh(new THREE.PlaneGeometry(90000,90000),mats.region);ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;scene.add(ground);
+
+  /* ---- ribbons for roads, rail, rivers ---- */
+  function ribbon(pts,w,y,flipY){const pos=[],uv=[],idx=[];let acc=0;
+    for(let i=0;i<pts.length;i++){const p=pts[i],a=pts[Math.max(0,i-1)],b=pts[Math.min(pts.length-1,i+1)];let tx=b[0]-a[0],tz=b[1]-a[1];const L=Math.hypot(tx,tz)||1;tx/=L;tz/=L;const nx=-tz,nz=tx;
+      if(i>0)acc+=Math.hypot(p[0]-pts[i-1][0],p[1]-pts[i-1][1]);
+      const l=[p[0]+nx*w/2,p[1]+nz*w/2],r=[p[0]-nx*w/2,p[1]-nz*w/2];
+      if(flipY){pos.push(l[0],-l[1],0,r[0],-r[1],0)}else{pos.push(l[0],y,l[1],r[0],y,r[1])}
+      uv.push(0,acc/w,1,acc/w);if(i>0){const k=i*2;idx.push(k-2,k,k-1,k-1,k,k+1)}}
+    const g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.Float32BufferAttribute(pos,3));g.setAttribute("uv",new THREE.Float32BufferAttribute(uv,2));g.setIndex(idx);g.computeVertexNormals();return g}
+  function merge(geos){let pos=[],uv=[],idx=[],off=0;for(const g of geos){const p=g.attributes.position.array,u=g.attributes.uv?g.attributes.uv.array:new Float32Array(p.length/3*2);for(let i=0;i<p.length;i++)pos.push(p[i]);for(let i=0;i<u.length;i++)uv.push(u[i]);const ix=g.index?g.index.array:[...Array(p.length/3).keys()];for(const i of ix)idx.push(i+off);off+=p.length/3}
+    const m=new THREE.BufferGeometry();m.setAttribute("position",new THREE.Float32BufferAttribute(pos,3));m.setAttribute("uv",new THREE.Float32BufferAttribute(uv,2));m.setIndex(idx);m.computeVertexNormals();return m}
+
+  // water: rivers + Ashtamudi lake, one reflective surface
+  const wgeos=rivers.map(r=>ribbon(r.pts,RIVER_W,0,true));
+  if(lake){const sh=new THREE.Shape(lake.pts.map(p=>new THREE.Vector2(p[0],-p[1])));const lg=new THREE.ShapeGeometry(sh);const pa=lg.attributes.position.array;lg.setAttribute("uv",new THREE.Float32BufferAttribute(new Float32Array(pa.length/3*2),2));wgeos.push(lg)}
+  const wgeo=merge(wgeos);let water;
+  if(THREE.Water){water=new THREE.Water(wgeo,{textureWidth:512,textureHeight:512,waterNormals,sunDirection:sunDir.clone(),sunColor:0xfff3dc,waterColor:0x1d4f4c,distortionScale:2.2,fog:true});
+    water.material.uniforms.size.value=2.2}
+  else water=new THREE.Mesh(wgeo,STD({color:0x2e6466,roughness:.15,metalness:.3}));
+  water.rotation.x=-Math.PI/2;water.position.y=.25;scene.add(water);
+  // river banks
+
+  /* ---- place the property on the river bank ---- */
+  let near=[1e12,0,0];rivers.forEach(r=>{const d=segDist(0,0,r.pts);if(d[0]<near[0])near=d});
+  const dir=V(near[1],0,near[2]).normalize();
+  const X=px=>(px-434)/20,Z=py=>(py-850)/20;
+  const rect=(a,b,c,d)=>{const r={x:X(a),z:Z(b),w:(c-a)/20,d:(d-b)/20};r.cx=r.x+r.w/2;r.cz=r.z+r.d/2;return r};
+  const PL=rect(65,45,720,1315);
+  const theta=Math.atan2(-dir.x,-dir.z);
+  const backEdge=V(near[1],0,near[2]).addScaledVector(dir,-(RIVER_W/2-1.5));
+  const centre=backEdge.clone().addScaledVector(dir,-PL.d/2);
+  const prop=new THREE.Group();prop.rotation.y=theta;scene.add(prop);
+  prop.position.copy(centre).sub(V(PL.cx,0,PL.cz).applyAxisAngle(V(0,1,0),theta));
+  prop.updateMatrixWorld(true);
+  const W=(x,z)=>V(x,0,z).applyMatrix4(prop.matrixWorld);
+  const inPlot=(x,z)=>{const l=prop.worldToLocal(V(x,0,z));return l.x>PL.x-4&&l.x<PL.x+PL.w+4&&l.z>PL.z-4&&l.z<PL.z+PL.d+4};
+  // strip of bank between plot and river
+  const nearHome=(x,z)=>Math.hypot(x-centre.x,z-centre.z)<105;
+
+  /* ---- roads and railway ---- */
+  const RW={t:16,p:12,s:9,l:4.5,r:7},RY={t:.42,p:.4,s:.38,l:.36,r:.44};
+  const roadMat=k=>STD({map:k==="l"?laneT:k==="r"?ballastT:asphaltT,roughness:.95,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2});
+  const roadMats={t:roadMat("t"),p:roadMat("p"),s:roadMat("s"),l:roadMat("l"),r:roadMat("r")};
+  const lineMats={t:new THREE.LineBasicMaterial({color:0xf2b84b,transparent:true}),p:new THREE.LineBasicMaterial({color:0xf6d36b,transparent:true}),s:new THREE.LineBasicMaterial({color:0xf4efe0,transparent:true}),r:new THREE.LineBasicMaterial({color:0x2c2622,transparent:true}),l:new THREE.LineBasicMaterial({color:0xe8e2d2,transparent:true})};
+  const lanePts=[];const byKind={};
+  const dens=(pts)=>{const o=[pts[0]];for(let i=1;i<pts.length;i++){const a=pts[i-1],b=pts[i];const L=Math.hypot(b[0]-a[0],b[1]-a[1]);const close=segDist(centre.x,centre.z,[a,b])[0]<400;const n=close?Math.max(1,Math.ceil(L/4)):1;for(let j=1;j<=n;j++)o.push([a[0]+(b[0]-a[0])*j/n,a[1]+(b[1]-a[1])*j/n])}return o};
+  WAYS.filter(w=>"tpslr".includes(w.k)).forEach(w=>{
+    const src=dens(w.pts);const runs=[[]];
+    src.forEach(p=>{if(inPlot(p[0],p[1])||(w.k!=="r"&&nearHome(p[0],p[1]))){if(runs[runs.length-1].length)runs.push([])}else runs[runs.length-1].push(p)});
+    runs.filter(rn=>rn.length>1).forEach(pts=>{if(w.k==="l")pts.forEach(p=>lanePts.push(p));
+      (byKind[w.k]=byKind[w.k]||[]).push(ribbon(pts,RW[w.k],RY[w.k]));
+      const lg=new THREE.BufferGeometry().setFromPoints(pts.map(p=>V(p[0],RY[w.k]+1.5,p[1])));const ln=new THREE.Line(lg,lineMats[w.k]);ln.userData.far=true;scene.add(ln)})});
+  for(const k in byKind){const m=new THREE.Mesh(merge(byKind[k]),roadMats[k]);m.receiveShadow=true;scene.add(m)}
+  // front road along the car-porch side, joined to the village lanes
+  const fz=PL.z+PL.d+5.5,rx0=PL.x-110,rx1=PL.x+PL.w+110;const fr=[];for(let x=rx0;x<=rx1;x+=10){const p=W(x,fz);fr.push([p.x,p.z])}
+  const joinEnd=(pt)=>{let b=[1e12,0,0];lanePts.forEach(p=>{const d=Math.hypot(p[0]-pt[0],p[1]-pt[1]);if(d<b[0])b=[d,p[0],p[1]]});return b[0]<350?[b[1],b[2]]:null};
+  const jA=joinEnd(fr[0]),jB=joinEnd(fr[fr.length-1]);const frontPts=[...(jA?[jA]:[]),...fr,...(jB?[jB]:[])];
+  const frM=new THREE.Mesh(ribbon(frontPts,6,.38),roadMats.s);frM.receiveShadow=true;scene.add(frM);
+  const frL=new THREE.Line(new THREE.BufferGeometry().setFromPoints(frontPts.map(p=>V(p[0],2,p[1]))),lineMats.s);frL.userData.far=true;scene.add(frL);
+  const gW0=W(X(530),PL.z+PL.d),gW1=W(X(530),fz);const dw=new THREE.Mesh(ribbon([[gW0.x,gW0.z],[gW1.x,gW1.z]],5,.39),mats.paver);scene.add(dw);
+  const gateW=gW1,gl=[0,frontPts[frontPts.length-1][0],frontPts[frontPts.length-1][1]],outW=gW1;
+  /* ---- the plot ---- */
+  const plotG=new THREE.PlaneGeometry(PL.w,PL.d);const plot=new THREE.Mesh(plotG,mats.grass);plot.rotation.x=-Math.PI/2;plot.position.set(PL.cx,.06,PL.cz);plot.receiveShadow=true;plot.userData.key="garden";prop.add(plot);
+  plotT.repeat.set(PL.w/6,PL.d/6);
+  const pav=rect(250,983,700,1315);const pv=new THREE.Mesh(new THREE.PlaneGeometry(pav.w,pav.d),mats.paver);pv.rotation.x=-Math.PI/2;pv.position.set(pav.cx,.09,pav.cz);pv.receiveShadow=true;prop.add(pv);
+  paverT.repeat.set(pav.w/2.5,pav.d/2.5);
+  const path=new THREE.Mesh(new THREE.PlaneGeometry(2.2,PL.z*-1-(-Z(718))),mats.soil);path.rotation.x=-Math.PI/2;path.position.set(X(392),.08,(PL.z+Z(718))/2);path.receiveShadow=true;prop.add(path);
+  // compound wall with coping and a black gate
+  const wallH=1.5;const segW=(x1,z1,x2,z2)=>{const L=Math.hypot(x2-x1,z2-z1),a=Math.atan2(z2-z1,x2-x1);const w=boxM(L,wallH,.25,mats.plaster,(x1+x2)/2,wallH/2,(z1+z2)/2,prop,-a);boxM(L,.08,.4,STD({color:0x8a8476}),(x1+x2)/2,wallH+.04,(z1+z2)/2,prop,-a);return w};
+  const x0=PL.x,x1=PL.x+PL.w,z0=PL.z,z1=PL.z+PL.d,gx0=X(500),gx1=X(560);
+  segW(x0,z1,gx0,z1);segW(gx1,z1,x1,z1);segW(x0,z0,x1,z0);segW(x0,z0,x0,z1);segW(x1,z0,x1,z1);
+  for(let i=0;i<12;i++)boxM(.12,1.8,.08,mats.dark,gx0+.25+i*((gx1-gx0-.5)/11),.95,z1,prop);
+  boxM(gx1-gx0,.1,.1,mats.dark,(gx0+gx1)/2,1.82,z1,prop);boxM(gx1-gx0,.1,.1,mats.dark,(gx0+gx1)/2,.15,z1,prop);
+  [gx0,gx1].forEach(x=>boxM(.5,2,.5,mats.plaster,x,1,z1,prop));
+  // back gate and river steps
+  boxM(3.2,.3,.2,mats.dark,X(392),.15,z0,prop);
+  for(let i=0;i<4;i++)boxM(3.4,.25,.9,STD({color:0xa59a85}),X(392),.12-i*.18,z0-1-i*.9,prop);
+
+  /* ---- the house ---- */
+  const H=rect(288,718,578,983);const FH=.5,WH=3.1;
+  boxM(H.w+.6,FH,H.d+.6,STD({color:0xbfb6a6}),H.cx,FH/2,H.cz,prop);
+  const SP=[["bed1",[300,748,378,822],tileG,0x9fd24a],["bath1",[300,822,378,853],tileW,0xdfe8ea],["bath2",[300,856,378,885],tileW,0xdfe8ea],["bed2",[300,885,378,977],tileG,0xbcb8dc],
+    ["hall",[378,745,402,977],tileW,0xf0ebe2],["sitout",[297,722,495,744],tileW,0xf0ebe2],["utility",[500,720,572,742],tileW,0xece6da],
+    ["dining",[404,748,497,800],tileW,0xeab9c2],["bed3",[404,800,497,878],tileG,0xeeeeee],["kitchen",[500,746,572,823],tileW,0xf1ece2],
+    ["bath3",[500,825,572,878],tileW,0xdfe8ea],["living",[400,882,572,977],tileW,0xebbcc5]];
+  const R={},pickables=[],parts={};
+  const wallMatCache={};const wallMat=c=>wallMatCache[c]||(wallMatCache[c]=STD({color:c,roughness:.9}));
+  SP.forEach(([k,px,ft,wc])=>{const r=rect(...px);R[k]=r;
+    const fm=STD({map:ft.clone(),roughness:.5});fm.map.needsUpdate=true;fm.map.repeat.set(r.w/2,r.d/2);
+    const floor=new THREE.Mesh(new THREE.PlaneGeometry(r.w-.12,r.d-.12),fm);floor.rotation.x=-Math.PI/2;floor.position.set(r.cx,FH+.01,r.cz);floor.receiveShadow=true;floor.userData.key=k;prop.add(floor);pickables.push(floor);
+    const t=.12,wm=wallMat(wc);
+    [[r.cx,r.z+t/2,r.w,t],[r.cx,r.z+r.d-t/2,r.w,t],[r.x+t/2,r.cz,t,r.d],[r.x+r.w-t/2,r.cz,t,r.d]].forEach(([x,z,w,d])=>{const m=boxM(w,WH,d,wm,x,FH+WH/2,z,prop);m.userData.key=k;pickables.push(m)});
+    parts[k]={mesh:[floor],at:V(r.cx,1,r.cz)}});
+  // exterior shell with windows and sunshades
+  const ext=(x1,z1,x2,z2,out)=>{const L=Math.hypot(x2-x1,z2-z1),a=Math.atan2(z2-z1,x2-x1);const cx=(x1+x2)/2,cz=(z1+z2)/2;
+    boxM(L+.3,WH+.1,.3,mats.plaster,cx,FH+WH/2,cz,prop,-a);
+    const n=Math.max(1,Math.floor(L/3.6));for(let i=0;i<n;i++){const f=(i+.5)/n;const wx=x1+(x2-x1)*f+out[0]*.18,wz=z1+(z2-z1)*f+out[1]*.18;
+      boxM(1.5,1.55,.08,mats.glass,wx,FH+1.75,wz,prop,-a);boxM(1.7,.12,.14,mats.wood,wx,FH+2.6,wz,prop,-a);boxM(1.7,.12,.14,mats.wood,wx,FH+.92,wz,prop,-a);
+      for(let j=-2;j<=2;j++){const ox=Math.cos(-a)*j*.32,oz=-Math.sin(-a)*j*.32;boxM(.05,1.55,.06,mats.wood,wx+ox+out[0]*.03,FH+1.75,wz+oz+out[1]*.03,prop,-a)}
+      boxM(2,.08,.6,mats.white,wx+out[0]*.25,FH+2.95,wz+out[1]*.25,prop,-a)}};
+  ext(H.x,H.z,H.x+H.w,H.z,[0,-1]);ext(H.x,H.z+H.d,H.x+H.w,H.z+H.d,[0,1]);ext(H.x,H.z,H.x,H.z+H.d,[-1,0]);ext(H.x+H.w,H.z,H.x+H.w,H.z+H.d,[1,0]);
+  const door=boxM(1.1,2.2,.12,mats.wood,X(390),FH+1.1,H.z+H.d+.16,prop);
+  // house details: plinth band, entrance steps, door frame and canopy, wall lights, pipes, AC units, plants
+  {const band=STD({color:0x6f7378,roughness:.8}),trim=STD({color:0x5d6b78,roughness:.6});
+    [[H.cx,H.z-.17,H.w+.4,.06],[H.cx,H.z+H.d+.17,H.w+.4,.06],[H.x-.17,H.cz,.06,H.d+.4],[H.x+H.w+.17,H.cz,.06,H.d+.4]].forEach(([x,z,w,d])=>{boxM(w,.55,d,band,x,FH+.27,z,prop);boxM(w,.18,d,trim,x,FH+WH-.05,z,prop)});
+    const dz=H.z+H.d;[0,1,2].forEach(i=>boxM(2.4-i*.3,.17,.45,STD({color:0xb5aea0}),X(390),.09+i*.17,dz+1.25-i*.4,prop));
+    boxM(1.4,2.5,.1,trim,X(390),FH+1.25,dz+.2,prop);boxM(2.4,.1,1.3,mats.white,X(390),FH+2.75,dz+.75,prop);
+    [-1,1].forEach(sg=>{mesh(new THREE.BoxGeometry(.18,.25,.1),new THREE.MeshStandardMaterial({color:0xfff2c4,emissive:0xffd890,emissiveIntensity:1.2}),X(390)+sg*1.05,FH+2.1,dz+.22,prop,false)});
+    [[H.x-.2,H.z-.2],[H.x+H.w+.2,H.z-.2],[H.x-.2,H.z+H.d+.2],[H.x+H.w+.2,H.z+H.d+.2]].forEach(([x,z])=>mesh(new THREE.CylinderGeometry(.06,.06,WH+.6,8),STD({color:0xe8e4da}),x,FH+WH/2,z,prop));
+    [[H.x-.45,Z(790)],[H.x-.45,Z(930)],[H.x+H.w+.45,Z(850)]].forEach(([x,z])=>{boxM(.4,.6,.85,mats.white,x,FH+.7,z,prop);boxM(.05,.42,.42,STD({color:0x333333}),x+(x<H.cx?-.21:.21),FH+.7,z,prop)});
+    const pot=STD({color:0x9a4a2a,roughness:.7});
+    [-4,-2.6,2.6,4,5.4].forEach(dx=>{mesh(new THREE.CylinderGeometry(.28,.2,.5,12),pot,X(390)+dx,.3,dz+.9,prop);const pl=mesh(new THREE.IcosahedronGeometry(.42,1),STD({color:greens2[Math.abs(dx*10|0)%4],flatShading:true}),X(390)+dx,.85,dz+.9,prop)})}
+  // roof slab with parapet, lifts off
+  const roof=new THREE.Group();prop.add(roof);
+  boxM(H.w+.8,.28,H.d+.8,mats.roof,H.cx,0,H.cz,roof);
+  [[H.cx,H.z-.3,H.w+.8,.2],[H.cx,H.z+H.d+.3,H.w+.8,.2],[H.x-.3,H.cz,.2,H.d+.8],[H.x+H.w+.3,H.cz,.2,H.d+.8]].forEach(([x,z,w,d])=>boxM(w,.7,d,mats.plaster,x,.45,z,roof));
+  boxM(2.2,1,2.2,mats.white,H.x+H.w-2,.6,H.z+2,roof);
+  const tank=mesh(new THREE.CylinderGeometry(.7,.7,1.3,16),STD({color:0x1a1a1a,roughness:.6}),H.x+H.w-2,1.75,H.z+2,roof);
+  roof.position.y=FH+WH+.14;
+  // furniture
+  const bed=(px,py,w,d,throwC)=>{const x=X(px),z=Z(py);boxM(w,.35,d,mats.wood,x,FH+.25,z,prop);boxM(w-.1,.22,d-.1,mats.white,x,FH+.53,z,prop);boxM(w*.55,.05,d-.06,STD({color:throwC,roughness:.9}),x+w*.18,FH+.66,z,prop);
+    boxM(.12,1.1,d+.1,mats.wood,x-w/2-.06,FH+.6,z,prop);for(const s of [-1,1])boxM(.45,.15,d*.38,mats.white,x-w/2+.4,FH+.72,z+s*d*.24,prop)};
+  bed(324,787,2.1,1.65,0x6f9a3a);bed(325,927,2.1,1.65,0x8a9a5a);bed(437,841,2.4,1.8,0xb3402f);
+  [[362,834],[362,868],[560,852]].forEach(([a,b])=>{boxM(.4,.42,.55,mats.white,X(a),FH+.21,Z(b),prop);boxM(.4,.5,.15,mats.white,X(a),FH+.6,Z(b)+.25,prop)});
+  boxM(.8,.9,3.3,STD({color:0x3c3a38,roughness:.3}),X(561),FH+.45,Z(782),prop);boxM(.82,.05,3.32,STD({color:0x111111,roughness:.15,metalness:.2}),X(561),FH+.92,Z(782),prop);
+  const dc=R.dining;boxM(2.2,.07,1.05,mats.wood,dc.cx,FH+.76,dc.cz,prop);
+  [[-.95,-.45],[.95,-.45],[-.95,.45],[.95,.45]].forEach(([dx,dz])=>boxM(.07,.72,.07,mats.wood,dc.cx+dx,FH+.38,dc.cz+dz,prop));
+  [-.7,0,.7].forEach(dx=>[-1,1].forEach(s=>{boxM(.44,.05,.44,mats.wood,dc.cx+dx,FH+.46,dc.cz+s*.82,prop);boxM(.44,.5,.05,mats.wood,dc.cx+dx,FH+.73,dc.cz+s*1.03,prop)}));
+  boxM(3.6,.45,.95,STD({color:0xc7a46a,roughness:.9}),X(483),FH+.3,Z(953),prop);boxM(3.6,.5,.22,STD({color:0xb8945a,roughness:.9}),X(483),FH+.65,Z(962),prop);
+  boxM(2.2,.06,1.1,STD({color:0x5a3a24,roughness:.4}),X(483),FH+.45,Z(921),prop);boxM(2.6,1.6,.02,STD({color:0xd94a3a,roughness:.9}),X(483),FH+.02,Z(921),prop).rotation.x=-Math.PI/2;
+  boxM(2,.5,.45,mats.wood,X(484),FH+.25,Z(890),prop);boxM(1.6,.9,.05,STD({color:0x0b0b0b,roughness:.2}),X(484),FH+1.35,Z(887.5),prop);
+
+  /* ---- car porch with cars ---- */
+  const P=rect(474,988,590,1175);
+  const pf=new THREE.Mesh(new THREE.PlaneGeometry(P.w,P.d),mats.paver);pf.rotation.x=-Math.PI/2;pf.position.set(P.cx,.11,P.cz);pf.userData.key="porch";prop.add(pf);pickables.push(pf);
+  [[0,0],[1,0],[0,1],[1,1]].forEach(([i,j])=>mesh(new THREE.CylinderGeometry(.16,.16,3.1,14),mats.pillar,P.x+.3+i*(P.w-.6),1.55,P.z+.3+j*(P.d-.6),prop));
+  const pg=new THREE.ConeGeometry(P.w/1.414*1.15,1.6,4,1,true);pg.rotateY(Math.PI/4);const prf=mesh(pg,STD({color:0x5a5f63,roughness:.45,metalness:.5,side:THREE.DoubleSide}),P.cx,3.9,P.cz,prop);prf.scale.set(1,1,P.d/P.w);
+  parts.porch={mesh:[pf],at:V(P.cx,0,P.cz),local:true};
+  const car=(px,py,col,ry)=>{const g=new THREE.Group();const sh=new THREE.Shape();sh.moveTo(-2.1,.35);sh.lineTo(2.1,.35);sh.quadraticCurveTo(2.25,.35,2.2,.75);sh.lineTo(2.05,.95);sh.lineTo(1.1,1.05);sh.lineTo(.55,1.5);sh.lineTo(-1.2,1.5);sh.lineTo(-1.8,1.05);sh.lineTo(-2.15,.95);sh.quadraticCurveTo(-2.25,.4,-2.1,.35);
+    const bg=new THREE.ExtrudeGeometry(sh,{depth:1.6,bevelEnabled:true,bevelThickness:.12,bevelSize:.1,bevelSegments:3});bg.translate(0,0,-.8);
+    const body=new THREE.Mesh(bg,STD({color:col,roughness:.28,metalness:.55}));body.castShadow=true;g.add(body);
+    const wg=new THREE.BoxGeometry(1.7,.38,1.7);const win=new THREE.Mesh(wg,mats.glass);win.position.set(-.3,1.25,0);g.add(win);
+    [[-1.35,-.82],[1.35,-.82],[-1.35,.82],[1.35,.82]].forEach(([x,z])=>{const w=new THREE.Mesh(new THREE.CylinderGeometry(.36,.36,.25,18),STD({color:0x111111,roughness:.7}));w.rotation.x=Math.PI/2;w.position.set(x,.36,z);g.add(w)});
+    g.position.set(X(px),.12,Z(py));g.rotation.y=ry;prop.add(g)};
+  car(447,1090,0xb3261e,Math.PI/2+.45);car(498,1185,0x2b55b5,Math.PI/2+.3);
+
+  /* ---- trees ---- */
+  const frondGeo=(()=>{const g=new THREE.PlaneGeometry(4.6,1.1,10,1);g.translate(2.3,0,0);const p=g.attributes.position;for(let i=0;i<p.count;i++){const x=p.getX(i);p.setZ(i,p.getY(i)*.3);p.setY(i,-.06*x*x+.35*x)}g.computeVertexNormals();return g})();
+  const palm=(x,z,h,lean,parent,s=1)=>{const g=new THREE.Group();const curve=new THREE.CatmullRomCurve3([V(0,0,0),V(lean*.3*h,h*.35,0),V(lean*.8*h,h*.7,0),V(lean*h,h,0)]);
+    const tr=new THREE.Mesh(new THREE.TubeGeometry(curve,10,.2*s,7,false),mats.bark);tr.castShadow=true;g.add(tr);
+    const top=curve.getPoint(1);for(let i=0;i<11;i++){const f=new THREE.Mesh(frondGeo,mats.frond);f.position.copy(top);f.rotation.y=i/11*Math.PI*2+rnd()*.3;f.rotation.z=-.15+rnd()*.35;f.scale.setScalar(s*(.85+rnd()*.3));f.castShadow=true;g.add(f)}
+    for(let i=0;i<5;i++){const n=new THREE.Mesh(new THREE.SphereGeometry(.16*s,8,6),STD({color:0x6b7a2a}));n.position.copy(top).add(V(Math.cos(i*1.3)*.25,-.25,Math.sin(i*1.3)*.25));g.add(n)}
+    g.position.set(x,0,z);g.rotation.y=rnd()*6.28;(parent||scene).add(g)};
+  const greens=[0x3f7a2e,0x4d8a34,0x37702a,0x5c9638];
+  const fruitTree=(x,z,s,parent)=>{const g=new THREE.Group();const tr=new THREE.Mesh(new THREE.CylinderGeometry(.18*s,.3*s,2*s,8),mats.bark);tr.position.y=s;tr.castShadow=true;g.add(tr);
+    for(let i=0;i<5;i++){const geo=new THREE.IcosahedronGeometry((1+rnd()*.6)*s,1);const p=geo.attributes.position;for(let j=0;j<p.count;j++){const k=1+(rnd()-.5)*.25;p.setXYZ(j,p.getX(j)*k,p.getY(j)*k,p.getZ(j)*k)}geo.computeVertexNormals();
+      const c=new THREE.Mesh(geo,STD({color:greens[i%4],roughness:.9,flatShading:true}));c.position.set((rnd()-.5)*1.6*s,2.6*s+rnd()*1.2*s,(rnd()-.5)*1.6*s);c.castShadow=true;g.add(c)}
+    g.position.set(x,0,z);(parent||scene).add(g)};
+  [[228,88,10,.12],[680,88,11,-.1],[450,290,12,.08],[608,530,10,-.12],[113,688,9.5,.14],[333,1245,10,-.08],[665,1255,11,.1]].forEach(([a,b,h,l])=>palm(X(a),Z(b),h,l,prop));
+  [[137,100,1.1],[405,135,.75],[567,148,1.1],[222,190,.7],[358,232,1.1],[133,288,1.05],[592,310,.7],[231,373,1.05],[405,398,.75],[517,433,1.05],[113,470,.7],[315,516,1.05],[168,613,1.05],[488,643,.75],[168,866,1.05],[146,1032,1.05],[301,1082,1.05],[217,1196,1.05],[107,1268,1.05]].forEach(([a,b,s])=>fruitTree(X(a),Z(b),s,prop));
+  for(let i=0;i<26;i++){const t=i/26;const x=x0+1+t*(x1-x0-2);const b=new THREE.Mesh(new THREE.IcosahedronGeometry(.6+rnd()*.3,0),STD({color:greens[i%4],flatShading:true}));b.position.set(x,.5,z1-1.1);b.castShadow=true;prop.add(b)}
+
+  /* ---- river path helpers ---- */
+  const tan=V(-dir.z,0,dir.x);
+  let RV=rivers[0],bdist=1e12;rivers.forEach(rv=>{const d=segDist(near[1],near[2],rv.pts)[0];if(d<bdist){bdist=d;RV=rv}});
+  const cum=[0];for(let i=1;i<RV.pts.length;i++)cum.push(cum[i-1]+Math.hypot(RV.pts[i][0]-RV.pts[i-1][0],RV.pts[i][1]-RV.pts[i-1][1]));
+  const sAt=(x,z)=>{let b=[1e12,0];for(let i=0;i<RV.pts.length-1;i++){const [ax,az]=RV.pts[i],[bx,bz]=RV.pts[i+1];const dx=bx-ax,dz=bz-az,L=Math.hypot(dx,dz)||1;const t=Math.max(0,Math.min(1,((x-ax)*dx+(z-az)*dz)/(L*L)));const d=Math.hypot(ax+t*dx-x,az+t*dz-z);if(d<b[0])b=[d,cum[i]+t*L]}return b[1]};
+  const along=(s,lat)=>{s=Math.max(0,Math.min(cum[cum.length-1]-.01,s));let i=0;while(i<cum.length-2&&cum[i+1]<s)i++;const [ax,az]=RV.pts[i],[bx,bz]=RV.pts[i+1];const L=cum[i+1]-cum[i]||1;const f=(s-cum[i])/L;const tx=(bx-ax)/L,tz=(bz-az)/L;
+    return {p:V(ax+(bx-ax)*f-tz*lat,0,az+(bz-az)*f+tx*lat),h:Math.atan2(-tz,tx),n:V(-tz,0,tx),t:V(tx,0,tz)}};
+  const s0=sAt(near[1],near[2]);const a0=along(s0,0);
+  const side=Math.sign(V(centre.x-a0.p.x,0,centre.z-a0.p.z).dot(a0.n))||1;
+  const rightSign=Math.sign(tan.dot(a0.t))||1;
+  const yaw=v=>Math.atan2(-v.z,v.x);
+
+  /* ---- houseboats ---- */
+  const hbColors=[0xe9dcc0,0xf1e6cf,0xd9c7a2,0xefe2c8];
+  const makeHB=(c)=>{const g=new THREE.Group();const hs=new THREE.Shape();hs.moveTo(-9,1.6);hs.quadraticCurveTo(-7.5,0,-5,0);hs.lineTo(5,0);hs.quadraticCurveTo(7.5,0,9,1.6);hs.lineTo(8.6,1.7);hs.quadraticCurveTo(7,.7,5,.7);hs.lineTo(-5,.7);hs.quadraticCurveTo(-7,.7,-8.6,1.7);hs.closePath();
+    const hull=new THREE.Mesh(new THREE.ExtrudeGeometry(hs,{depth:3.6,bevelEnabled:true,bevelThickness:.15,bevelSize:.12,bevelSegments:2}),mats.wood);hull.position.set(0,-.4,-1.8);hull.castShadow=true;g.add(hull);
+    const deck=new THREE.Mesh(new THREE.BoxGeometry(11,.12,3.4),mats.wood);deck.position.y=.38;g.add(deck);
+    const roofG=new THREE.CylinderGeometry(2.1,2.1,9,20,1,true,0,Math.PI);roofG.rotateZ(Math.PI/2);roofG.rotateX(Math.PI/2);
+    const rf=new THREE.Mesh(roofG,mats.thatch);rf.position.set(-.5,2.4,0);rf.scale.set(1,.85,1);rf.castShadow=true;g.add(rf);
+    for(let i=-4;i<=3;i++)for(const s of [-1,1]){const pole=new THREE.Mesh(new THREE.CylinderGeometry(.05,.05,2,6),mats.wood);pole.position.set(i*1.2,1.4,s*1.6);g.add(pole)}
+    const cabin=new THREE.Mesh(new THREE.BoxGeometry(5,1.4,2.6),STD({color:c,roughness:.8}));cabin.position.set(-2,1.1,0);g.add(cabin);
+    for(let i=0;i<4;i++)for(const s of [-1,1]){const w=new THREE.Mesh(new THREE.BoxGeometry(.7,.5,.05),mats.glass);w.position.set(-3.8+i*1.2,1.3,s*1.32);g.add(w)}
+    [[2,-.8],[2,.8],[3.2,0]].forEach(([x,z])=>{const ch=new THREE.Mesh(new THREE.BoxGeometry(.5,.5,.5),STD({color:0x7a3a2a}));ch.position.set(x,.7,z);g.add(ch)});
+    scene.add(g);return g};
+  const HB=[[-170,.55,1],[60,.1,-1],[230,-.5,1],[-420,0,-1],[480,.3,1]].map(([ds,lf,dirn],i)=>({g:makeHB(hbColors[i%4]),s:s0+ds,lat:side*lf*(RIVER_W/2-14),v:dirn*(1.2+i*.15)}));
+  const placeHB=b=>{const a=along(b.s,b.lat);b.g.position.copy(a.p).setY(.35);b.g.rotation.y=a.h+(b.v<0?Math.PI:0)};HB.forEach(placeHB);
+  const boatBase=HB[1].g.position.clone();
+
+  /* ---- canoe with a boatman ---- */
+  const canoe=new THREE.Group();{const cg=new THREE.SphereGeometry(1,16,8);const c=new THREE.Mesh(cg,mats.wood);c.scale.set(2.6,.32,.45);canoe.add(c);const man=new THREE.Mesh(new THREE.CylinderGeometry(.18,.22,1.1,8),STD({color:0xf2f0ea}));man.position.set(1.4,.6,0);canoe.add(man);const head=new THREE.Mesh(new THREE.SphereGeometry(.15,10,8),STD({color:0x5a3b25}));head.position.set(1.4,1.25,0);canoe.add(head);const pole=new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,4,6),mats.wood);pole.position.set(1.6,1.2,.3);pole.rotation.z=.4;canoe.add(pole)}
+  {const a=along(s0-rightSign*40,side*(RIVER_W/2-10));canoe.position.copy(a.p).setY(.3);canoe.rotation.y=a.h}scene.add(canoe);
+
+  /* ---- ferry: jetty on this bank, jetty across, and the ferry boat ---- */
+  const sF=s0+rightSign*(PL.w/2+50);const fA=along(sF,side*RIVER_W/2),fB=along(sF,-side*RIVER_W/2);
+  const toRiver=fA.n.clone().multiplyScalar(-side);
+  const signT=TX(256,96,(g,w,h)=>{g.fillStyle="#1d5a4f";g.fillRect(0,0,w,h);g.fillStyle="#f6e7a6";g.font="bold 40px sans-serif";g.textAlign="center";g.fillText("FERRY",w/2,44);g.font="30px sans-serif";g.fillText("കടത്ത്",w/2,84)},1,1);
+  signT.wrapS=signT.wrapT=THREE.ClampToEdgeWrapping;
+  const jetty=(base,out)=>{const g=new THREE.Group();const len=13;const pl=new THREE.Mesh(new THREE.BoxGeometry(len,.25,4),mats.wood);pl.position.set(len/2-2,.75,0);pl.castShadow=pl.receiveShadow=true;g.add(pl);
+    for(let i=0;i<5;i++)for(const s of [-1,1]){const p=new THREE.Mesh(new THREE.CylinderGeometry(.14,.14,2.4,8),mats.wood);p.position.set(-1.5+i*3,0,s*1.9);g.add(p);if(i>0){const rail=new THREE.Mesh(new THREE.BoxGeometry(3,.08,.08),mats.wood);rail.position.set(i*3-3,1.7,s*1.9);g.add(rail)}}
+    const hut=new THREE.Group();const hb=new THREE.Mesh(new THREE.BoxGeometry(3.4,2.4,3.6),mats.plaster);hb.position.y=1.2;hut.add(hb);const hr=new THREE.Mesh(new THREE.ConeGeometry(3.3,1.4,4),mats.roof);hr.rotation.y=Math.PI/4;hr.position.y=3.1;hr.scale.set(1,1,1.1);hut.add(hr);
+    const bench=new THREE.Mesh(new THREE.BoxGeometry(2.6,.12,.6),mats.wood);bench.position.set(2.2,.55,-1.2);hut.add(bench);
+    const sg=new THREE.Mesh(new THREE.PlaneGeometry(2.4,.9),STD({map:signT,roughness:.6}));sg.position.set(1.72,2.1,0);sg.rotation.y=Math.PI/2;hut.add(sg);
+    hut.position.set(-5,0,0);g.add(hut);hut.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true}});
+    g.position.copy(base).setY(0);g.rotation.y=yaw(out);scene.add(g);return g};
+  jetty(fA.p,toRiver);jetty(fB.p,toRiver.clone().negate());
+  const ferry=new THREE.Group();{const hull=new THREE.Mesh(new THREE.BoxGeometry(7,.7,3.4),STD({color:0x2d6a8a,roughness:.5}));hull.position.y=.1;ferry.add(hull);
+    const dk=new THREE.Mesh(new THREE.BoxGeometry(6.6,.1,3),mats.wood);dk.position.y=.5;ferry.add(dk);
+    const cr=new THREE.Mesh(new THREE.BoxGeometry(4.6,.12,3.3),STD({color:0xd8d2c2}));cr.position.y=2.6;ferry.add(cr);
+    [[-2,-1.5],[2,-1.5],[-2,1.5],[2,1.5]].forEach(([x,z])=>{const p=new THREE.Mesh(new THREE.CylinderGeometry(.06,.06,2.1,6),mats.metal);p.position.set(x,1.55,z);ferry.add(p)});
+    for(let i=0;i<5;i++){const pp=new THREE.Mesh(new THREE.CylinderGeometry(.17,.2,1,8),STD({color:[0xf2f0ea,0x2b55b5,0xc0392b,0xe6cf3e,0x3a7a3a][i]}));pp.position.set(-1.8+i*.9,1,(i%2?.6:-.6));ferry.add(pp)}
+    const bike=new THREE.Mesh(new THREE.TorusGeometry(.3,.04,6,16),STD({color:0x111111}));bike.position.set(2.4,.85,0);ferry.add(bike);
+    ferry.traverse(o=>{if(o.isMesh)o.castShadow=true})}
+  const fStart=fA.p.clone().addScaledVector(toRiver,12),fEnd=fB.p.clone().addScaledVector(toRiver,-12);
+  ferry.position.copy(fStart).setY(.35);ferry.rotation.y=yaw(toRiver);scene.add(ferry);
+
+  /* ---- backyard: kayaks, bonfire with chairs, hammock, private jetty, lamps ---- */
+  const kayakGeo=new THREE.SphereGeometry(1,20,10);
+  const kayak=(col,parent)=>{const g=new THREE.Group();const h=new THREE.Mesh(kayakGeo,STD({color:col,roughness:.35}));h.scale.set(1.75,.24,.36);h.castShadow=true;g.add(h);
+    const ck=new THREE.Mesh(new THREE.CylinderGeometry(.24,.24,.1,14),STD({color:0x1a1a1a}));ck.position.set(0,.2,0);g.add(ck);
+    const pd=new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,2.2,6),STD({color:0x222222}));pd.rotation.z=Math.PI/2;pd.rotation.y=.4;pd.position.set(.1,.27,0);g.add(pd);(parent||scene).add(g);return g};
+  [[X(392)-5,z0+2.8,0xe6cf3e],[X(392)-5,z0+4.2,0xd9774c],[X(392)-5,z0+5.6,0xc0392b]].forEach(([x,z,c])=>{const k=kayak(c,prop);k.position.set(x,.3,z)});
+  // private jetty from the back gate
+  {const pj=boxM(2.4,.22,7,mats.wood,X(392),.62,z0-3.2,prop);for(let i=0;i<3;i++)for(const s of [-1,1])mesh(new THREE.CylinderGeometry(.12,.12,1.8,8),mats.wood,X(392)+s*1.1,0,z0-.8-i*2.6,prop)}
+  const k1=kayak(0x2bb0a0);const k2=kayak(0xe6cf3e);
+  {const a=W(X(392)+2.2,z0-4),b=W(X(392)-2.2,z0-5.5);k1.position.copy(a).setY(.32);k2.position.copy(b).setY(.32);k1.rotation.y=k2.rotation.y=theta+Math.PI/2}
+  // bonfire with six chairs
+  const BF=V(X(560),0,Z(150));
+  {for(let i=0;i<12;i++){const a=i/12*Math.PI*2;const st=mesh(new THREE.DodecahedronGeometry(.22+rnd()*.08,0),STD({color:0x77736b}),BF.x+Math.cos(a)*1.05,.18,BF.z+Math.sin(a)*1.05,prop)}
+    for(let i=0;i<4;i++){const lg=mesh(new THREE.CylinderGeometry(.1,.1,1.4,8),mats.bark,BF.x,.25,BF.z,prop);lg.rotation.z=Math.PI/2-.35;lg.rotation.y=i*Math.PI/4}
+    const chair=(ang)=>{const g=new THREE.Group();const seat=new THREE.Mesh(new THREE.BoxGeometry(.62,.08,.6),mats.wood);seat.position.y=.42;g.add(seat);const back=new THREE.Mesh(new THREE.BoxGeometry(.62,.75,.07),mats.wood);back.position.set(0,.8,-.32);back.rotation.x=-.25;g.add(back);
+      for(const [x,z] of [[-.27,-.25],[.27,-.25],[-.27,.25],[.27,.25]]){const l=new THREE.Mesh(new THREE.BoxGeometry(.06,.42,.06),mats.wood);l.position.set(x,.21,z);g.add(l)}
+      for(const x of [-.33,.33]){const ar=new THREE.Mesh(new THREE.BoxGeometry(.07,.05,.6),mats.wood);ar.position.set(x,.62,0);g.add(ar)}
+      g.traverse(o=>{if(o.isMesh)o.castShadow=true});g.position.set(BF.x+Math.sin(ang)*3,0,BF.z+Math.cos(ang)*3);g.rotation.y=ang+Math.PI;prop.add(g)};
+    for(let i=0;i<6;i++)chair(i/6*Math.PI*2+.3)}
+  const flames=[];for(let i=0;i<3;i++){const f=new THREE.Mesh(new THREE.ConeGeometry(.35-i*.08,1.1-i*.2,10),new THREE.MeshBasicMaterial({color:[0xff7a1a,0xffa53a,0xffe08a][i],transparent:true,opacity:.92}));f.position.set(BF.x,.75-i*.05,BF.z);prop.add(f);flames.push(f)}
+  const fireLight=new THREE.PointLight(0xff8a3a,1.6,14,2);fireLight.position.set(BF.x,1.4,BF.z);prop.add(fireLight);
+  // hammock between two posts, near the river
+  {const hx=X(200),hz=Z(150);for(const s of [-1,1]){const p=mesh(new THREE.CylinderGeometry(.12,.15,2.2,10),mats.bark,hx+s*1.9,1.1,hz,prop)}
+    const hamT=TX(64,64,(g,w,h)=>{const c=["#c0392b","#e6cf3e","#2b7a6a","#f2efe6","#2b55b5"];for(let i=0;i<8;i++){g.fillStyle=c[i%5];g.fillRect(0,i*8,w,8)}},1,1);
+    const hg=new THREE.PlaneGeometry(3.2,1.1,24,6);const hp=hg.attributes.position;for(let i=0;i<hp.count;i++){const x=hp.getX(i),y=hp.getY(i);hp.setZ(i,-(1-(x/1.6)**2)*.55-(y*y)*.25);}hg.computeVertexNormals();
+    const ham=mesh(hg,STD({map:hamT,side:THREE.DoubleSide,roughness:.9}),hx,1.5,hz,prop);ham.rotation.x=-Math.PI/2;
+    for(const s of [-1,1]){const rope=mesh(new THREE.CylinderGeometry(.015,.015,.5,4),STD({color:0xd8cfb8}),hx+s*1.72,1.65,hz,prop);rope.rotation.z=s*1.1}}
+  // garden lamps along the path
+  for(let i=0;i<5;i++){const z=Z(700)-i*6.5;mesh(new THREE.CylinderGeometry(.05,.07,1.2,8),mats.dark,X(392)+1.6,.6,z,prop);const lb=mesh(new THREE.SphereGeometry(.14,10,8),new THREE.MeshStandardMaterial({color:0xfff2c4,emissive:0xffe0a0,emissiveIntensity:.8}),X(392)+1.6,1.25,z,prop,false)}
+  parts.river={mesh:[],at:boatBase.clone()};parts.jetty={mesh:[],at:W(X(392),z0-3)};
+  /* ---- village around: palms and houses ---- */
+  {const N=2600;const trunk=new THREE.CylinderGeometry(.18,.28,1,6);trunk.translate(0,.5,0);const crown=new THREE.IcosahedronGeometry(1,0);
+    const tI=new THREE.InstancedMesh(trunk,mats.bark,N),cI=new THREE.InstancedMesh(crown,STD({color:0x3c6f2a,flatShading:true}),N);const m=new THREE.Matrix4(),q=new THREE.Quaternion();let n=0;
+    for(let i=0;i<N*3&&n<N;i++){const r=60+Math.pow(rnd(),1.6)*3200,a=rnd()*6.283;const x=Math.cos(a)*r,z=Math.sin(a)*r;if(inPlot(x,z)||isWater(x,z)||nearHome(x,z))continue;
+      const h=8+rnd()*8;q.setFromEuler(new THREE.Euler((rnd()-.5)*.25,0,(rnd()-.5)*.25));m.compose(V(x,0,z),q,V(1,h,1));tI.setMatrixAt(n,m);
+      const top=V(0,h,0).applyQuaternion(q);m.compose(V(x+top.x,top.y,z+top.z),new THREE.Quaternion(),V(2.6,1.1,2.6));cI.setMatrixAt(n,m);n++}
+    tI.count=cI.count=n;scene.add(tI,cI);
+    const hw=new THREE.BoxGeometry(1,1,1);hw.translate(0,.5,0);const hr=new THREE.ConeGeometry(.78,.5,4);hr.rotateY(Math.PI/4);hr.translate(0,1.25,0);
+    const HN=420;const wI=new THREE.InstancedMesh(hw,STD({color:0xffffff,roughness:.9}),HN),rI=new THREE.InstancedMesh(hr,STD({color:0xffffff,roughness:.8}),HN);let hn=0;
+    const wallC=[0xf3efe4,0xf2e2b8,0xe8d3d8,0xd9e4ea,0xf5f0d8],roofC=[0xa5462a,0x8f3d26,0x5d6268,0xb85a34];const col=new THREE.Color();
+    WAYS.filter(w=>w.k==="l").forEach(w=>{for(let i=0;i<w.pts.length-1&&hn<HN;i++){const [ax,az]=w.pts[i],[bx,bz]=w.pts[i+1];const L=Math.hypot(bx-ax,bz-az);const nx=-(bz-az)/L,nz=(bx-ax)/L;
+      for(let s=12;s<L&&hn<HN;s+=30+rnd()*25){const side=rnd()<.5?-1:1;const off=10+rnd()*6;const x=ax+(bx-ax)*s/L+nx*off*side,z=az+(bz-az)*s/L+nz*off*side;if(inPlot(x,z)||isWater(x,z)||nearHome(x,z)||Math.hypot(x,z)>2500)continue;
+        const w0=7+rnd()*4,d0=8+rnd()*4,h0=3.2+rnd()*.6;m.compose(V(x,0,z),new THREE.Quaternion().setFromEuler(new THREE.Euler(0,Math.atan2(nx,nz),0)),V(w0,h0,d0));wI.setMatrixAt(hn,m);rI.setMatrixAt(hn,m.clone().multiply(new THREE.Matrix4().makeScale(1.12,1,1.12)));
+        wI.setColorAt(hn,col.setHex(wallC[hn%5]).convertSRGBToLinear());rI.setColorAt(hn,col.setHex(roofC[hn%4]).convertSRGBToLinear());hn++}}});
+    wI.count=rI.count=hn;scene.add(wI,rI)}
+
+  /* ---- stations and labels ---- */
+  const LBL=$("#labels");const labels=[];
+  const label=(text,sub,x,z,y,cls,min,max)=>{const el=document.createElement("div");el.className="lbl "+(cls||"");el.innerHTML=`<b>${text}</b>${sub?`<span>${sub}</span>`:""}`;LBL.appendChild(el);labels.push({el,p:V(x,y||0,z),min:min||0,max:max||1e9});return el};
+  const km=(x,z)=>(Math.hypot(x,z)/1000).toFixed(1)+" km";
+  const STN=[["Kollam Junction",8.8862,76.5955],["Sasthamkotta",9.0315,76.601],["Munroe Thuruttu",8.9945,76.6116],["Perinad",8.9486,76.6207],["Kundara",8.9602,76.6782]];
+  STN.forEach(([n,la,lo])=>{const [x,z]=geo(la,lo);label("🚉 "+n,km(x,z)+" from IslandStay",x,z,20,"stn",500);const pin=mesh(new THREE.CylinderGeometry(6,6,40,16),STD({color:0xc0392b,emissive:0x400000}),x,20,z,scene,false);pin.userData.scaleWith=true;
+    parts["stn-"+n]={mesh:[],at:V(x,0,z)}});
+  label("IslandStay","Your stay",prop.position.x,prop.position.z,14,"home",120);
+  {let b=null;const px=near[1]+tan.x*700,pz=near[2]+tan.z*700;rivers.forEach(rv=>{const d=segDist(px,pz,rv.pts);if(!b||d[0]<b[0])b=d});label("Kallada River","",b[1],b[2],2,"water",300)}
+  if(lake){let cx=0,cz=0;lake.pts.forEach(p=>{cx+=p[0];cz+=p[1]});label("Ashtamudi Lake","",cx/lake.pts.length,cz/lake.pts.length,2,"water",1500)}
+  label("Houseboats","",boatBase.x,boatBase.z,6,"small",0,420);
+  label("Road to the village","",(gW1.x+gl[1])/2,(gW1.z+gl[2])/2,3,"small",0,320);
+  {const f=fA.p.clone().addScaledVector(toRiver,4);label("Ferry jetty","Crosses the Kallada",f.x,f.z,6,"small",0,520)}
+  {const b=W(BF.x,BF.z);label("Bonfire","Six chairs around it",b.x,b.z,3,"small",0,160)}
+  {const h=W(X(200),Z(150));label("Hammock","",h.x,h.z,3,"small",0,160)}
+  {const k=W(X(392)-5,z0+4);label("Kayaks","",k.x,k.z,2,"small",0,160)}
+  const homeMarker=mesh(new THREE.ConeGeometry(4,10,24),STD({color:0xe6cf3e,emissive:0x5a4a00}),prop.position.x,60,prop.position.z,scene,false);homeMarker.rotation.x=Math.PI;homeMarker.userData.scaleWith=true;
+
+  /* ---- interaction ---- */
+  const C=W(PL.cx,PL.cz);sun.target.position.copy(C);sun.position.copy(C).addScaledVector(sunDir,150);
+  const VIEWS={house:{t:W(H.cx,H.cz).setY(1),o:W(H.cx+26,H.cz+40).setY(34)},
+    area:{t:C.clone(),o:C.clone().add(V(420,520,700))},
+    region:(()=>{const [kx,kz]=geo(8.8862,76.5955),[sx,sz]=geo(9.0315,76.601);const t=V((kx+sx)/2,0,(kz+sz)/2+1500);return {t,o:t.clone().add(V(9000,14000,15000))}})()};
+  let fly=null;const flyTo=(t,o,ms=1600)=>{fly={t0:performance.now(),ms,ft:ctl.target.clone(),fo:cam.position.clone(),tt:t.clone(),to:o.clone()};ctl.autoRotate=false};
+  cam.position.copy(VIEWS.house.o);ctl.target.copy(VIEWS.house.t);
+  document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>{const v=VIEWS[b.dataset.view];flyTo(v.t,v.o);document.querySelectorAll("[data-view]").forEach(x=>x.setAttribute("aria-pressed",x===b))}));
+  let roofUp=false,roofT=0,selected=null;
+  updateRoofLabel=()=>{$("#roofBtn").textContent=roofUp?t("dropRoof"):t("liftRoof")};
+  $("#roofBtn").addEventListener("click",()=>{roofUp=!roofUp;updateRoofLabel();if(roofUp){const v=VIEWS.house;flyTo(v.t,W(H.cx+10,H.cz+18).setY(30))}});
+  const ray=new THREE.Raycaster(),ptr=new THREE.Vector2();let down=null;
+  canvas.addEventListener("pointerdown",e=>{down=[e.clientX,e.clientY];fly=null});
+  canvas.addEventListener("pointerup",e=>{if(!down)return;const mv=Math.hypot(e.clientX-down[0],e.clientY-down[1]);down=null;if(mv>6)return;
+    const r=canvas.getBoundingClientRect();ptr.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);ray.setFromCamera(ptr,cam);
+    const hit=ray.intersectObjects([...pickables,plot],false)[0];focusPart(hit?hit.object.userData.key:null)});
+  parts.garden={mesh:[],at:V(X(400),0,Z(380)),local:true};parts.fire={mesh:[],at:BF.clone(),local:true};parts.sitout&&(parts.sitout.local=true);
+  plot.userData.key="garden";
+  focusPart=k=>{
+    if(selected&&parts[selected])parts[selected].mesh.forEach(m=>m.material.emissive&&m.material.emissive.setHex(0));
+    selected=k&&parts[k]?k:null;
+    document.querySelectorAll("[data-part]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.part===selected));
+    if(!selected){$("#info").hidden=true;return}
+    const d=ALL.find(c=>c.key===selected)||{name:selected,text:""};$("#infoImg").hidden=!d.img;if(d.img){$("#infoImg").src=`img/${d.img}.jpg`;$("#infoImg").alt=d.name}$("#infoTitle").textContent=d.name;$("#infoText").textContent=(d.beds?d.beds+". ":"")+d.text;$("#info").hidden=false;
+    parts[selected].mesh.forEach(m=>m.material.emissive&&m.material.emissive.setHex(0x2a2200));
+    const inside=SP.some(s=>s[0]===selected);if(inside&&!roofUp){roofUp=true;updateRoofLabel()}
+    const at=parts[selected].at;const tw=(inside||parts[selected].local)?W(at.x,at.z).setY(1):at.clone();
+    flyTo(tw,tw.clone().add(V(9,14,13)),1200)};
+  function size(){const r=canvas.parentElement.getBoundingClientRect();if(!r.width)return;renderer.setSize(r.width,r.height,false);cam.aspect=r.width/r.height;cam.updateProjectionMatrix()}
+  new ResizeObserver(size).observe(canvas.parentElement);size();
+  let visible=true;new IntersectionObserver(es=>visible=es[0].isIntersecting).observe(canvas);
+  const clock=new THREE.Clock();const tmpV=new THREE.Vector3();
+  const scalers=[];scene.traverse(o=>{if(o.userData.scaleWith)scalers.push(o)});
+  const farLines=[];scene.traverse(o=>{if(o.userData.far)farLines.push(o)});
+  (function loop(){requestAnimationFrame(loop);if(!visible||$("#site").hidden)return;const tm=clock.getElapsedTime();
+    if(fly){const f=Math.min(1,(performance.now()-fly.t0)/fly.ms),e=f<.5?4*f*f*f:1-Math.pow(-2*f+2,3)/2;ctl.target.lerpVectors(fly.ft,fly.tt,e);cam.position.lerpVectors(fly.fo,fly.to,e);if(f>=1)fly=null}
+    ctl.update();
+    const dist=cam.position.distanceTo(ctl.target);
+    cam.near=Math.min(40,Math.max(.25,dist*.0025));cam.far=Math.max(6000,dist*14);cam.updateProjectionMatrix();
+    scene.fog.near=Math.max(600,dist*1.6);scene.fog.far=Math.max(5000,dist*7);
+    const lineOp=Math.min(1,Math.max(0,(dist-400)/1500));farLines.forEach(l=>{l.material.opacity=lineOp;l.visible=lineOp>.02});
+    scalers.forEach(o=>{const s=Math.max(.05,Math.min(40,cam.position.distanceTo(o.position)/900));o.scale.setScalar(s);o.visible=dist>250});
+    homeMarker.position.y=40*homeMarker.scale.y+Math.sin(tm*2)*homeMarker.scale.y*2;
+    if(water.material.uniforms)water.material.uniforms.time.value=still?0:tm*.6;
+    const dt=Math.min(.05,clock.getDelta()||.016);
+    if(!still){HB.forEach(b=>{b.s+=b.v*dt;if(b.s>s0+750||b.s<s0-750){b.v*=-1}placeHB(b);b.g.position.y=.35+Math.sin(tm*1.1+b.s)*.05});
+      const cyc=(tm%70)/70;const ph=cyc<.1?0:cyc<.5?(cyc-.1)/.4:cyc<.6?1:1-(cyc-.6)/.4;const e=ph<.5?2*ph*ph:1-Math.pow(-2*ph+2,2)/2;ferry.position.lerpVectors(fStart,fEnd,e).setY(.35+Math.sin(tm*1.3)*.04);
+      canoe.position.y=.3+Math.sin(tm*1.4)*.04;k1.position.y=.32+Math.sin(tm*1.6)*.03;k2.position.y=.32+Math.cos(tm*1.5)*.03}
+    flames.forEach((f,i)=>{f.scale.y=1+Math.sin(tm*(9+i*3))*.18;f.scale.x=f.scale.z=1+Math.sin(tm*7+i)*.08});fireLight.intensity=1.4+Math.sin(tm*13)*.3+Math.sin(tm*7)*.2;
+    roofT+=((roofUp?1:0)-roofT)*.08;roof.position.y=FH+WH+.14+roofT*10;roof.visible=roofT<.97;
+    renderer.render(scene,cam);
+    const r=canvas.getBoundingClientRect();
+    labels.forEach(L=>{const show=dist>=L.min&&dist<=L.max;tmpV.copy(L.p);if(L.el.classList.contains("stn"))tmpV.y=Math.max(20,dist*.03);tmpV.project(cam);
+      const on=show&&tmpV.z<1&&Math.abs(tmpV.x)<1.1&&Math.abs(tmpV.y)<1.1;L.el.style.display=on?"":"none";if(on)L.el.style.transform=`translate(${(tmpV.x*.5+.5)*r.width}px,${(-tmpV.y*.5+.5)*r.height}px) translate(-50%,-100%)`})
+  })();
+  canvas.addEventListener("wheel",()=>{fly=null},{passive:true});
+}
+
+/* ---------- boot ---------- */
+const today=new Date();const toISO=d=>new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+$("#ci").min=$("#co").min=toISO(today);
+const a=new Date(today);a.setDate(a.getDate()+14);const b=new Date(a);b.setDate(b.getDate()+2);
+$("#ci").value=toISO(a);$("#co").value=toISO(b);
+$("#tabExplore").addEventListener("click",e=>{e.preventDefault();if(location.hash){history.pushState(null,"",location.pathname+location.search);route()}else window.scrollTo(0,0)});
+addEventListener("popstate",route);
+route();setLang(lang);init3D();updateTime();
+})();
+</script>
+
+</body>
+</html>
