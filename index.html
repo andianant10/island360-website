@@ -432,7 +432,7 @@ details.faq p{margin-top:8px;color:var(--muted)}
       </ul>
       <h3 class="minor" data-i18n="expH">Extras you can add</h3>
       <div class="exps" id="expList"></div>
-      <p class="note">Meals aren't provided. The kitchen has utensils and cookware so your group can cook. Want ideas for the day? See <a href="#things">Things to do around the island</a>.</p>
+      <p class="note">Meals aren't included in the room price. Home-cooked Kerala meals, the backwaters boat ride and station pickup are arranged on request; tick them in the enquiry form and Ginsen will confirm the price. The kitchen also has utensils and cookware if your group prefers to cook. Want ideas for the day? See <a href="#things">Things to do around the island</a>.</p>
     </div>
   </section>
 
@@ -507,7 +507,7 @@ details.faq p{margin-top:8px;color:var(--muted)}
   <section class="block" id="faq">
     <div class="wrap narrowcol">
       <div class="sec-head"><h2 data-i18n="faqH">Good questions.</h2></div>
-      <details class="faq"><summary>Are meals included?</summary><p>No. The house has a full kitchen with utensils and cookware, so groups usually cook for themselves.</p></details>
+      <details class="faq"><summary>Are meals included?</summary><p>Meals aren't included in the room price, but home-cooked Kerala meals can be arranged on request. Tick "Kerala meals" in the enquiry form and Ginsen will confirm the menu and price. The house also has a full kitchen with utensils and cookware if you'd rather cook.</p></details>
       <details class="faq"><summary>How many people can stay?</summary><p>Three bedrooms with queen beds, plus a sofa and floor mattresses in the living room, for groups of up to <span id="faqMax" class="num">16</span>. Tell Ginsen your group size and he'll confirm the setup.</p></details>
       <details class="faq"><summary>How do I pay?</summary><p>Nothing is paid on this website. Send an enquiry, Ginsen confirms availability on WhatsApp, then shares payment details.</p></details>
       <details class="faq"><summary>What ID do I need?</summary><p>Every adult shows a government photo ID at check-in. Foreign guests need their passport and visa page.</p></details>
@@ -674,7 +674,7 @@ const ROOMS=[
   {key:"bed3",name:"Mullappoo",ml:"മുല്ലപ്പൂ",mean:"jasmine",beds:"Bedroom 3 · 1 queen bed",text:"A calm white room with a wardrobe, in the middle of the house with a bathroom beside it.",color:"#4F7F4A",img:"bed3-a"},
   {key:"living",name:"Living room",beds:"Sofa · 2 floor mattresses",text:"The front room, with a sofa, TV and coffee table. Extra guests sleep here.",color:"#A9482A",img:"living-a"},
   {key:"dining",name:"Dining room",beds:"Table for 6",text:"Right next to the kitchen, with a dining table that seats six.",color:"#8C6A1F",img:"dining-a"},
-  {key:"kitchen",name:"Kitchen",beds:"Full kitchen",text:"Counter, stove and sink, with utensils and cookware. Meals aren't provided, so groups cook for themselves.",color:"#7A5A3C"}
+  {key:"kitchen",name:"Kitchen",beds:"Full kitchen",text:"Counter, stove and sink, with utensils and cookware. Cook for yourselves, or ask for home-cooked Kerala meals on request.",color:"#7A5A3C"}
 ];
 const OUTSIDE=[
   {key:"sitout",name:"Back verandah",text:"A long sit-out along the back of the house, looking over the garden towards the river."},
@@ -694,8 +694,8 @@ const DEF_PR={
   seasons:[{name:"Christmas & New Year",from:"2026-12-20",to:"2027-01-05",pct:20}],
   promos:[{code:"WELCOME10",pct:10,text:"10% off your first stay with us",from:"2026-11-01",to:"2027-03-31",active:false},{code:"LONGSTAY15",pct:15,text:"15% off when you stay 4 nights or more",from:"2026-11-01",to:"2027-12-31",active:false}],
   blocked:[],
-  extras:[{name:"Kayaking on the river",price:500,unit:"person"},{name:"Island cycling trail",price:200,unit:"person"},{name:"Campfire evening",price:1000,unit:"group"},{name:"Boat ride on the backwaters",price:1500,unit:"group"},{name:"Pickup from Kollam station",price:800,unit:"trip"}]};
-const EXTRA_IMG={"Kayaking on the river":"kayaker","Island cycling trail":"cycle-river","Campfire evening":"campfire","Boat ride on the backwaters":"boat","Pickup from Kollam station":"gate"};
+  extras:[{name:"Kayaking on the river",price:500,unit:"person"},{name:"Island cycling trail",price:200,unit:"person"},{name:"Campfire evening",price:1000,unit:"group"},{name:"Boat ride on the backwaters",price:null,unit:"group"},{name:"Pickup from Kollam station",price:null,unit:"trip"},{name:"Kerala meals (lunch & dinner)",price:null,unit:"person"}]};
+const EXTRA_IMG={"Kayaking on the river":"kayaker","Island cycling trail":"cycle-river","Campfire evening":"campfire","Boat ride on the backwaters":"boat","Pickup from Kollam station":"gate","Kerala meals (lunch & dinner)":"dining-b"};
 let PR=(()=>{try{const s=localStorage.getItem("islandstay.prices");if(s)return Object.assign(structuredClone(DEF_PR),JSON.parse(s))}catch(e){}return structuredClone(DEF_PR)})();
 
 /* ---------- i18n ---------- */
@@ -756,9 +756,9 @@ window.addEventListener("hashchange",route);
 /* ---------- site rendering ---------- */
 function renderSite(){
   $("#roomList").innerHTML=ROOMS.map(r=>`<article class="room"><div class="ph" style="background:${r.color}">${r.img?`<img src="img/${r.img}.jpg" alt="${r.name}" loading="lazy">`:`${r.name}<span>Photo coming soon</span>`}</div><div class="body"><h3>${r.name}${r.ml?`<span class="ml">${r.ml}</span>`:""}</h3>${r.mean?`<p class="mean">${r.mean}</p>`:""}<p class="beds">${r.beds}</p>${/^bed[123]$/.test(r.key)?`<p class="rate num" data-rate="${+r.key.slice(3)-1}"></p>`:""}<p>${r.text}</p><button class="btn ghost sm" type="button" data-focus="${r.key}" style="align-self:flex-start;margin-top:auto">See in 3D</button></div></article>`).join("");
-  $("#expList").innerHTML=PR.extras.map((x,i)=>{const im=EXTRA_IMG[x.name];return `<article class="exp"><div class="eimg">${im?`<img src="img/${im}.jpg" alt="${esc(x.name)}" loading="lazy">`:""}</div><div class="etext"><h3>${esc(x.name)}</h3><p class="price num">${fmt(x.price)} <span class="muted" style="font-weight:400">${unitLabel(x.unit)}</span></p></div></article>`}).join("");
+  $("#expList").innerHTML=PR.extras.map((x,i)=>{const im=EXTRA_IMG[x.name];return `<article class="exp"><div class="eimg">${im?`<img src="img/${im}.jpg" alt="${esc(x.name)}" loading="lazy">`:""}</div><div class="etext"><h3>${esc(x.name)}</h3><p class="price num">${x.price==null?"On request":`${fmt(x.price)} <span class="muted" style="font-weight:400">${unitLabel(x.unit)}</span>`}</p></div></article>`}).join("");
   renderGallery();
-  $("#expOpts").innerHTML=PR.extras.map((x,i)=>`<label><input type="checkbox" value="${i}" class="expChk"> <span>${esc(x.name)} <span class="muted num">(${fmt(x.price)} ${unitLabel(x.unit)})</span></span></label>`).join("");
+  $("#expOpts").innerHTML=PR.extras.map((x,i)=>`<label><input type="checkbox" value="${i}" class="expChk"> <span>${esc(x.name)} <span class="muted num">(${x.price==null?"on request":fmt(x.price)+" "+unitLabel(x.unit)})</span></span></label>`).join("");
   const R=PR.rules;$("#ciTime").textContent="From "+R.checkin;$("#coTime").textContent="By "+R.checkout;
   $("#faqCi").textContent=R.checkin;$("#faqCo").textContent=R.checkout;$("#faqMax").textContent=R.maxGuests;
   $("#guests").max=R.maxGuests;const rv=$("#rooms").value;$("#rooms").innerHTML=PR.rooms.map((x,i)=>`<option value="${i+1}">${i+1} room${i?"s":""}</option>`).join("");if(roomsTouched&&rv)$("#rooms").value=rv;autoRooms();
@@ -825,7 +825,7 @@ function calc(ciS,coS,guests,rooms,expIdx,promo){
     const lab=(we?"Weekend":"Weekday")+(s?` · ${s.name} ${s.pct>0?"+":""}${s.pct}%`:"");
     const L=lines[lab]||(lines[lab]={label:lab,n:0,rooms:0,third:0,group:0});L.n++;L.rooms+=roomAmt;L.third+=thirdAmt;L.group+=grpAmt;stay+=roomAmt+thirdAmt+grpAmt}
   if(clash.length){out.msg="Already booked on "+clash.map(fmtD).join(", ")+". Try other dates.";out.kind="bad";return out}
-  const exps=expIdx.map(i=>{const x=PR.extras[i];const mult=x.unit==="person"?guests:x.unit==="person-day"?guests*nights:1;return {name:x.name,amt:x.price*mult}});
+  const exps=expIdx.filter(i=>PR.extras[i]&&PR.extras[i].price!=null).map(i=>{const x=PR.extras[i];const mult=x.unit==="person"?guests:x.unit==="person-day"?guests*nights:1;return {name:x.name,amt:x.price*mult}});
   const expTotal=exps.reduce((a,b)=>a+b.amt,0);
   let pc=null,pcMsg="";if(promo){pc=PR.promos.find(p=>p.code.toUpperCase()===promo.toUpperCase());
     if(!pc||!pc.active){pcMsg=`Promo code ${promo.toUpperCase()} isn't valid.`;pc=null}
@@ -843,7 +843,9 @@ function buildMsg(){
   let m=`Hello IslandStay! ${name?`This is ${name}. `:""}I'd like to stay with you.\n\n`;
   m+=q.ok?`Dates: ${fmtD(ci)} to ${fmtD(co)} (${q.nights} night${q.nights>1?"s":""})\n`:`Dates: not fixed yet, could you suggest some?\n`;
   m+=`Guests: ${g}\nRooms: ${rooms}\n`;
-  if(idx.length)m+=`Interested in: ${idx.map(i=>PR.extras[i].name).join(", ")}\n`;
+  const priced=idx.filter(i=>PR.extras[i].price!=null),onreq=idx.filter(i=>PR.extras[i].price==null);
+  if(priced.length)m+=`Interested in: ${priced.map(i=>PR.extras[i].name).join(", ")}\n`;
+  if(onreq.length)m+=`On request, please share the price: ${onreq.map(i=>PR.extras[i].name).join(", ")}\n`;
   if(q.ok&&q.pc)m+=`Promo code: ${q.pc.code} (${q.pc.pct}% off)\n`;
   if(note)m+=`\n${note}\n`;
   if(q.ok)m+=`\nThe website estimate was ${fmt(q.total)}.`;
@@ -853,6 +855,7 @@ function buildMsg(){
       (x.third?`<div class="q-row num sub"><span>3rd guest in ${q.thirdN} room${q.thirdN>1?"s":""}</span><span>${fmt(x.third)}</span></div>`:"")+
       (x.group?`<div class="q-row num sub"><span>Group: ${q.groupN} extra guest${q.groupN>1?"s":""}</span><span>${fmt(x.group)}</span></div>`:"")).join("");
     q.exps.forEach(x=>h+=`<div class="q-row num"><span>${esc(x.name)}</span><span>${fmt(x.amt)}</span></div>`);
+    {const oq=idx.filter(i=>PR.extras[i]&&PR.extras[i].price==null);if(oq.length)h+=`<div class="q-row"><span>${oq.map(i=>esc(PR.extras[i].name)).join(", ")}</span><span class="muted">On request</span></div>`}
     if(q.pc)h+=`<div class="q-row num disc"><span>Promo ${esc(q.pc.code)} · ${q.pc.pct}% off</span><span>−${fmt(q.disc)}</span></div>`;
     if(PR.rules.gst>0)h+=`<div class="q-row num"><span>GST on stay (${PR.rules.gst}%)</span><span>${fmt(q.gst)}</span></div>`;
     h+=`<div class="q-row total num"><span>Estimated total</span><span>${q.pc?`<s class="muted">${fmt(q.sub+q.stay*PR.rules.gst/100)}</s> `:""}${fmt(q.total)}</span></div>`;
@@ -891,7 +894,7 @@ function fromSheet(rows){
   if(sec["SEASONS"])P.seasons=sec["SEASONS"].filter(r=>r[0]&&r[1]).map(r=>({name:r[0],from:isoDate(r[1]),to:isoDate(r[2])||isoDate(r[1]),pct:num(r[3])}));
   if(sec["PROMO CODES"])P.promos=sec["PROMO CODES"].filter(r=>r[0]).map(r=>({code:r[0].trim().toUpperCase(),pct:Math.min(100,Math.max(0,num(r[1]))),text:r[2]||"",from:isoDate(r[3]),to:isoDate(r[4]),active:/^y/i.test(String(r[5]||"").trim())}));
   if(sec["BLOCKED DATES"])P.blocked=sec["BLOCKED DATES"].filter(r=>r[0]).map(r=>({from:isoDate(r[0]),to:isoDate(r[1])||isoDate(r[0])}));
-  if(sec["EXTRAS"])P.extras=sec["EXTRAS"].filter(r=>r[0]).map(r=>({name:r[0],price:num(r[1]),unit:(String(r[2]||"group").trim().toLowerCase())}));
+  if(sec["EXTRAS"])P.extras=sec["EXTRAS"].filter(r=>r[0]).map(r=>({name:r[0],price:/\d/.test(String(r[1]||""))?num(r[1]):null,unit:(String(r[2]||"group").trim().toLowerCase())}));
   return P}
 async function loadPrices(){
   if(!SHEET_CSV)return;
