@@ -377,6 +377,15 @@ details.faq p{margin-top:8px;color:var(--muted)}
 .k-bk{background:repeating-linear-gradient(135deg,transparent 0 3px,color-mix(in srgb,var(--laterite) 45%,transparent) 3px 5px);border:1px solid var(--line)}
 @media (max-width:420px){.cal{padding:8px}.cal-d{min-height:46px}.cal-d .p{font-size:.62rem}}
 @media (prefers-reduced-motion:reduce){.cal-d.flash{animation:none}}
+
+/* reviews: auto-scrolling strip */
+.review .stars{color:var(--lemon);letter-spacing:2px;font-size:1rem}.review .stars span{color:var(--line)}
+.rv-viewport.moving{overflow:hidden;margin-inline:calc(-1 * min(4vw,40px));-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.rv-viewport.moving .reviews{display:flex;width:max-content;gap:18px;padding:4px min(4vw,40px);animation:rvScroll var(--rv-dur,40s) linear infinite}
+.rv-viewport.moving .review{width:min(360px,78vw);flex:none}
+.rv-viewport.moving:hover .reviews,.rv-viewport.moving:focus-within .reviews{animation-play-state:paused}
+@keyframes rvScroll{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 9px))}}
+@media (prefers-reduced-motion:reduce){.rv-viewport.moving{overflow-x:auto}.rv-viewport.moving .reviews{animation:none}.rv-viewport.moving .review[aria-hidden]{display:none}}
 </style>
 
 <header class="top">
@@ -565,13 +574,8 @@ details.faq p{margin-top:8px;color:var(--muted)}
   <section class="block" id="guestbook">
     <div class="wrap">
       <div class="sec-head"><h2 data-i18n="guestH">From the guest book.</h2></div>
-      <div class="reviews">
-        <figure class="review"><blockquote>The host was very friendly and responsive. He arranged a boat trip on the backwaters, and provided us utensils and cookware to cook. Even though our stay was short, we had fun to the maximum.</blockquote>
-          <figcaption><b>Nithin</b> · group of 9 · November 2025 <span class="src">★★★★★ on Airbnb</span></figcaption></figure>
-        <figure class="review"><blockquote>The beauty of nature and vintage home.</blockquote>
-          <figcaption><b>Akash</b> · June 2025 <span class="src">★★★★★ on Airbnb</span></figcaption></figure>
-      </div>
-      <p class="note">Reviews copied from the IslandStay listing on Airbnb.</p>
+      <div class="rv-viewport" id="rvView"><div class="reviews" id="reviewList"></div></div>
+      <p class="note" id="rvNote">Reviews from real guests, copied with their stay dates.</p>
     </div>
   </section>
 
@@ -782,6 +786,8 @@ const DEF_PR={
   seasons:[{name:"Christmas & New Year",from:"2026-12-20",to:"2027-01-05",pct:20}],
   promos:[{code:"WELCOME10",pct:10,text:"10% off your first stay with us",from:"2026-11-01",to:"2027-03-31",active:false},{code:"LONGSTAY15",pct:15,text:"15% off when you stay 4 nights or more",from:"2026-11-01",to:"2027-12-31",active:false}],
   blocked:[],
+  reviews:[{name:"Nithin",when:"2025-11",group:"group of 9",stars:5,src:"Airbnb",text:"The host was very friendly and responsive. He arranged a boat trip on the backwaters, and provided us utensils and cookware to cook. Even though our stay was short, we had fun to the maximum."},
+    {name:"Akash",when:"2025-06",group:"",stars:5,src:"Airbnb",text:"The beauty of nature and vintage home."}],
   extras:[{name:"Kayaking on the river",price:500,unit:"person"},{name:"Island cycling trail",price:200,unit:"person"},{name:"Campfire evening",price:1000,unit:"group"},{name:"Boat ride on the backwaters",price:null,unit:"group"},{name:"Pickup from Kollam station",price:null,unit:"trip"},{name:"Kerala meals (lunch & dinner)",price:null,unit:"person"}]};
 const EXTRA_IMG={"Kayaking on the river":"kayaker","Island cycling trail":"cycle-river","Campfire evening":"campfire","Boat ride on the backwaters":"boat","Pickup from Kollam station":"gate","Kerala meals (lunch & dinner)":"dining-b"};
 let PR=(()=>{try{const s=localStorage.getItem("islandstay.prices");if(s)return Object.assign(structuredClone(DEF_PR),JSON.parse(s))}catch(e){}return structuredClone(DEF_PR)})();
@@ -845,7 +851,7 @@ window.addEventListener("hashchange",route);
 function renderSite(){
   $("#roomList").innerHTML=ROOMS.map(r=>`<article class="room"><div class="ph" style="background:${r.color}">${r.img?`<img src="img/${r.img}.jpg" alt="${r.name}" loading="lazy">`:`${r.name}<span>Photo coming soon</span>`}</div><div class="body"><h3>${r.name}${r.ml?`<span class="ml">${r.ml}</span>`:""}</h3>${r.mean?`<p class="mean">${r.mean}</p>`:""}<p class="beds">${r.beds}</p>${/^bed[123]$/.test(r.key)?`<p class="rate num" data-rate="${+r.key.slice(3)-1}"></p>`:""}<p>${r.text}</p><button class="btn ghost sm" type="button" data-focus="${r.key}" style="align-self:flex-start;margin-top:auto">See in 3D</button></div></article>`).join("");
   $("#expList").innerHTML=PR.extras.map((x,i)=>{const im=EXTRA_IMG[x.name];return `<article class="exp"><div class="eimg">${im?`<img src="img/${im}.jpg" alt="${esc(x.name)}" loading="lazy">`:""}</div><div class="etext"><h3>${esc(x.name)}</h3><p class="price num">${x.price==null?"On request":`${fmt(x.price)} <span class="muted" style="font-weight:400">${unitLabel(x.unit)}</span>`}</p></div></article>`}).join("");
-  renderGallery();
+  renderGallery();renderReviews();
   $("#expOpts").innerHTML=PR.extras.map((x,i)=>`<label><input type="checkbox" value="${i}" class="expChk"> <span>${esc(x.name)} <span class="muted num">(${x.price==null?"on request":fmt(x.price)+" "+unitLabel(x.unit)})</span></span></label>`).join("");
   const R=PR.rules;$("#ciTime").textContent="From "+R.checkin;$("#coTime").textContent="By "+R.checkout;
   $("#faqCi").textContent=R.checkin;$("#faqCo").textContent=R.checkout;$("#faqMax").textContent=R.maxGuests;
@@ -1028,7 +1034,7 @@ function isoDate(v){v=String(v||"").trim();if(!v)return "";let m=v.match(/^(\d{4
   m=v.match(/^(\d{1,2})[-/.](\d{1,2})[-/.](\d{2,4})$/);if(m){const y=m[3].length===2?"20"+m[3]:m[3];return `${y}-${pad(m[2])}-${pad(m[1])}`}
   const d=new Date(v);return isNaN(d)?"":`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`}
 function fromSheet(rows){
-  const P=structuredClone(DEF_PR);const T=["ROOM RATES","RULES","SEASONS","PROMO CODES","BLOCKED DATES","EXTRAS","HOW PRICES"];const sec={};let cur=null,skip=0;
+  const P=structuredClone(DEF_PR);const T=["ROOM RATES","RULES","SEASONS","PROMO CODES","BLOCKED DATES","EXTRAS","REVIEWS","HOW PRICES"];const sec={};let cur=null,skip=0;
   rows.forEach(r=>{const a=(r[0]||"").trim();const up=a.toUpperCase();const t=T.find(x=>up.startsWith(x));if(t){cur=t;skip=1;sec[t]=[];return}if(!cur)return;if(skip){skip--;return}if(r.every(c=>!String(c).trim()))return;sec[cur].push(r)});
   if(sec["ROOM RATES"]&&sec["ROOM RATES"].length)P.rooms=sec["ROOM RATES"].filter(r=>r[0]).map(r=>({name:r[0],wd:num(r[1]),we:num(r[2])||num(r[1]),x3wd:num(r[3]),x3we:num(r[4])||num(r[3])}));
   const t12=v=>{v=String(v).trim();const m=v.match(/^(\d{1,2}):(\d{2})(?::\d{2})?$/);if(!m)return v;const h=+m[1];return `${(h%12)||12}:${m[2]} ${h<12?"AM":"PM"}`};
@@ -1037,7 +1043,18 @@ function fromSheet(rows){
   if(sec["PROMO CODES"])P.promos=sec["PROMO CODES"].filter(r=>r[0]).map(r=>({code:r[0].trim().toUpperCase(),pct:Math.min(100,Math.max(0,num(r[1]))),text:r[2]||"",from:isoDate(r[3]),to:isoDate(r[4]),active:/^y/i.test(String(r[5]||"").trim())}));
   if(sec["BLOCKED DATES"])P.blocked=sec["BLOCKED DATES"].filter(r=>r[0]).map(r=>({from:isoDate(r[0]),to:isoDate(r[1])||isoDate(r[0])}));
   if(sec["EXTRAS"])P.extras=sec["EXTRAS"].filter(r=>r[0]).map(r=>({name:r[0].replace(/\s*\(new row\)\s*$/i,"").trim(),price:/\d/.test(String(r[1]||""))?num(r[1]):null,unit:(String(r[2]||"group").trim().toLowerCase())}));
+  if(sec["REVIEWS"]){const rv=sec["REVIEWS"].filter(r=>r[0]&&r[4]&&!/^n/i.test(String(r[6]||"").trim())).map(r=>({name:r[0].trim(),when:monthKey(r[1]),group:String(r[2]||"").trim(),stars:Math.max(0,Math.min(5,Math.round(num(r[3])||5))),text:String(r[4]).trim(),src:String(r[5]||"").trim()}));if(rv.length)P.reviews=rv}
   return P}
+const MONTHS=["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
+function monthKey(v){v=String(v||"").trim();const m=v.match(/([a-z]{3})[a-z]*[\s,-]+(\d{4})/i);if(m&&MONTHS.includes(m[1].toLowerCase()))return `${m[2]}-${pad(MONTHS.indexOf(m[1].toLowerCase())+1)}`;const d=isoDate(v);return d?d.slice(0,7):""}
+function renderReviews(){
+  const list=(PR.reviews||DEF_PR.reviews).slice().sort((a,b)=>(b.when||"").localeCompare(a.when||""));
+  const card=r=>`<figure class="review"><div class="stars" aria-label="${r.stars} out of 5 stars">${"★".repeat(r.stars)}<span>${"★".repeat(5-r.stars)}</span></div><blockquote>${esc(r.text)}</blockquote><figcaption><b>${esc(r.name)}</b>${r.group?` · ${esc(r.group)}`:""}${r.when?` · ${iso(r.when+"-01").toLocaleDateString("en-IN",{month:"long",year:"numeric",timeZone:"UTC"})}`:""}${r.src?`<span class="src">on ${esc(r.src)}</span>`:""}</figcaption></figure>`;
+  const view=$("#rvView"),el=$("#reviewList");const move=list.length>=3;
+  view.classList.toggle("moving",move);
+  el.innerHTML=list.map(card).join("")+(move?list.map(card).join("").replace(/<figure class="review"/g,'<figure class="review" aria-hidden="true"'):"");
+  if(move)el.style.setProperty("--rv-dur",Math.max(30,list.length*9)+"s");
+}
 async function loadPrices(){
   if(!SHEET_CSV)return;
   try{const ctl=new AbortController();const tmo=setTimeout(()=>ctl.abort(),8000);const res=await fetch(SHEET_CSV+(SHEET_CSV.includes("?")?"&":"?")+"t="+Date.now(),{signal:ctl.signal});clearTimeout(tmo);
