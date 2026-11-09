@@ -1,0 +1,6 @@
+/partner*
+  X-Robots-Tag: noindex, nofollow
+  Referrer-Policy: no-referrer
+/checkin*
+  X-Robots-Tag: noindex
+  Referrer-Policy: no-referrer
