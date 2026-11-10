@@ -115,6 +115,10 @@ a{color:var(--lagoon)}
         <label for="fName">Your full name <span class="opt">(as on your ID)</span></label>
         <input id="fName" autocomplete="name">
       </div>
+      <div id="bkEmailBox" class="hidden">
+        <label class="check" style="margin-top:12px"><input type="radio" name="em" id="emBk" checked><span>Send the code to the booking email <b id="bkEmailTxt"></b></span></label>
+        <label class="check" style="margin-top:6px"><input type="radio" name="em" id="emOwn"><span>Use another email</span></label>
+      </div>
       <div id="emailBox">
         <label for="email">Your email address</label>
         <input id="email" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com">
@@ -277,8 +281,11 @@ function renderRole() {
 }
 $("#reup").onclick = e => { e.preventDefault(); S.reupload = true; $("#cLead").disabled = false; $("#cFol").disabled = S.booking.folTotal === 0; msg($("#mRole"), "Choose the same option as before and use the same email address.", "info"); };
 $("#cLead").onclick = () => startWho("lead");
-$("#cFol").onclick = () => startWho("follower");
-$("#bBack1").onclick = () => { S.share = ""; S.mobile = ""; $("#mobile").value = ""; show("s-find", 1); };
+$("#cFol").onclick = () => {
+  if (S.token && S.verified && !S.reupload) { S.role = "follower"; S.name = ""; openForm(); return; }   /* same phone, already verified: no new code */
+  startWho("follower");
+};
+$("#bBack1").onclick = () => { S.share = ""; S.mobile = ""; S.token = ""; S.verified = false; $("#mobile").value = ""; show("s-find", 1); };
 
 /* G3 */
 function startWho(role) {
@@ -289,23 +296,28 @@ function startWho(role) {
   $("#folBox").classList.toggle("hidden", lead);
   $("#leadName").value = S.booking.lead;
   const fixed = lead && S.booking.leadEmail;
-  $("#emailBox").classList.toggle("hidden", !!fixed);
+  const shared = !lead && !!S.booking.bookingEmail;          /* one email per booking: followers can use it */
+  $("#bkEmailBox").classList.toggle("hidden", !shared);
+  if (shared) { $("#bkEmailTxt").textContent = S.booking.bookingEmail; $("#emBk").checked = true; }
+  $("#emailBox").classList.toggle("hidden", !!fixed || shared);
   $("#emailFixed").classList.toggle("hidden", !fixed);
   if (fixed) $("#emailFixed").textContent = "We'll send the code to the email on the booking: " + S.booking.leadEmail;
   show("s-who", 2);
 }
+document.querySelectorAll("input[name=em]").forEach(x => x.onchange = () => $("#emailBox").classList.toggle("hidden", $("#emBk").checked));
 $("#bBack2").onclick = () => show("s-role", 2);
 let resendTimer;
 async function sendCode(btn) {
   const lead = S.role === "lead";
   const email = $("#email").value.trim();
   const name = $("#fName").value.trim();
-  if (!(lead && S.booking.leadEmail) && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return msg($("#mWho"), "Please enter a valid email address.");
+  const useBookingEmail = !lead && !!S.booking.bookingEmail && $("#emBk").checked;
+  if (!(lead && S.booking.leadEmail) && !useBookingEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return msg($("#mWho"), "Please enter a valid email address.");
   if (!lead && name.length < 2) return msg($("#mWho"), "Please enter your full name.");
   await busy(btn, async () => {
     try {
-      const r = await api("sendOtp", { ...who(), bookingKey: S.booking.key, role: S.role, email, name });
-      S.email = email; S.name = name;
+      const r = await api("sendOtp", { ...who(), bookingKey: S.booking.key, role: S.role, email, name, useBookingEmail });
+      S.email = email; S.name = name; S.useBk = useBookingEmail;
       $("#otpTo").textContent = r.sentTo; $("#otp").value = ""; msg($("#mOtp"), ""); msg($("#mWho"), "");
       show("s-otp", 3); setTimeout(() => $("#otp").focus(), 300);
       $("#bResend").disabled = true; clearTimeout(resendTimer); resendTimer = setTimeout(() => $("#bResend").disabled = false, 60000);
@@ -321,7 +333,7 @@ async function verify() {
   if (code.length !== 6) return msg($("#mOtp"), "Enter the 6-digit code from the email.");
   await busy($("#bVerify"), async () => {
     try {
-      const r = await api("verifyOtp", { ...who(), bookingKey: S.booking.key, role: S.role, email: S.email, code });
+      const r = await api("verifyOtp", { ...who(), bookingKey: S.booking.key, role: S.role, email: S.email, useBookingEmail: !!S.useBk, code });
       S.token = r.token; S.name = r.name; S.email = r.email; openForm();
     } catch (e) { msg($("#mOtp"), esc(e.message)); }
   });
@@ -361,8 +373,10 @@ function openForm() {
   $("#formTitle").textContent = lead ? "Lead guest details" : "Your details";
   $("#formSub").textContent = "Checking in for " + S.booking.cin + " to " + S.booking.cout + ". Signed in as " + S.email + ".";
   $("#pName").value = S.name || ""; $("#pName").readOnly = lead;
+  if (!lead) { $("#formTitle").textContent = "Follower details"; $("#pName").placeholder = "Full name as on the ID"; }
   $("#phoneWrap").classList.toggle("hidden", lead);
   ["gender", "dob", "pPhone", "addr", "from", "to", "idNo", "passNo", "visaNo", "visaTill"].forEach(id => $("#" + id).value = "");
+  ["fFront", "fBack", "fVisa"].forEach(id => { $("#" + id).value = ""; });
   $("#consent").checked = false; msg($("#mForm"), "");
   Object.keys(files).forEach(k => { files[k] = null; const cap = k[0].toUpperCase() + k.slice(1); $("#pv" + cap).innerHTML = { front: "🪪", back: "🔁", visa: "🛂" }[k]; $("#t" + cap).textContent = k === "front" ? "Tap to take a photo or choose a file" : "Tap to add"; });
   fillDocs(); show("s-form", 4);
@@ -419,7 +433,8 @@ $("#bSubmit").onclick = async () => {
     visaNo: $("#visaNo").value.trim(), visaTill: $("#visaTill").value };
   await busy($("#bSubmit"), async () => {
     try {
-      const r = await api("submit", { token: S.token, person, files });
+      const r = await api("submit", { token: S.token, as: S.role, person, files });
+      if (r.token) { S.token = r.token; S.verified = true; }
       S.booking.leadDone = r.leadDone; S.booking.folDone = r.folDone; S.booking.folTotal = r.folTotal;
       renderDone(person.name);
     } catch (e) { msg($("#mForm"), esc(e.message)); }
@@ -442,7 +457,7 @@ function renderDone(name) {
 }
 $("#bNext").onclick = async () => {
   await busy($("#bNext"), async () => {
-    try { const r = await api("findBooking", who()); S.booking = r.booking; S.token = ""; $("#email").value = ""; $("#fName").value = ""; renderRole(); show("s-role", 2); }
+    try { const r = await api("findBooking", who()); S.booking = r.booking; $("#email").value = ""; $("#fName").value = ""; renderRole(); show("s-role", 2); }
     catch (e) { alert(e.message); }
   });
 };
