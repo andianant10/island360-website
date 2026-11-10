@@ -78,8 +78,8 @@ a{color:var(--lagoon)}
 <section id="s-login">
   <h1>Check-ins</h1>
   <div class="card" style="max-width:380px">
-    <label for="partner">Partner</label>
-    <select id="partner"><option value="">Choose your name</option><option>Ginsen</option><option>Avishek</option><option>Anadi</option></select>
+    <label for="partner">Your name</label>
+    <input id="partner" autocomplete="username" autocapitalize="words" spellcheck="false">
     <label for="pin">PIN</label>
     <input id="pin" type="password" inputmode="numeric" autocomplete="current-password" maxlength="8">
     <button id="bLogin" class="full">Log in</button>
@@ -97,7 +97,7 @@ a{color:var(--lagoon)}
   </div>
   <div id="list"></div>
   <div id="mBoard"></div>
-  <p class="small muted" style="margin-top:16px">Add or edit bookings (name, phone, email, dates, guests) in the <a href="https://docs.google.com/spreadsheets/d/1V1gFtdf7o-4t-w3FuXJxcfXvzYVfeIMZNzYpme5tQ7Y/edit#gid=2" target="_blank" rel="noopener">Bookings tab</a>. Guests find their booking by the Phone column. Guest check-in link: <b>island360.in/checkin</b></p>
+  <p class="small muted" style="margin-top:16px">Add or edit bookings (name, phone, email, dates, guests) in the <a id="sheetLink" target="_blank" rel="noopener noreferrer">Bookings tab</a> of the partnership sheet. Guests find their booking by the Phone column. Guest check-in link: <b>island360.in/checkin</b></p>
 </section>
 
 <section id="s-booking" class="hidden">
@@ -164,19 +164,19 @@ const chipCls = s => ({ "Approved": "ok", "Checked in": "ok", "Fully paid": "ok"
 /* login */
 $("#bLogin").onclick = () => busy($("#bLogin"), async () => {
   try {
-    const r = await api("login", { partner: $("#partner").value, pin: $("#pin").value.trim() });
+    const r = await api("login", { partner: $("#partner").value.trim().replace(/^./, c => c.toUpperCase()), pin: $("#pin").value.trim() });
     TOKEN = r.token; PARTNER = r.partner; store.set("p.t", TOKEN); store.set("p.n", PARTNER); $("#pin").value = ""; msg($("#mLogin"), ""); enter();
   } catch (e) { msg($("#mLogin"), esc(e.message)); }
 });
 $("#pin").addEventListener("keydown", e => { if (e.key === "Enter") $("#bLogin").click(); });
-function logout() { TOKEN = ""; store.del("p.t"); $("#who").textContent = ""; $("#bOut").classList.add("hidden"); show("s-login"); }
+function logout() { Object.keys(imgCache).forEach(k => delete imgCache[k]); BOARD = null; CUR = null; $("#people").innerHTML = ""; $("#list").innerHTML = ""; TOKEN = ""; store.del("p.t"); $("#who").textContent = ""; $("#bOut").classList.add("hidden"); show("s-login"); }
 $("#bOut").onclick = logout;
 function enter() { $("#who").textContent = PARTNER; $("#bOut").classList.remove("hidden"); show("s-board"); loadBoard(); }
 
 /* board */
 async function loadBoard() {
   $("#list").innerHTML = '<p class="muted">Loading…</p>'; msg($("#mBoard"), "");
-  try { BOARD = await api("board"); renderBoard(); } catch (e) { $("#list").innerHTML = ""; msg($("#mBoard"), esc(e.message)); }
+  try { BOARD = await api("board"); if (BOARD.sheetUrl) $("#sheetLink").href = BOARD.sheetUrl; renderBoard(); } catch (e) { $("#list").innerHTML = ""; msg($("#mBoard"), esc(e.message)); }
 }
 $("#bRefresh").onclick = loadBoard;
 $("#tabs").onclick = e => { const b = e.target.closest("button"); if (!b) return; TAB = b.dataset.t; document.querySelectorAll("#tabs button").forEach(x => x.classList.toggle("on", x === b)); renderBoard(); };
@@ -203,7 +203,7 @@ function sim(a, b) {
   return Math.round(100 * hit / Math.max(A.length, Bw.length));
 }
 async function openBooking(key) {
-  show("s-booking"); $("#bkName").textContent = "Loading…"; $("#bkSub").textContent = ""; $("#bkChips").innerHTML = ""; $("#people").innerHTML = "";
+  show("s-booking"); $("#nsCard").classList.add("hidden"); $("#bkName").textContent = "Loading…"; $("#bkSub").textContent = ""; $("#bkChips").innerHTML = ""; $("#people").innerHTML = "";
   ["mPay", "mIn"].forEach(id => msg($("#" + id), ""));
   try { CUR = await api("booking", { bookingKey: key }); renderBooking(); }
   catch (e) { $("#bkName").textContent = "Could not load"; msg($("#mIn"), esc(e.message)); }
@@ -226,7 +226,7 @@ function renderBooking() {
   msg($("#mNs"), "");
   const missing = b.guests - P.length;
   $("#people").innerHTML = P.map((p, i) => personCard(p, i, b)).join("") +
-    (missing > 0 ? `<div class="card"><p class="muted">${missing} ${missing > 1 ? "people have" : "person has"} not checked in yet. Share <b>island360.in/checkin?m=${esc(b.phone)}</b> with the group.</p></div>` : "");
+    (missing > 0 ? `<div class="card"><p class="muted">${missing} ${missing > 1 ? "people have" : "person has"} not checked in yet. Share <b>island360.in/checkin${b.share ? "?b=" + esc(b.share) : ""}</b> with the group${b.share ? "" : " (they enter the booking mobile number)"}.</p></div>` : "");
 }
 function personCard(p, i, b) {
   const foreign = p.nat === "Foreign";
@@ -325,6 +325,9 @@ $("#vZin").onclick = () => { zoom = Math.min(4, zoom + .5); applyV(); };
 $("#vZout").onclick = () => { zoom = Math.max(1, zoom - .5); applyV(); };
 $("#vClose").onclick = () => $("#viewer").classList.add("hidden");
 
+let idle = Date.now();
+["click", "keydown", "touchstart"].forEach(ev => addEventListener(ev, () => { idle = Date.now(); }, { passive: true }));
+setInterval(() => { if (TOKEN && Date.now() - idle > 30 * 60e3) { logout(); msg($("#mLogin"), "Logged out after 30 minutes without activity.", "ok"); } }, 60e3);
 if (TOKEN) enter(); else show("s-login");
 </script>
 </body>

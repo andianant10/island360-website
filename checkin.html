@@ -215,7 +215,7 @@ a{color:var(--lagoon)}
 const API_URL = "https://script.google.com/macros/s/AKfycbzd7sE443a4tpFHOUGQ4G3h9_XkZQwplxG73MTNxKReaVQ1MihV0fnfTPLZY3lDvL0_/exec";
 
 const $ = s => document.querySelector(s);
-const S = { mobile: "", booking: null, role: "", token: "", email: "", name: "", reupload: false };
+const S = { share: "", mobile: "", booking: null, role: "", token: "", email: "", name: "", reupload: false };
 const store = { get(k){try{return sessionStorage.getItem(k)}catch(e){return null}}, set(k,v){try{sessionStorage.setItem(k,v)}catch(e){}} };
 
 async function api(action, data) {
@@ -241,15 +241,21 @@ const ten = s => { const d = digits(s); return d.length > 10 ? d.slice(-10) : d;
 
 /* G1 */
 async function findBooking() {
-  S.mobile = ten($("#mobile").value);
-  if (S.mobile.length !== 10) return msg($("#mFind"), "Please enter the 10-digit mobile number used for the booking.");
+  if (!S.share) {
+    S.mobile = ten($("#mobile").value);
+    if (S.mobile.length !== 10) return msg($("#mFind"), "Please enter the 10-digit mobile number used for the booking.");
+  }
   msg($("#mFind"), "");
   await busy($("#bFind"), async () => {
-    try { const r = await api("findBooking", { mobile: S.mobile }); S.booking = r.booking; store.set("ci.m", S.mobile); renderRole(); show("s-role", 2); }
-    catch (e) { msg($("#mFind"), esc(e.message)); }
+    try { const r = await api("findBooking", who()); S.booking = r.booking; if (r.booking.share) S.share = r.booking.share; hideNumber(); renderRole(); show("s-role", 2); }
+    catch (e) { S.share = ""; msg($("#mFind"), esc(e.message)); }
   });
 }
-$("#bFind").onclick = findBooking;
+$("#bFind").onclick = () => { S.share = ""; findBooking(); };
+/* who the booking is: the private share code when we have one, otherwise the mobile number */
+function who() { return S.share ? { share: S.share, mobile: S.mobile } : { mobile: S.mobile }; }
+/* keep phone numbers out of the address bar and browser history */
+function hideNumber() { try { if (location.search) history.replaceState(null, "", location.pathname); } catch (e) {} }
 $("#mobile").addEventListener("keydown", e => { if (e.key === "Enter") findBooking(); });
 
 /* G2 */
@@ -272,7 +278,7 @@ function renderRole() {
 $("#reup").onclick = e => { e.preventDefault(); S.reupload = true; $("#cLead").disabled = false; $("#cFol").disabled = S.booking.folTotal === 0; msg($("#mRole"), "Choose the same option as before and use the same email address.", "info"); };
 $("#cLead").onclick = () => startWho("lead");
 $("#cFol").onclick = () => startWho("follower");
-$("#bBack1").onclick = () => show("s-find", 1);
+$("#bBack1").onclick = () => { S.share = ""; S.mobile = ""; $("#mobile").value = ""; show("s-find", 1); };
 
 /* G3 */
 function startWho(role) {
@@ -298,7 +304,7 @@ async function sendCode(btn) {
   if (!lead && name.length < 2) return msg($("#mWho"), "Please enter your full name.");
   await busy(btn, async () => {
     try {
-      const r = await api("sendOtp", { mobile: S.mobile, bookingKey: S.booking.key, role: S.role, email, name });
+      const r = await api("sendOtp", { ...who(), bookingKey: S.booking.key, role: S.role, email, name });
       S.email = email; S.name = name;
       $("#otpTo").textContent = r.sentTo; $("#otp").value = ""; msg($("#mOtp"), ""); msg($("#mWho"), "");
       show("s-otp", 3); setTimeout(() => $("#otp").focus(), 300);
@@ -315,7 +321,7 @@ async function verify() {
   if (code.length !== 6) return msg($("#mOtp"), "Enter the 6-digit code from the email.");
   await busy($("#bVerify"), async () => {
     try {
-      const r = await api("verifyOtp", { mobile: S.mobile, bookingKey: S.booking.key, role: S.role, email: S.email, code });
+      const r = await api("verifyOtp", { ...who(), bookingKey: S.booking.key, role: S.role, email: S.email, code });
       S.token = r.token; S.name = r.name; S.email = r.email; openForm();
     } catch (e) { msg($("#mOtp"), esc(e.message)); }
   });
@@ -421,7 +427,7 @@ $("#bSubmit").onclick = async () => {
 };
 
 /* G6 */
-function link() { return location.origin + "/checkin?m=" + S.mobile; }
+function link() { return "https://island360.in/checkin" + (S.share ? "?b=" + encodeURIComponent(S.share) : ""); }
 function renderDone(name) {
   const b = S.booking;
   $("#doneName").textContent = (name || "").split(" ")[0];
@@ -436,12 +442,12 @@ function renderDone(name) {
 }
 $("#bNext").onclick = async () => {
   await busy($("#bNext"), async () => {
-    try { const r = await api("findBooking", { mobile: S.mobile }); S.booking = r.booking; S.token = ""; $("#email").value = ""; $("#fName").value = ""; renderRole(); show("s-role", 2); }
+    try { const r = await api("findBooking", who()); S.booking = r.booking; S.token = ""; $("#email").value = ""; $("#fName").value = ""; renderRole(); show("s-role", 2); }
     catch (e) { alert(e.message); }
   });
 };
 $("#bShare").onclick = () => {
-  const t = `Please check in for our IslandStay booking (${S.booking.cin} to ${S.booking.cout}). Open ${link()} , choose "I am a follower" and upload your ID. Takes 3 minutes.`;
+  const t = `Please check in for our IslandStay booking (${S.booking.cin} to ${S.booking.cout}). Open ${link()} , choose "I am a follower" and upload your ID.${S.share ? "" : " Use the booking mobile number to find the booking."} Takes 3 minutes.`;
   window.open("https://wa.me/?text=" + encodeURIComponent(t), "_blank");
 };
 $("#bCopy").onclick = async () => { try { await navigator.clipboard.writeText(link()); $("#bCopy").textContent = "Link copied"; } catch (e) { prompt("Copy this link", link()); } };
@@ -455,10 +461,10 @@ $("#refreshStatus").onclick = async e => {
 
 /* start */
 (function () {
-  const m = new URLSearchParams(location.search).get("m") || store.get("ci.m");
-  if (m) $("#mobile").value = ten(m);
+  const q = new URLSearchParams(location.search), b = q.get("b"), m = q.get("m");
   show("s-find", 1);
-  if (new URLSearchParams(location.search).get("m")) findBooking();
+  if (b) { S.share = b; findBooking(); }
+  else if (m) { $("#mobile").value = ten(m); findBooking(); }
 })();
 </script>
 </body>
